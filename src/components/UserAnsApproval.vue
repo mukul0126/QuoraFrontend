@@ -7,10 +7,10 @@
         <p>What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p>
         <div class="text--primary">
           <button class="like">
-            <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
+            <i class="fa fa-thumbs-o-up" aria-hidden="true">&#10004;</i>
           </button>
           <button class="dislike">
-            <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
+            <i class="fa fa-thumbs-o-down" aria-hidden="true">&#10008;</i>
           </button>
         </div>
       </v-card-text>
