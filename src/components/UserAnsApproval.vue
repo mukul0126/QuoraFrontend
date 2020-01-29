@@ -2,8 +2,6 @@
   <div class="useransapproval" id="useransapproval" style="padding-top:5px;padding-bottom:5px">
     <v-card class="mx-auto" max-width="640">
       <v-card-text>
-        
-        <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
         <p>What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p>
         <div class="text--primary">
           <button class="like">
@@ -14,9 +12,6 @@
           </button>
         </div>
       </v-card-text>
-      <!-- <v-card-actions>
-        <v-btn text color="deep-purple accent-4">View More</v-btn>
-      </v-card-actions> -->
     </v-card>
   </div>
 </template>
