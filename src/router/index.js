@@ -10,6 +10,18 @@ const routes = [
     name: 'home',
     component: Home
   },
+  
+
+   
+  {
+    path: '/viewquestion',
+    name: 'viewquestion',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Viewquestion.vue')
+
+  },
   {
     path: '/profile',
     name: 'profile',
@@ -37,6 +49,7 @@ const routes = [
         component: () => import('../views/moderator/ModeratorApproveAnswer.vue')
       }
     ]
+
   }
 ]
 
