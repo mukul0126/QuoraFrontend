@@ -1,28 +1,9 @@
 <template>
-  <div>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <h1>Quora</h1>
-        </div>
-        <div>
-          <input
-            id="search"
-            v-model="searchinput"
-            type="text"
-            placeholder="Search Products"
-            class="search"
-            required
-          />
-          <button class="search-btn" @click="search">Search</button>
-            <button class="left" @click="dialogValue">Add Question</button>
-        </div>
-      </div>
-    </nav>
+  <div id="landing">
+    <UserHeader/>
+    <div class="questions">
     <Question />
-    <v-dialog v-model="dialog" persistence max-width="650px">
-        <AddQuestion @close= "dialog=false" ></AddQuestion>
-    </v-dialog>
+    </div>
     <div class="sidenav"></div>
     <div class="footer">
       <p>Footer</p>
@@ -32,20 +13,27 @@
 
 <script>
 import Question from "@/components/LandingQuestion.vue";
-// import Addquestion from '../components/Addquestion.vue';
+import UserHeader from "@/components/UserHeader.vue";
 
 export default {
   components: {
-      Question
+      Question,
+      UserHeader
   },
   data() {
       return {
           dialog: false
       }
   },
+  created() {
+     this.$store.dispatch("landingQuestions");
+  },
   methods: {
       dialogValue(){
           this.dialog = true;
+      },
+      openProfile(){
+          this.$router.push("/profile")
       }
   }
 };
@@ -62,16 +50,17 @@ export default {
   margin-left: 300px;
 }
 .sidenav {
-  height: 86%;
+  height: 82%;
   width: 160px;
   margin-top: 70px;
-  position: fixed;
   z-index: 1;
-  top: 0;
+  top: -21px;
   left: 0;
+  position: absolute;
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
+
 }
 .footer {
   position: fixed;
@@ -111,5 +100,8 @@ input {
 }
 .left {
   margin-left: 450px;
+}
+.profile-button{
+    margin-left:10px;
 }
 </style>
