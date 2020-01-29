@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: "question",
+    name: "landingquestion",
     methods : {
         viewQuestion(){
             this.$router.push("/viewquestion")
