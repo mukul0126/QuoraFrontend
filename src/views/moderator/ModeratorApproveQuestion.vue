@@ -1,5 +1,19 @@
 <template>
+<v-app>
 <div class="approve-question">
-    question
+    <approveQuestion/>
 </div>
+</v-app>
 </template>
+
+
+
+<script>
+import approveQuestion from "@/components/QuestionApproval.vue";
+
+export default {
+    components: {
+        approveQuestion
+    }
+}
+</script>

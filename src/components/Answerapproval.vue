@@ -1,5 +1,5 @@
 <template>
-    <div class="answerapproval" id="answerapproval">
+    <div class="answerapproval" id="answer-approval" >
         <UserQuesApproval/>
         <UserAnsApproval/>
     </div>
@@ -15,3 +15,10 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.answer-approval{
+    margin: 10px;
+}
+</style>

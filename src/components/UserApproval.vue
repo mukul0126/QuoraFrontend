@@ -1,6 +1,6 @@
 <template>
   <div class="userapproval" id="userapproval">
-    <v-card class="mx-auto" max-width="644">
+    <v-card class="mx-auto" max-width="644" id="approval-card">
       <v-card-text>
         <div>
           <v-avatar color="indigo" size="36">
@@ -66,5 +66,9 @@ button.learnmore {
   font-size: 16px;
   color: #fff;
   letter-spacing: 1px;
+}
+
+#approval-card{
+  margin: 10px;
 }
 </style>
