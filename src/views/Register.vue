@@ -53,7 +53,7 @@ export default {
   name: "register",
   methods:{
       register() {
-          this.$router.push('/login')
+          this.$router.push('/categoryselection')
       }
   }
 };

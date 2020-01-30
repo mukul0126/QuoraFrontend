@@ -50,7 +50,7 @@ export default {
           this.$router.push('/register')
       },
       submit() {
-          this.$router.push('/categoryselection')
+          this.$router.push('/landing')
       }
   }
 };

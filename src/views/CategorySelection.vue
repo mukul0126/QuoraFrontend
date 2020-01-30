@@ -62,7 +62,7 @@ export default {
   name: "register",
   methods:{
       submit() {
-          this.$router.push('/landing')
+          this.$router.push('/login')
       }
   }
 };
