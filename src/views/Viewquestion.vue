@@ -25,6 +25,12 @@ export default {
     Question,
     Answer,
     Enterans
+  },
+  mounted() {
+    window.console.log("inside mounted", this.$route.params.questionId);
+    this.$store.dispatch("getQuestionDetails", {
+      questionId: this.$route.params.questionId
+    });
   }
 };
 </script>

@@ -30,7 +30,7 @@
         >
         </v-list-item-avatar>
       </v-list-item>
-      <v-card-actions>
+      <v-card-actions v-if="myProfile==false">
         <v-btn text class="follow-button">Follow</v-btn>
       </v-card-actions>
     </v-card>
@@ -41,9 +41,14 @@
 <script>
 export default {
   data() {
-    return{
-      
+    return {
+        myProfile: false
     }
+  },
+   created() {
+      // let userId=localStorage.getItem("userId");
+      // if()
+      // myProfile=true;
   }
 }
 </script>

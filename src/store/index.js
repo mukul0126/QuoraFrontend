@@ -6,13 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    landingQuestions: {}
+    landingQuestions: {},
+    questionDetail: {}
   },
 
   mutations: {
     viewLandingQuestion(state,data) {
       state.landingQuestions=data;
+    },
+    
+    getQuestionDetails(state, data) {
+      state.questionDetail=data;
     }
+
   },
 
   actions: {
@@ -30,12 +36,28 @@ export default new Vuex.Store({
             reject(error)
           })
       })
+    },
+
+    getQuestionDetails({ commit }, questionid) {
+      window.console.log('questionId', questionid)
+      Axios.get('http://10.177.69.100:8080/' + questionid.questionId)
+        .then(response => {
+          commit('getQuestionDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     }
+
   },
 
   getters: {
     getLandingQuestion(state) {
       return state.landingQuestions || {}
+    },
+
+    questionDetails(state) {
+      return state.questionDetail || {}
     }
   }
 })

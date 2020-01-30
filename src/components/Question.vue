@@ -4,10 +4,10 @@
       <v-card-text>
         <div>
           <v-avatar color="indigo" size="36">
-            <v-icon dark>mdi-account-circle</v-icon>
+            <v-icon dark @click="openProfile">mdi-account-circle</v-icon>
           </v-avatar>
           <v-avatar color="indigo" size="36" style="float:right">
-            <v-icon dark>mdi-account-circle</v-icon>
+            <v-icon dark @click="openOrganizationProfile">mdi-account-circle</v-icon>
           </v-avatar>
         </div>
         <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
@@ -29,7 +29,20 @@
 </template>
 <script>
 export default {
-  name: "question"
+  name: "question",
+  data() {
+    return {
+      // myProfile:false;
+    }
+  },
+  methods: {
+    openProfile() {
+      this.$router.push("/profile")
+    },
+    openOrganizationProfile() {
+      this.$router.push("/organizationProfile")
+    }
+  }
 };
 </script>
 <style scoped>
