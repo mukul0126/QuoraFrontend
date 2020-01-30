@@ -21,6 +21,21 @@ const routes = [
     component: () => import('../views/Viewquestion.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/categoryselection',
+    name: 'categoryselection',
+    component: () => import('../views/CategorySelection.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/UserProfile.vue')
