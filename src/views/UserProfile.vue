@@ -23,3 +23,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.user-profile
+{
+background-color : #C38D9E;
+}
+
+</style>

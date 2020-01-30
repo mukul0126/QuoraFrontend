@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-  <v-app id="inspire">
+  <v-app id="userheader">
     <v-card
       color="grey lighten-4"
       flat
@@ -11,7 +11,7 @@
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
 
-        <v-toolbar-title>QUORA</v-toolbar-title>
+        <v-toolbar-title class="title">QUORA</v-toolbar-title>
   
         <v-spacer></v-spacer>
 
@@ -142,6 +142,7 @@ a:visited {
 }
 
 .header {
-        height: 51px;
+  height: 51px;
 }
+
 </style>

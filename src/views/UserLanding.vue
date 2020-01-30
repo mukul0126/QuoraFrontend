@@ -5,9 +5,9 @@
     <LandingQuestion :question="getLandingQuestion" />
     </div>
     <div class="sidenav"></div>
-    <div class="footer">
+    <!-- <div class="footer">
       <p>Footer</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
       }
   },
   created() {
-    //  this.$store.dispatch("landingQuestions");
+     localStorage.setItem('userId','5e3140bb4c951a1723dc3f01')
+     this.$store.dispatch("viewLandingQuestion",this.userId)
   },
   methods: {
       dialogValue(){

@@ -1,6 +1,6 @@
 <template>
 <div class="organization-desc">
-  <v-app id="inspire">
+  <v-app id="organizationdesc">
     <v-card
       class="mx-auto"
       outlined
@@ -65,5 +65,8 @@ box-shadow: 4px 4px 15px 0px black;
 }
 .join-button{
     width:30%
+}
+#organizationdesc {
+  background-color: #EAEDED;
 }
 </style>

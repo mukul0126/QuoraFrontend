@@ -17,3 +17,10 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.approve-user{
+    background-color:#EAEDED; 
+}
+</style>

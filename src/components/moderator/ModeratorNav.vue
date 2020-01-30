@@ -72,9 +72,9 @@ export default {
   border-bottom: 1px solid lightgrey;
   margin-bottom: 24px;
   flex-flow: row wrap;
-  background-color: #404040;
+  background-color: #83677B;
 }
 .logout {
-  background-color: #404040;
+  background-color:#83677B;
 }
 </style>

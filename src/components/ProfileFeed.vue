@@ -1,6 +1,6 @@
 <template>
 <div id="profile-feed">
-  <v-app id="inspire">
+  <v-app id="profilefeed">
     <v-card
       class="mx-auto"
       outlined
@@ -26,8 +26,14 @@
 
 
 <style scoped>
-#feed-card{
+
+#feed-card {
     width: 74%;
     height: 100%;
 }
+
+#profilefeed {
+  background-color: #EAEDED;
+}
+
 </style>

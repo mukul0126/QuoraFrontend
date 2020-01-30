@@ -1,6 +1,6 @@
 <template>
 <div class="profile-desc">
-  <v-app id="inspire">
+  <v-app id="profiledesc">
     <v-card
       class="mx-auto"
       outlined
@@ -69,5 +69,8 @@ box-shadow: 4px 4px 15px 0px black;
 }
 #desc-card{
     width: 74%;
+}
+#profiledesc {
+  background-color: #EAEDED;
 }
 </style>
