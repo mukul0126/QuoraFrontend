@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="border" @click="viewQuestion">
+    <div class="border">
         <h4>QUESTION</h4>
         <h5>What is India's capital??</h5>
+        <button @click="viewQuestion()">View</button>
     </div>
 
   </div>

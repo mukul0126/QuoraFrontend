@@ -26,7 +26,7 @@ export default {
       }
   },
   created() {
-     this.$store.dispatch("landingQuestions");
+    //  this.$store.dispatch("landingQuestions");
   },
   methods: {
       dialogValue(){
@@ -34,6 +34,9 @@ export default {
       },
       openProfile(){
           this.$router.push("/profile")
+      },
+      view() {
+        this.$router.push("/viewquestion")
       }
   }
 };

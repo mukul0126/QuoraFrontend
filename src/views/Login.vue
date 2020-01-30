@@ -17,23 +17,6 @@
         @input="$v.email.$touch()"
         @blur="$v.email.$touch()"
       ></v-text-field>
-      <!-- <v-select
-      v-model="select"
-      :items="items"
-      :error-messages="selectErrors"
-      label="Item"
-      required
-      @change="$v.select.$touch()"
-      @blur="$v.select.$touch()"
-      ></v-select>-->
-      <!-- <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-      ></v-checkbox>-->
 
       <v-btn class="mr-4" id="submit" @click="submit">submit</v-btn>
       <br />
