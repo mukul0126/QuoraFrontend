@@ -1,8 +1,8 @@
 <template>
   <div id="landing">
     <UserHeader/>
-    <div class="questions">
-    <Question />
+    <div class="questions" v-if="getLandingQuestion.length">
+    <LandingQuestion :question="getLandingQuestion" />
     </div>
     <div class="sidenav"></div>
     <div class="footer">
@@ -12,12 +12,13 @@
 </template>
 
 <script>
-import Question from "@/components/LandingQuestion.vue";
+import LandingQuestion from "@/components/LandingQuestion.vue";
 import UserHeader from "@/components/UserHeader.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
-      Question,
+      LandingQuestion,
       UserHeader
   },
   data() {
@@ -34,10 +35,11 @@ export default {
       },
       openProfile(){
           this.$router.push("/profile")
-      },
-      view() {
-        this.$router.push("/viewquestion")
       }
+  },
+
+  computed: {
+    ...mapGetters(["getLandingQuestion"])
   }
 };
 </script>
@@ -81,18 +83,21 @@ export default {
   position: absolute;
   margin-left: 550px;
   border-radius: 10px;
-
   align-content: center;
 }
+
 .table2 {
   margin-left: 150px;
 }
+
 input {
   margin-left: 200px;
 }
+
 .btn btn-default {
   margin-right: 200px;
 }
+
 .search {
   padding: 10px;
   margin: 10px;
@@ -101,10 +106,13 @@ input {
   background: white;
   color: orange;
 }
+
 .left {
   margin-left: 450px;
 }
+
 .profile-button{
     margin-left:10px;
 }
+
 </style>
