@@ -3,10 +3,10 @@
     <div class="viewquestion" id="viewquestion">
       <br />
       <br />
-      <Question :questionDetails="getQuestionDetails"/>
+      <Question :questionDetails="getQuestionDetails.question"/>
         <Enterans/>
       <div class="answer-section" style="padding-top:10px">
-        <Answer :questionDetails="getQuestionDetails"/>
+        <Answer :questionDetails="getQuestionDetails.answerList"/>
       </div>
     </div>
   </v-app>

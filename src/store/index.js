@@ -173,7 +173,7 @@ export default new Vuex.Store({
     },
 
     disapproveQuestionId(context, data) {
-      Axios.post('http://172.16.20.46:8086/' +data.moderatorId)
+      Axios.post('http://172.16.20.46:8086' +data.moderatorId)
           .then(response => {
             window.console.log("getApproveUserDetails",response)
           })
@@ -184,7 +184,7 @@ export default new Vuex.Store({
 
     addQuestion(context, data) {
       window.console.log("add question",data)
-      Axios.post('http://172.16.20.46:8085/question/add', data)
+      Axios.post('http://172.16.20.107:8085/question/add', data)
           .then(response => {
             window.console.log("response to add question",response)
           })
@@ -194,15 +194,71 @@ export default new Vuex.Store({
     },
 
     getQuestionDetailsById({commit}, questionId) {
-      Axios.gat('http://172.16.20.46:8085/question/', + questionId)
+      window.console.log("questionId from store",questionId)
+      Axios.get('http://172.16.20.107:8085/answer/getAnswersByQuestionId/' + questionId)
           .then(response => {
             window.console.log("response to get question details",response)
-            commit("setQuestionDetailsById",response)
+            commit("setQuestionDetailsById",response.data)
           })
           .catch(error => {
             window.console.log(error)
           })
     },
+
+    submitAnswer(context, answerDetails) {
+      Axios.post('http://172.16.20.107:8085/answer/add', answerDetails)
+          .then(response => {
+            window.console.log("response to get question details",response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
+    },
+
+    likeQuestion(context, questionId) {
+      let userId = localStorage.getItem("userId")
+      Axios.put('http://172.16.20.107:8085/question/likequestion/' + questionId + "/" +userId)
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    dislikeQuestion(context, questionId) {
+      let userId = localStorage.getItem("userId")
+      Axios.put('http://172.16.20.107:8085/question/dislikequestion/' + questionId + "/" +userId)
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    likeAnswer(context, answerId) {
+      let userId= localStorage.getItem("userId")
+      Axios.put('http://172.16.20.107:8085/answer/likeanswer/' + answerId + "/" + userId)
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    dislikeAnswer(context, answerId) {
+      let userId= localStorage.getItem("userId")
+      Axios.put('http://172.16.20.107:8085/answer/dislikeanswer/' + answerId + "/" + userId)
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
 
     login({ commit }, data) {
       window.console.log(data)

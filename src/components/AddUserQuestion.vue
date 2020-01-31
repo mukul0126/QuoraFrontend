@@ -87,9 +87,10 @@
         submitClicked() {
         let userid=localStorage.getItem("userId");
         this.$store.dispatch("addQuestion", {
-        questionBody: this.text1,
-        categoryId: this.category,
         userId: userid,
+        categoryId: this.category,
+        questionBody: this.text1,
+        personsTag: null,
         orgId: null
         })
     },

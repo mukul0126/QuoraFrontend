@@ -1,20 +1,22 @@
 <template>
   <div class="answer" id="answer" style="padding-top:5px;padding-bottom:5px">
+    <div class="repeat" v-for="(item,index) in questionDetails" :key="index">
     <v-card class="mx-auto" max-width="640">
       <v-card-text>
-        
         <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
-        <p>What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p>
+        <p>{{item.answerBody}}</p>
         <div class="text--primary">
-          <button class="like">
+          like: {{item.likeCount}}
+          <button class="like" @click="likeAnswer(item.answerId)">
             <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
           </button>
-          <button class="dislike">
+          dislike: {{item.dislikeCount}}
+          <button class="dislike" @click="dislikeAnswer(item.answerId)">
             <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
           </button>
 
           <div class="my-2" style="float:right">
-        <v-btn small color="primary">Comment</v-btn>
+        <v-btn small color="primary" @click="submitAnswer">Comment</v-btn>
       </div>
         </div>
       </v-card-text>
@@ -23,11 +25,26 @@
       </v-card-actions> -->
     </v-card>
   </div>
+  </div>
 </template>
 <script>
 export default {
   name: "answer",
-  props: ["questionDetails"]
+  data() {
+    return {
+      answer_body: " "
+    }
+  },
+  props: ["questionDetails"],
+  methods: {
+    likeAnswer(answerId) {
+      this.$store.dispatch("likeAnswer",answerId)
+    },
+
+    dislikeAnswer(answerId) {
+      this.$store.dispatch("dislikeAnswer",answerId)
+    }
+  }
 };
 </script>
 <style scoped>

@@ -1,22 +1,23 @@
 <template>
   <div class="question" id="question">
     <v-card class="mx-auto" max-width="644">
-      <v-card-text>
+      <v-card-text v-if="questionDetails">
         <div>
           <v-avatar color="indigo" size="36">
-            <v-icon dark @click="openProfile">mdi-account-circle</v-icon>
+            <v-icon dark @click="openProfile(questionDetails.userId)">mdi-account-circle</v-icon>
           </v-avatar>
           <v-avatar color="indigo" size="36" style="float:right">
-            <v-icon dark @click="openOrganizationProfile">mdi-account-circle</v-icon>
+            <v-icon dark @click="openOrganizationProfile">mdi-account-circle</v-icon> 
           </v-avatar>
         </div>
-        <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
-        <p>What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p>
+        <p>{{questionDetails.questionBody}}</p>
         <div class="text--primary">
-          <button class="like">
+          like: {{questionDetails.likeCount}}
+          <button class="like" @click="likeQuestion(questionDetails.questionId)"> 
             <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
           </button>
-          <button class="dislike">
+          dislike: {{questionDetails.dislikeCount}}
+          <button class="dislike" @click="dislikeQuestion(questionDetails.questionId)">
             <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
           </button>
         </div>
@@ -37,11 +38,18 @@ export default {
     }
   },
   methods: {
-    openProfile() {
+    openProfile(userId) {
+      window.console.log(userId);
       this.$router.push("/profile")
     },
     openOrganizationProfile() {
       this.$router.push("/organizationProfile")
+    },
+    likeQuestion(questionId) {
+      this.$store.dispatch("likeQuestion",questionId)
+    },
+    dislikeQuestion(questionId) {
+      this.$store.dispatch("dislikeQuestion", questionId)
     }
   },
   props: ["questionDetails"]
