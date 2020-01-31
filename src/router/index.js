@@ -42,7 +42,7 @@ const routes = [
   },
   {
     path: '/organizationProfile',
-    name: 'profile',
+    name: 'organizationprofile',
     component: () => import('../views/OrganizationProfile.vue')
   },
   {

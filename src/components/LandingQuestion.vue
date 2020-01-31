@@ -1,6 +1,6 @@
 <template>
   <div id="item-cards" class="flex">
-    <div class="repeat" v-for="(item,index) in question" :key="index">
+    <div class="repeat" v-for="(item,index) in question.data" :key="index">
       <div class="click-question">
         <h4>QUESTION</h4>
         <h5>{{item.questionBody}}</h5>

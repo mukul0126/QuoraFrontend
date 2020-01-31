@@ -9,14 +9,13 @@
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">Profile</div>
-          <v-list-item-title class="headline mb-1">NAME: </v-list-item-title>
+          <v-list-item-title class="headline mb-1">NAME: {{getOrganizationDetails.data.organizationName}}</v-list-item-title>
           <br><br><br>
           <div class="follower">
-              <span class="border">Followers: </span>
-              <span class="border">Following: </span>
+              <span class="border">Followers: {{getOrganizationDetails.data.organizationFollowers.length}} </span>
           </div>
           <br>
-          <v-list-item-subtitle id="subtitle">Members:</v-list-item-subtitle>
+          <v-list-item-subtitle id="subtitle">Members: {{getOrganizationDetails.data.organizationMembers}}</v-list-item-subtitle>
         </v-list-item-content>
   
         <v-list-item-avatar
@@ -39,7 +38,14 @@
 </div>
 </template>
 
-
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(["getOrganizationDetails"])
+  }
+}
+</script>
 
 <style scoped>
 .border{

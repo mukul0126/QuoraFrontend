@@ -9,14 +9,14 @@
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">Profile</div>
-          <v-list-item-title class="headline mb-1">NAME: </v-list-item-title>
+          <v-list-item-title class="headline mb-1">NAME: {{userDetails.data.name}}</v-list-item-title>
           <br><br><br>
           <div class="follower">
-              <span class="border">Followers: </span>
-              <span class="border">Following: </span>
+              <span class="border">Followers: {{userDetails.data.followersCount}}</span>
+              <span class="border">Following: {{userDetails.data.followingCount}} </span>
           </div>
           <br>
-          <v-list-item-subtitle id="subtitle">E-mail:</v-list-item-subtitle>
+          <v-list-item-subtitle id="subtitle">E-mail: {{userDetails.data.userEmail}}</v-list-item-subtitle>
         </v-list-item-content>
   
         <v-list-item-avatar
@@ -45,11 +45,7 @@ export default {
         myProfile: false
     }
   },
-   created() {
-      // let userId=localStorage.getItem("userId");
-      // if()
-      // myProfile=true;
-  }
+  props: ["userDetails"]
 }
 </script>
 
@@ -77,5 +73,8 @@ box-shadow: 4px 4px 15px 0px black;
 }
 #profiledesc {
   background-color: #EAEDED;
+}
+.follow-button:hover {
+  color: #83677B
 }
 </style>

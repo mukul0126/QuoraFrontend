@@ -1,24 +1,33 @@
 <template>
   <div class="user-profile">
     <UserHeader></UserHeader>
-     <OrganizationDescription></OrganizationDescription>
-    <ProfileFeed></ProfileFeed>
+     <OrganizationDescription :organizationDetails="getOrganizationDetails"></OrganizationDescription>
+    <organizationProfileFeed :organizationDetails="getOrganizationDetails"></organizationProfileFeed>
   </div>
 </template>
 
 <script>
 // import ProfileDescription from "@/components/ProfileDescription.vue";
-import ProfileFeed from "@/components/ProfileFeed.vue";
+import organizationProfileFeed from "@/components/organizationProfileFeed.vue";
 import UserHeader from "@/components/UserHeader.vue";
 import OrganizationDescription from "@/components/OrganizationDescription.vue";
+ import { mapGetters } from 'vuex'
 
 export default {
     name: "Profile",
-  components: {
-    ProfileFeed,
+    components: {
+    organizationProfileFeed,
     UserHeader,
     OrganizationDescription
+  },
+  created() {
+    let organizationId = localStorage.getItem("organizationId")
+    this.$store.dispatch("getOrganizationProfileDetails",organizationId)
+  },
+  computed: {
+    ...mapGetters(["getOrganizationDetails"])
   }
+
 }
 </script>
 

@@ -1,13 +1,16 @@
 <template>
   <div id="landing">
-    <UserHeader/>
-    <div class="questions" v-if="getLandingQuestion.length">
-    <LandingQuestion :question="getLandingQuestion" />
+    <UserHeader />
+    <div
+      class="questions"
+      v-if="getLandingQuestion &&  getLandingQuestion.data &&  getLandingQuestion.data.length"
+    >
+      <LandingQuestion :question="getLandingQuestion" />
     </div>
     <div class="sidenav"></div>
     <!-- <div class="footer">
       <p>Footer</p>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -18,25 +21,27 @@ import { mapGetters } from "vuex";
 
 export default {
   components: {
-      LandingQuestion,
-      UserHeader
+    LandingQuestion,
+    UserHeader
   },
   data() {
-      return {
-          dialog: false
-      }
+    return {
+      dialog: false
+    };
   },
   created() {
-     localStorage.setItem('userId','5e3140bb4c951a1723dc3f01')
-     this.$store.dispatch("viewLandingQuestion",this.userId)
+    localStorage.setItem("userId", "5e3140bb4c951a1723dc3f01");
+    localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
+    localStorage.setItem("moderatorId", "5e314bc583f84b7add06ec37");
+    this.$store.dispatch("viewLandingQuestion", this.userId);
   },
   methods: {
-      dialogValue(){
-          this.dialog = true;
-      },
-      openProfile(){
-          this.$router.push("/profile")
-      }
+    dialogValue() {
+      this.dialog = true;
+    },
+    openProfile() {
+      this.$router.push("/profile");
+    }
   },
 
   computed: {
@@ -66,7 +71,6 @@ export default {
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
-
 }
 .footer {
   position: fixed;
@@ -112,8 +116,7 @@ input {
   margin-left: 450px;
 }
 
-.profile-button{
-    margin-left:10px;
+.profile-button {
+  margin-left: 10px;
 }
-
 </style>
