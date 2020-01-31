@@ -19,12 +19,13 @@
         @blur="$v.email.$touch()"
       ></v-text-field>
       <v-text-field
-        v-model="email"
-        :error-messages="emailErrors"
+        v-model="password"
+        :error-messages="passwordErrors"
+        :type="show4 ? 'text' : 'password'"
         label="Password"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+        @input="$v.password.$touch()"
+        @blur="$v.password.$touch()"
       ></v-text-field>
       <!-- <v-select
       v-model="select"
@@ -51,10 +52,38 @@
 <script>
 export default {
   name: "register",
+  data() {
+      return {
+          name:'',
+          email:'',
+          password:''
+      }
+  },
   methods:{
       register() {
-          this.$router.push('/categoryselection')
+          let data={
+              name:this.name,
+              email:this.email,
+              password:this.password
+          };
+          this.$store.dispatch("register",data)
+          .then(()=>this.$router.push("/login"))
+          .catch(err => window.console.log(err));
       }
+
+
+
+    //   register: function() {
+    //   let data = {
+    //     name: this.name,
+    //     email: this.email,
+    //     password: this.password
+    //   };
+    //   this.$store
+    //     .dispatch("register", data)
+    //     .then(() => this.$router.push("/login"))
+    //     .catch(err => window.console.log(err));
+    // }
   }
 };
 </script>
