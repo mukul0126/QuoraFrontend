@@ -36,6 +36,16 @@ const routes = [
     component: () => import('../views/CategorySelection.vue')
   },
   {
+    path: '/createorganization',
+    name: 'createorganization',
+    component: () => import('../views/CreateOrganization.vue')
+  },
+  {
+    path: '/selectrole',
+    name: 'selectrole',
+    component: () => import('../views/SelectRole.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     component: () => import('../views/UserProfile.vue')
