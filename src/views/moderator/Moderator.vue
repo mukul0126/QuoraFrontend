@@ -2,8 +2,8 @@
   <div class="moderator">
     <ModeratorHeader></ModeratorHeader>
     <ModeratorNav></ModeratorNav>
-    <ModeratorFooter></ModeratorFooter>
     <router-view></router-view>
+    <ModeratorFooter></ModeratorFooter>
   </div>
 </template>
 

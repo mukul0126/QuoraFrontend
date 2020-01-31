@@ -26,7 +26,8 @@
 </template>
 <script>
 export default {
-  name: "answer"
+  name: "answer",
+  props: ["questionDetails"]
 };
 </script>
 <style scoped>

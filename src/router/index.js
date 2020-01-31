@@ -16,7 +16,7 @@ const routes = [
     component: () => import('../views/UserLanding.vue')
   },
   {
-    path: '/viewquestion',
+    path: '/viewquestion/:questionId',
     name: 'viewquestion',
     component: () => import('../views/Viewquestion.vue')
   },
@@ -49,6 +49,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: () => import('../views/UserProfile.vue')
+  },
+  {
+    path: '/organizationProfile',
+    name: 'organizationprofile',
+    component: () => import('../views/OrganizationProfile.vue')
   },
   {
     path: '/moderator',

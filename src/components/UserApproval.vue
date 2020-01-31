@@ -1,5 +1,6 @@
 <template>
   <div class="userapproval" id="userapproval">
+    <div v-for="(item,index) in getApproveUserDetails.data" :key="index">
     <v-card class="mx-auto" max-width="644" id="approval-card">
       <v-card-text>
         <div>
@@ -7,26 +8,43 @@
             <v-icon dark>mdi-account-circle</v-icon>
           </v-avatar>
         </div>
-        <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
-        <p>User description</p>
+        <br>
+        <span class="name">Name: {{item.userName}}</span>
+        <span class="score">Score: {{item.userScore}}</span>
+        <p>E-mail: {{item.userEmail}} </p>
         <div class="text--primary">
-          <button class="like">
+          <button class="like" @click="approveUser(item.userId)">
             <i class="approve" aria-hidden="true">&#10004;</i>
           </button>
-          <button class="dislike">
+          <button class="dislike" @click="disapproveUser(item.userId)">
             <i class="reject" aria-hidden="true">&#10008;</i>
           </button>
         </div>
       </v-card-text>
-      <!-- <v-card-actions>
-        <v-btn text color="deep-purple accent-4">View More</v-btn>
-      </v-card-actions> -->
     </v-card>
+    </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
-  name: "userapproval"
+  name: "userapproval",
+  created() {
+    let moderatorId=localStorage.getItem("moderatorId")
+    this.$store.dispatch("approveUser",moderatorId)
+  },
+  computed: {
+    ...mapGetters(['getApproveUserDetails'])
+  },
+  methods: {
+    approveUser(userId) {
+      let moderatorId=localStorage.getItem("moderatorId")
+      this.$store.dispatch("approveUserId",{userId,moderatorId})
+    },
+    disapproveUser(){
+      
+    }
+  }
 };
 </script>
 <style scoped>
@@ -70,5 +88,9 @@ button.learnmore {
 
 #approval-card{
   margin: 10px;
+}
+
+.score {
+  margin-left: 30px;
 }
 </style>
