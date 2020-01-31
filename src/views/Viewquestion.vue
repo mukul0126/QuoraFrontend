@@ -3,11 +3,10 @@
     <div class="viewquestion" id="viewquestion">
       <br />
       <br />
-      <Question />
+      <Question :questionDetails="getQuestionDetails"/>
         <Enterans/>
       <div class="answer-section" style="padding-top:10px">
-        <Answer />
-        <Answer />
+        <Answer :questionDetails="getQuestionDetails"/>
       </div>
     </div>
   </v-app>
@@ -16,15 +15,22 @@
 import Question from "@/components/Question";
 import Answer from "@/components/Answer";
 import Enterans from "@/components/Enterans";
+import { mapGetters } from 'vuex';
 
 
 export default {
   name: "viewquestion",
-
   components: {
     Question,
     Answer,
     Enterans
+  },
+  mounted() {
+    window.console.log("inside mounted", this.$route.params.questionId);
+    this.$store.dispatch("getQuestionDetailsById",this.$route.params.questionId);
+  },
+  computed: {
+    ...mapGetters(["getQuestionDetails"])
   }
 };
 </script>

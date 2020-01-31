@@ -18,7 +18,20 @@
 </template>
 <script>
 export default {
-  name: "questionapproval"
+  name: "questionapproval",
+  created() {
+    let moderatorId=localStorage.getItem("moderatorId")
+    this.$store.dispatch("approveQuestion",moderatorId)
+  },
+  methods: {
+    approveQuestion(questionId) {
+      let moderatorId=localStorage.getItem("moderatorId")
+      this.$store.dispatch("approveUserId",{questionId,moderatorId})
+    },
+    disapproveQuestion(){
+      
+    }
+  }
 };
 </script>
 <style scoped>

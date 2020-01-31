@@ -16,3 +16,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.approve-answer{
+    background-color:#EAEDED; 
+}
+</style>

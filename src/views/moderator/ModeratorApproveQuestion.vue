@@ -17,3 +17,10 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.approve-question{
+    background-color:#EAEDED; 
+}
+</style>
