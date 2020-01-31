@@ -33,7 +33,7 @@ export default {
     localStorage.setItem("userId", "5e3140bb4c951a1723dc3f01");
     localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
     localStorage.setItem("moderatorId", "5e314bc583f84b7add06ec37");
-    this.$store.dispatch("viewLandingQuestion", this.userId);
+    this.$store.dispatch("viewLandingQuestion");
   },
   methods: {
     dialogValue() {
@@ -61,7 +61,7 @@ export default {
   margin-left: 300px;
 }
 .sidenav {
-  height: 82%;
+  height: 100%;
   width: 160px;
   margin-top: 70px;
   z-index: 1;

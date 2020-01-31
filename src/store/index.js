@@ -11,7 +11,8 @@ export default new Vuex.Store({
     userDetails: {},
     organizationDetails: {},
     approveUserDetails: {},
-    approveQuestionDetails: {}
+    approveQuestionDetails: {},
+    questionDetailsById: {}
   },
 
   mutations: {
@@ -37,6 +38,10 @@ export default new Vuex.Store({
 
     setApproveQuestionDetails(state,data) {
       state.approveQuestionDetails=data;
+    },
+
+    setQuestionDetailsById(state,data) {
+      state.questionDetailsById=data
     }
 
   },
@@ -151,6 +156,28 @@ export default new Vuex.Store({
           .catch(error => {
             window.console.log(error)
           })
+    },
+
+    addQuestion(context, data) {
+      window.console.log("add question",data)
+      Axios.post('http://172.16.20.46:8085/question/add', data)
+          .then(response => {
+            window.console.log("response to add question",response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
+    },
+
+    getQuestionDetailsById({commit}, questionId) {
+      Axios.gat('http://172.16.20.46:8085/question/', + questionId)
+          .then(response => {
+            window.console.log("response to get question details",response)
+            commit("setQuestionDetailsById",response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
     }
 
   },
@@ -179,6 +206,10 @@ export default new Vuex.Store({
 
     getApproveQuestionDetails(state) {
       return state.approveQuestionDetails || {}
+    },
+
+    getQuestionDetails(state) {
+      return state.questionDetailsById || {}
     }
   }
 })

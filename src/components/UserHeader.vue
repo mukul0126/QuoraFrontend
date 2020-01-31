@@ -10,11 +10,8 @@
          <v-btn icon @click="openProfile">
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
-
         <v-toolbar-title class="title">QUORA</v-toolbar-title>
-  
         <v-spacer></v-spacer>
-
         <v-col cols="12" sm="6" md="3">
             <v-text-field
               label="Solo"
@@ -23,30 +20,27 @@
               class="search"
             ></v-text-field>
           </v-col>
-  
         <v-btn icon class="search-btn">
           <v-icon >mdi-magnify</v-icon>
         </v-btn>
-  
-       
-  
-        <v-btn icon>
-          <v-icon dark>mdi-plus</v-icon>
-        </v-btn>
+        <AddUserQuestion></AddUserQuestion>
       </v-toolbar>
     </v-card>
   </v-app>
 </div>
 </template>
-
 <script>
+import AddUserQuestion from '@/components/AddUserQuestion.vue';
 // import { mapGetters } from 'vuex'
-
 export default {
   data() {
     return {
       searchText: ""
     };
+  },
+  components: {
+      AddUserQuestion
+
   },
   methods: {
     search(e) {
@@ -80,13 +74,10 @@ export default {
   }
 };
 </script>
-
 <style scoped>
-
 .flex {
   display: flex;
 }
-
 #icons {
   width: 100px;
   display: flex;
@@ -96,53 +87,42 @@ export default {
 i {
   color: white;
 }
-
 #user {
   font-size: 25px;
 }
-
 #cart {
   font-size: 25px;
 }
-
 #logo {
   font-size: 28px;
   color: white;
   padding: 5px;
   font-weight: bold;
 }
-
 #logo a {
   color: white;
 }
-
 a:visited {
   color: white;
 }
-
 #search-bar {
   margin-top: 11px;
   margin-left: 32px;
   width: 25%;
 }
-
 #logo a {
   text-decoration: none;
 }
-
 .search{
     position: absolute;
     top: 0px;
     left: 35%;
 }
-
 .search-btn{
     position: absolute;
     left:75%;
 }
-
 .header {
   height: 51px;
 }
-
 </style>

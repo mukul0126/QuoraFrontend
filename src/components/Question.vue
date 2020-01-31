@@ -43,7 +43,8 @@ export default {
     openOrganizationProfile() {
       this.$router.push("/organizationProfile")
     }
-  }
+  },
+  props: ["questionDetails"]
 };
 </script>
 <style scoped>
