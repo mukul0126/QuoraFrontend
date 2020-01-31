@@ -1,6 +1,7 @@
 <template>
   <div class="login" style="margin-top:40px">
     <form>
+      
       <v-text-field
         v-model="email"
         :error-messages="emailErrors"
@@ -10,48 +11,86 @@
         @blur="$v.email.$touch()"
       ></v-text-field>
       <v-text-field
-        v-model="email"
-        :error-messages="emailErrors"
+        v-model="password"
+        :error-messages="passwordErrors"
+        :type="show4 ? 'text' : 'password'"
         label="Password"
         required
         @input="$v.email.$touch()"
         @blur="$v.email.$touch()"
       ></v-text-field>
-      <!-- <v-select
-      v-model="select"
-      :items="items"
-      :error-messages="selectErrors"
-      label="Item"
-      required
-      @change="$v.select.$touch()"
-      @blur="$v.select.$touch()"
-      ></v-select>-->
-      <!-- <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-      ></v-checkbox>-->
 
-      <v-btn class="mr-4" id="submit" @click="submit">submit</v-btn>
-      <br />
-      <v-btn class="register" @click="register">Don't have Account ?</v-btn>
+      <v-btn class="mr-4" id="submit" @click="submit()">submit</v-btn>
+      <br>
+      <v-btn class="register" @click="register()">Don't have Account ?</v-btn>
       <!-- <v-btn @click="clear">clear</v-btn> -->
     </form>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "login",
-  methods:{
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: ""
+    };
+  },
+  computed:{
+      ...mapGetters(['getUserInfo'])
+  },
+  methods: {
       register() {
           this.$router.push('/register')
       },
-      submit() {
-          this.$router.push('/landing')
-      }
+    submit() {
+      let data = {
+        email: this.email,
+        password: this.password,
+       
+      };
+      this.$store
+        .dispatch("login", data)
+        .then(() => {
+              
+
+            this.$store.dispatch('getUserDetails',{"token":localStorage.getItem('token'),"provider":2})
+            .then(()=> {
+
+
+                // let details={
+                //      userId:this.getUserInfo.id.toString(),
+                //     userEmail:this.getUserInfo.email,
+                //     userName:this.getUserInfo.name
+                //  }
+
+                //     window.console.log('userdet 2',details)
+                // this.$store.dispatch('sendUserDetails',details)
+                
+                window.console.log('printing role',this.getUserInfo)
+                if(this.getUserInfo.role===null)
+                {
+                    this.$router.push('/selectrole')
+                }
+                else
+                {
+                    this.$router.push('/landing')
+                }
+            })
+            
+          // window.console.log(this.getRole)
+        //   if (this.getRole) {
+        //     this.$router.push("/merchantpage");
+        //   } else {
+        //     this.$router.push("/");
+        //   }
+        })
+        .catch(err => window.console.log(err));
+    }
+
+    //   this.$router.push('/landing')
   }
 };
 </script>
