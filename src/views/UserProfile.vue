@@ -24,7 +24,8 @@ export default {
     return {};
   },
   mounted() {
-    
+
+
    let id=  this.$route.params.userId
 
       // window.console.log('hello from mounted')
