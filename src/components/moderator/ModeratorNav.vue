@@ -24,16 +24,10 @@
       </li>
       <div class="divider" />
       <li>
-<<<<<<< HEAD
-        <button class="logout">
-          <b class="black">LogOut</b>
-        </button>
-=======
 
         <v-btn v-if="isLoggedIn" class="logout" @click="doLogout()"> 
           <b class="white">LogOut</b>
         </v-btn>
->>>>>>> bhumi
       </li>
     </ul>
     <!-- </nav> -->

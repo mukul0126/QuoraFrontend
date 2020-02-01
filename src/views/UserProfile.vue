@@ -24,18 +24,13 @@ export default {
     return {};
   },
   mounted() {
-<<<<<<< HEAD
-    this.$store.dispatch("getUserProfileDetails", this.$route.params.userId);
-=======
-
-
+    
    let id=  this.$route.params.userId
 
       // window.console.log('hello from mounted')
       // let userId=localStorage.getItem("userId");
       //       window.console.log("userId",userId)
       this.$store.dispatch('getUserProfileDetails',id);
->>>>>>> bhumi
   },
   computed: {
     ...mapGetters(["getUserDetails"])
