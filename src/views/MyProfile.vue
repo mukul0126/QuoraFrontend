@@ -4,8 +4,6 @@
     <ProfileDescription :userDetails="getUserDetails"></ProfileDescription>
     <!-- <ProfileFeed :userDetails="getUserDetails"></ProfileFeed> -->
     <MyProfileFeed :userDetails="getUserDetails"></MyProfileFeed>
-
-    
   </div>
 </template>
 
@@ -14,37 +12,32 @@ import ProfileDescription from "@/components/MyProfileDescription.vue";
 // import ProfileFeed from "@/components/ProfileFeed.vue";
 import MyProfileFeed from "@/components/MyProfileFeed.vue";
 import UserHeader from "@/components/UserHeader.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-
-    name: "Profile",
-    components: {
+  name: "Profile",
+  components: {
     ProfileDescription,
     // ProfileFeed,
     MyProfileFeed,
-    UserHeader,
+    UserHeader
     // OrganizationDescription
   },
   data() {
-    return {
-    
-    }
+    return {};
   },
   mounted() {
-      let userId= localStorage.getItem("userId")
-      this.$store.dispatch('getUserProfileDetails',userId);
+    let userId = localStorage.getItem("userId");
+    this.$store.dispatch("getUserProfileDetails", userId);
   },
   computed: {
     ...mapGetters(["getUserDetails"])
   }
-}
+};
 </script>
 
 <style scoped>
-.user-profile
-{
-background-color : #C38D9E;
+.user-profile {
+  background-color: #c38d9e;
 }
-
 </style>

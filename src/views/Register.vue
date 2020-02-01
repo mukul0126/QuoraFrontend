@@ -53,25 +53,24 @@
 export default {
   name: "register",
   data() {
-      return {
-          name:'',
-          email:'',
-          password:''
-      }
+    return {
+      name: "",
+      email: "",
+      password: ""
+    };
   },
-  methods:{
-      register() {
-          let data={
-              name:this.name,
-              email:this.email,
-              password:this.password
-          };
-          this.$store.dispatch("register",data)
-          .then(()=>this.$router.push("/login"))
-          .catch(err => window.console.log(err));
-      }
-
-
+  methods: {
+    register() {
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      };
+      this.$store
+        .dispatch("register", data)
+        .then(() => this.$router.push("/login"))
+        .catch(err => window.console.log(err));
+    }
 
     //   register: function() {
     //   let data = {

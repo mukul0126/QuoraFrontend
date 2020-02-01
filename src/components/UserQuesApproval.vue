@@ -1,10 +1,9 @@
 <template>
-  <div class="userquestionapproval" >
-    <v-card class="mx-auto" max-width="644" >
+  <div class="userquestionapproval">
+    <v-card class="mx-auto" max-width="644">
       <v-card-text id="userquestion-approval">
         <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
         <p>What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p>
-        
       </v-card-text>
     </v-card>
   </div>
@@ -53,7 +52,7 @@ button.learnmore {
   letter-spacing: 1px;
 }
 
-#userquestion-approval{
-      margin-top: 15px;
+#userquestion-approval {
+  margin-top: 15px;
 }
 </style>

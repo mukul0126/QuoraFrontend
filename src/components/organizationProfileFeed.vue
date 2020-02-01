@@ -5,7 +5,7 @@
         <v-list-item three-line>
           <div id="app" v-for="(item,index) in userDetails.data.questionList" :key="index">
             <v-app id="inspire">
-              <v-card class="mx-auto" outlined> 
+              <v-card class="mx-auto" outlined>
                 <v-list-item three-line>
                   <v-list-item-content>
                     <div class="overline mb-4"></div>
@@ -17,8 +17,7 @@
                 <v-card-actions>
                   <v-btn text>Button</v-btn>
                 </v-card-actions>
-              </v-card>
-              No content to show!!
+              </v-card>No content to show!!
             </v-app>
           </div>
         </v-list-item>

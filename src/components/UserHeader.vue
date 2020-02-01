@@ -1,36 +1,29 @@
 <template>
   <div class="header">
-  <v-app id="userheader">
-    <v-card
-      color="grey lighten-4"
-      flat
-      tile
-    >
-      <v-toolbar dense>
-         <v-btn icon @click="openProfile">
-          <v-icon>mdi-account-circle</v-icon>
-        </v-btn>
-        <v-toolbar-title class="title"><router-link class="landing-link" to="/landing">QUORA</router-link></v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-col cols="12" sm="6" md="3">
-            <v-text-field
-              label="Solo"
-              placeholder="Placeholder"
-              solo
-              class="search"
-            ></v-text-field>
+    <v-app id="userheader">
+      <v-card color="grey lighten-4" flat tile>
+        <v-toolbar dense>
+          <v-btn icon @click="openProfile">
+            <v-icon>mdi-account-circle</v-icon>
+          </v-btn>
+          <v-toolbar-title class="title">
+            <router-link class="landing-link" to="/landing">QUORA</router-link>
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-col cols="12" sm="6" md="3">
+            <v-text-field label="Solo" placeholder="Search" solo class="search"></v-text-field>
           </v-col>
-        <v-btn icon class="search-btn">
-          <v-icon >mdi-magnify</v-icon>
-        </v-btn>
-        <AddUserQuestion></AddUserQuestion>
-      </v-toolbar>
-    </v-card>
-  </v-app>
-</div>
+          <v-btn icon class="search-btn">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+          <AddUserQuestion></AddUserQuestion>
+        </v-toolbar>
+      </v-card>
+    </v-app>
+  </div>
 </template>
 <script>
-import AddUserQuestion from '@/components/AddUserQuestion.vue';
+import AddUserQuestion from "@/components/AddUserQuestion.vue";
 // import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -39,8 +32,7 @@ export default {
     };
   },
   components: {
-      AddUserQuestion
-
+    AddUserQuestion
   },
   methods: {
     search(e) {
@@ -55,18 +47,18 @@ export default {
       }
     },
     openProfile() {
-        // let userId= localStorage.getItem("userId")
-        // let currPrivateFlag=false;
-        // this.$router.push("/profile/" + userId + "/" + currPrivateFlag);
-         this.$router.push("/myprofile");
+      // let userId= localStorage.getItem("userId")
+      // let currPrivateFlag=false;
+      // this.$router.push("/profile/" + userId + "/" + currPrivateFlag);
+      this.$router.push("/myprofile");
     }
   },
   computed: {
-//     loggedIn() {
-//        let userLoggedIn = localStorage.getItem("user_access_token")
-//       return userLoggedIn;
-//     }
-//   }
+    //     loggedIn() {
+    //        let userLoggedIn = localStorage.getItem("user_access_token")
+    //       return userLoggedIn;
+    //     }
+    //   }
   }
 };
 </script>
@@ -109,22 +101,22 @@ a:visited {
 #logo a {
   text-decoration: none;
 }
-.search{
-    position: absolute;
-    top: 0px;
-    left: 35%;
+.search {
+  position: absolute;
+  top: 0px;
+  left: 35%;
 }
-.search-btn{
-    position: absolute;
-    left:75%;
+.search-btn {
+  position: absolute;
+  left: 75%;
 }
 .header {
   height: 51px;
 }
-.landing-link{
-  color:black;
+.landing-link {
+  color: black;
 }
-.landing-link:visited{
+.landing-link:visited {
   color: black;
 }
 </style>

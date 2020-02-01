@@ -6,26 +6,26 @@
       <li>
         <!-- <router-link :to="'/merchant/'+ merchant_id +'/myproducts'"> -->
         <router-link to="/moderator/approveuser">
-          <b class="white">ApproveUser</b>
+          <b class="black">ApproveUser</b>
           </router-link>
         <!-- </router-link> -->
       </li>
       <div class="divider" />
       <li>
         <router-link to="/moderator/approvequestion">
-          <b class="white">ApproveQuestion</b>
+          <b class="black">ApproveQuestion</b>
         </router-link>
       </li>
       <div class="divider" />
       <li>
         <router-link to="/moderator/approveanswer">
-          <b class="white">ApproveAnswer</b>
+          <b class="black">ApproveAnswer</b>
         </router-link>
       </li>
       <div class="divider" />
       <li>
         <button class="logout">
-          <b class="white">LogOut</b>
+          <b class="black">LogOut</b>
         </button>
       </li>
     </ul>
@@ -49,10 +49,11 @@ export default {
 };
 </script>
 <style scoped>
-.white {
-  color: white;
+.black {
+  color:black;
 }
 .navigation {
+  background-color: lightgreen;
   border: 1px solid black;
   height: 50px;
   /* background-image: url("https://i.pinimg.com/originals/ce/2f/9a/ce2f9a109599a284b214db7984194409.jpg"); */
@@ -72,9 +73,10 @@ export default {
   border-bottom: 1px solid lightgrey;
   margin-bottom: 24px;
   flex-flow: row wrap;
-  background-color: #83677B;
+  background-color: #4CAF50;
+  justify-content: space-evenly;
 }
 .logout {
-  background-color:#83677B;
+  background-color:#4CAF50;
 }
 </style>

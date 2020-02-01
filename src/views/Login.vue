@@ -1,5 +1,6 @@
 <template>
   <div class="login" style="margin-top:40px">
+    <div class="quora-text"><h1><b>QUORA 2.0</b></h1></div>
     <form>
       
       <v-text-field
@@ -112,5 +113,8 @@ export default {
 }
 .register {
   margin-top: 5px;
+}
+.quora-text{
+  color:lightgreen; 
 }
 </style>

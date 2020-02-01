@@ -1,49 +1,49 @@
 <template>
   <div class="userapproval" id="userapproval">
     <div v-for="(item,index) in getApproveUserDetails.data" :key="index">
-    <v-card class="mx-auto" max-width="644" id="approval-card">
-      <v-card-text>
-        <div>
-          <v-avatar color="indigo" size="36">
-            <v-icon dark>mdi-account-circle</v-icon>
-          </v-avatar>
-        </div>
-        <br>
-        <span class="name">Name: {{item.userName}}</span>
-        <span class="score">Score: {{item.userScore}}</span>
-        <p>E-mail: {{item.userEmail}} </p>
-        <div class="text--primary">
-          <button class="like" @click="approveUser(item.userId)">
-            <i class="approve" aria-hidden="true">&#10004;</i>
-          </button>
-          <button class="dislike" @click="disapproveUser()">
-            <i class="reject" aria-hidden="true">&#10008;</i>
-          </button>
-        </div>
-      </v-card-text>
-    </v-card>
+      <v-card class="mx-auto" max-width="644" id="approval-card">
+        <v-card-text>
+          <div>
+            <v-avatar color="indigo" size="36">
+              <v-icon dark>mdi-account-circle</v-icon>
+            </v-avatar>
+          </div>
+          <br />
+          <span class="name">Name: {{item.userName}}</span>
+          <span class="score">Score: {{item.userScore}}</span>
+          <p>E-mail: {{item.userEmail}}</p>
+          <div class="text--primary">
+            <button class="like" @click="approveUser(item.userId)">
+              <i class="approve" aria-hidden="true">&#10004;</i>
+            </button>
+            <button class="dislike" @click="disapproveUser(item.userId)">
+              <i class="reject" aria-hidden="true">&#10008;</i>
+            </button>
+          </div>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "userapproval",
   created() {
-    let moderatorId=localStorage.getItem("moderatorId")
-    this.$store.dispatch("approveUser",moderatorId)
+    let moderatorId = localStorage.getItem("moderatorId");
+    this.$store.dispatch("approveUser", moderatorId);
   },
   computed: {
-    ...mapGetters(['getApproveUserDetails'])
+    ...mapGetters(["getApproveUserDetails"])
   },
   methods: {
     approveUser(userId) {
-      let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("approveUserId",{userId,moderatorId})
+      let moderatorId = localStorage.getItem("moderatorId");
+      this.$store.dispatch("approveUserId", { userId, moderatorId });
     },
-    disapproveUser(){
-      let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("disapproveUserId",moderatorId)
+    disapproveUser() {
+      let moderatorId = localStorage.getItem("moderatorId");
+      this.$store.dispatch("disapproveUserId", moderatorId);
     }
   }
 };
@@ -87,7 +87,7 @@ button.learnmore {
   letter-spacing: 1px;
 }
 
-#approval-card{
+#approval-card {
   margin: 10px;
 }
 

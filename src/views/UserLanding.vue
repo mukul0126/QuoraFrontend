@@ -30,7 +30,6 @@ export default {
     };
   },
   created() {
-    localStorage.setItem("userId", "5e3140bb4c951a1723dc3f01");
     localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
     localStorage.setItem("moderatorId", "5e314e2583f84b7add06ec3e");
     this.$store.dispatch("viewLandingQuestion");
@@ -116,6 +115,4 @@ input {
 .profile-button {
   margin-left: 10px;
 }
-
-
 </style>

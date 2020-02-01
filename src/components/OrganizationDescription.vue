@@ -31,8 +31,8 @@
         </v-list-item-avatar>
       </v-list-item>
       <v-card-actions>
-        <v-btn text class="follow-button" @click.once="sendFollowRequest">Follow</v-btn>
-        <v-btn text class="join-button" @click.once="sendJoinRequest">Join</v-btn>
+        <v-btn text class="follow-button" :disabled="isFollowed" @click.once="sendFollowRequest">Follow</v-btn>
+        <v-btn text class="join-button" :disabled="isJoined" @click.once="sendJoinRequest">Join</v-btn>
       </v-card-actions>
     </v-card>
   </v-app>
@@ -42,16 +42,24 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  data() {
+    return {
+      isFollowed: false,
+      isJoined: false
+    }
+  },
   computed: {
     ...mapGetters(["getOrganizationDetails"])
   },
 
   methods: {
     sendFollowRequest() {
+      this.isFollowed = true;
         this.$store.dispatch("sendOrganizationFollowRequest",this.$route.params.organizationId)
     },
 
     sendJoinRequest() {
+      this.isJoined = true;
       this.$store.dispatch("sendJoinRequest",this.$route.params.organizationId)
     }
   }

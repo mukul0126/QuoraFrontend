@@ -25,7 +25,13 @@
           </v-list-item-avatar>
         </v-list-item>
         <v-card-actions>
-          <v-btn v-if="userCheck==true" text class="follow-button" @click.once="followUser">Follow</v-btn>
+          <v-btn
+            v-if="userCheck==true"
+            text
+            class="follow-button"
+            :disabled="isFollowed"
+            @click.once="followUser"
+          >Follow</v-btn>
         </v-card-actions>
       </v-card>
     </v-app>
@@ -37,7 +43,8 @@ export default {
   data() {
     return {
       myProfile: false,
-      userCheck: true
+      userCheck: true,
+      isFollowed: false
     };
   },
   props: ["userDetails"],
@@ -50,7 +57,8 @@ export default {
   },
   methods: {
     followUser() {
-        this.$store.dispatch("sendFollowUserRequest",this.$route.params.userId)
+      this.isFollowed = true;
+      this.$store.dispatch("sendFollowUserRequest", this.$route.params.userId);
     }
   }
 };

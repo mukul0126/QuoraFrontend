@@ -16,14 +16,14 @@ export default {
   name: "Moderator",
   components: {
     ModeratorHeader,
-    ModeratorNav,
+    ModeratorNav
     // ModeratorFooter
   }
 };
 </script>
 
 <style scoped>
-.moderator{
+.moderator {
   display: flex;
   flex-flow: column;
   height: -webkit-fill-available;

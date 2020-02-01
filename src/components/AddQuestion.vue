@@ -32,11 +32,7 @@
                 <v-text-field label="Password*" type="password" required></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
-                  required
-                ></v-select>
+                <v-select :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required></v-select>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-autocomplete
@@ -60,6 +56,6 @@
 </template>
 <script>
 export default {
-  name: 'addquestion'
-}
+  name: "addquestion"
+};
 </script>

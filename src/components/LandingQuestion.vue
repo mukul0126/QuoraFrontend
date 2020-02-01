@@ -4,7 +4,8 @@
       <div class="click-question">
         <h4>QUESTION</h4>
         <h5>{{item.questionBody}}</h5>
-        <v-btn class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
+
+        <v-btn style="margin-left:80%;" @click="viewQuestion(item.questionId)">View</v-btn>
       </div>
     </div>
   </div>
@@ -23,7 +24,11 @@ export default {
 </script>
 
 <style>
+.flex {
+  justify-content: center;
+}
 .click-question {
+  /* justify-content: center; */
   border: 3px solid black;
   margin-left: 350px;
   margin-right: 350px;
@@ -39,5 +44,4 @@ export default {
 .view-button {
   background-color: red;
 }
-
 </style>

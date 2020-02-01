@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     followUser() {
-        this.$store.dispatch("sendFollowUserRequest",this.$route.params.userId)
+      this.$store.dispatch("sendFollowUserRequest", this.$route.params.userId);
     }
   }
 };

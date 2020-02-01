@@ -4,7 +4,10 @@
       <v-card-text v-if="questionDetails">
         <div>
           <v-avatar color="indigo" size="36">
-            <v-icon dark @click="openProfile(questionDetails.userId,questionDetails.approvalFlag)">mdi-account-circle</v-icon>
+            <v-icon
+              dark
+              @click="openProfile(questionDetails.userId,questionDetails.approvalFlag)"
+            >mdi-account-circle</v-icon>
           </v-avatar>
           <v-avatar color="indigo" size="36" style="float:right">
             <v-icon dark @click="openOrganizationProfile(questionDetails.orgId)">mdi-account-circle</v-icon>
@@ -41,38 +44,38 @@ export default {
     };
   },
   methods: {
-    openProfile(userId,currPrivateFlag) {
+    openProfile(userId, currPrivateFlag) {
       // this.$router.push({path: "profile",  params: {profileDetails: profileDetails}});
-      this.$router.push("/profile/" + userId + "/" +currPrivateFlag)
+      this.$router.push("/profile/" + userId + "/" + currPrivateFlag);
     },
     openOrganizationProfile(organizationId) {
       this.$router.push("/organizationProfile/" + organizationId);
     },
 
-    likeQuestion(questionId,userid,catId) {
+    likeQuestion(questionId, userid, catId) {
       this.$store.dispatch("likeQuestion", questionId);
-      let analytic= {
-        targetId :userid,
-        action:"like",
-        appId:"quora",
-        userId:localStorage.getItem("userId"),
-        targetEntity:"post",
+      let analytic = {
+        targetId: userid,
+        action: "like",
+        appId: "quora",
+        userId: localStorage.getItem("userId"),
+        targetEntity: "post",
         tag: catId
-      }
-      this.$store.dispatch("sentToAnalytics",analytic)
+      };
+      this.$store.dispatch("sentToAnalytics", analytic);
     },
 
-    dislikeQuestion(questionId,userid,catId) {
+    dislikeQuestion(questionId, userid, catId) {
       this.$store.dispatch("dislikeQuestion", questionId);
-      let analytic= {
-        targetId :userid,
-        action:"dislike",
-        appId:"quora",
-        userId:localStorage.getItem("userId"),
-        targetEntity:"post",
+      let analytic = {
+        targetId: userid,
+        action: "dislike",
+        appId: "quora",
+        userId: localStorage.getItem("userId"),
+        targetEntity: "post",
         tag: catId
-      }
-      this.$store.dispatch("sentToAnalytics",analytic)
+      };
+      this.$store.dispatch("sentToAnalytics", analytic);
     }
   },
   props: ["questionDetails"]

@@ -3,10 +3,10 @@
     <div class="viewquestion" id="viewquestion">
       <br />
       <br />
-      <Question :questionDetails="getQuestionDetails.question"/>
-        <Enterans/>
+      <Question :questionDetails="getQuestionDetails.question" />
+      <Enterans />
       <div class="answer-section" style="padding-top:10px">
-        <Answer :questionDetails="getQuestionDetails.answerList"/>
+        <Answer :questionDetails="getQuestionDetails.answerList" />
       </div>
     </div>
   </v-app>
@@ -15,8 +15,7 @@
 import Question from "@/components/Question";
 import Answer from "@/components/Answer";
 import Enterans from "@/components/Enterans";
-import { mapGetters } from 'vuex';
-
+import { mapGetters } from "vuex";
 
 export default {
   name: "viewquestion",
@@ -27,7 +26,10 @@ export default {
   },
   mounted() {
     window.console.log("inside mounted", this.$route.params.questionId);
-    this.$store.dispatch("getQuestionDetailsById",this.$route.params.questionId);
+    this.$store.dispatch(
+      "getQuestionDetailsById",
+      this.$route.params.questionId
+    );
   },
   computed: {
     ...mapGetters(["getQuestionDetails"])
@@ -35,12 +37,10 @@ export default {
 };
 </script>
 <style scoped>
-
 /* // .text {
 //     text-align: center
 // }
 // .centered-input >>> input {
 //       text-align: center
 //     } */
-
 </style>

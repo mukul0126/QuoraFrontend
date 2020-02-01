@@ -1,42 +1,42 @@
 <template>
   <div class="questionapproval">
     <div v-for="(item,index) in getApproveAnswerDetails.data.listOfAnswerIds" :key="index">
-    <v-card class="mx-auto" max-width="644" id="question-approval">
-      <v-card-text>
-        <p>{{item.answerBody}}</p>
-        <div class="text--primary">
-          <button class="like" @click="approveAnswerById(item.answerId)">
-            <i class="approve" aria-hidden="true">&#10004;</i>
-          </button>
-          <button class="dislike" @click="disapproveAnswerById(item.answerId)">
-            <i class="reject" aria-hidden="true">&#10008;</i>
-          </button>
-        </div>
-      </v-card-text>
-    </v-card>
-  </div>
+      <v-card class="mx-auto" max-width="644" id="question-approval">
+        <v-card-text>
+          <p>{{item.answerBody}}</p>
+          <div class="text--primary">
+            <button class="like" @click="approveAnswerById(item.answerId)">
+              <i class="approve" aria-hidden="true">&#10004;</i>
+            </button>
+            <button class="dislike" @click="disapproveAnswerById(item.answerId)">
+              <i class="reject" aria-hidden="true">&#10008;</i>
+            </button>
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "moderatoranswerapproval",
   created() {
-    let moderatorId=localStorage.getItem("moderatorId")
-    this.$store.dispatch("approveAnswer",moderatorId)
+    let moderatorId = localStorage.getItem("moderatorId");
+    this.$store.dispatch("approveAnswer", moderatorId);
   },
   methods: {
     approveAnswerById(answerId) {
       // let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("approveAnswerId",answerId)
+      this.$store.dispatch("approveAnswerId", answerId);
     },
-    disapproveAnswerById(questionId){
+    disapproveAnswerById(questionId) {
       // let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("disapproveAnswerId",questionId)
+      this.$store.dispatch("disapproveAnswerId", questionId);
     }
   },
   computed: {
-    ...mapGetters(['getApproveAnswerDetails'])
+    ...mapGetters(["getApproveAnswerDetails"])
   }
 };
 </script>
@@ -79,7 +79,7 @@ button.learnmore {
   letter-spacing: 1px;
 }
 
-#question-approval{
+#question-approval {
   margin: 10px;
 }
 </style>

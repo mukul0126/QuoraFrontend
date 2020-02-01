@@ -29,7 +29,7 @@ export default {
   props: ["userDetails"],
   methods: {
       acceptBestAnswer(questionId) {
-          this.$route.push("/userapproveanswer/" + questionId)
+          this.$router.push("/userapproveanswer/" + questionId)
       }
   }
 };

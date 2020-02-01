@@ -9,7 +9,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
-  }, 
+  },
   {
     path: '/landing',
     name: 'landing',
@@ -81,7 +81,7 @@ const routes = [
         component: () => import('../views/moderator/ModeratorApproveQuestion.vue')
       },
       {
-        path:'approveanswer',
+        path: 'approveanswer',
         name: 'approveanswer',
         component: () => import('../views/moderator/ModeratorApproveAnswer.vue')
       }

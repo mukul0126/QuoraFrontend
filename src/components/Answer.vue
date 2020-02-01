@@ -1,28 +1,31 @@
 <template>
   <div class="answer" id="answer" style="padding-top:5px;padding-bottom:5px">
     <div class="repeat" v-for="(item,index) in questionDetails" :key="index">
-    <v-card class="mx-auto" max-width="640">
-      <v-card-text>
-        <p>{{item.answerBody}}</p>
-        <div class="text--primary">
-          like-> {{item.likeCount}}
-          <button class="like" @click.once="likeAnswer(item.answerId)">
-            <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
-          </button>
-          dislike-> {{item.dislikeCount}}
-          <button class="dislike" @click.once="dislikeAnswer(item.answerId)">
-            <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
-          </button>
-          <div class="my-2" style="float:right">
-        <v-btn small color="primary" @click="submitAnswer">Comment</v-btn>
-      </div>
-        </div>
-      </v-card-text>
-      <!-- <v-card-actions>
+      <v-card class="mx-auto" max-width="640">
+        <v-card-text>
+          <p>{{item.answerBody}}</p>
+          <div class="text--primary">
+            like-> {{item.likeCount}}
+            <button class="like" @click.once="likeAnswer(item.answerId)">
+              <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
+            </button>
+            dislike-> {{item.dislikeCount}}
+            <button
+              class="dislike"
+              @click.once="dislikeAnswer(item.answerId)"
+            >
+              <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
+            </button>
+            <div class="my-2" style="float:right">
+              <v-btn small color="primary" @click="submitAnswer">Comment</v-btn>
+            </div>
+          </div>
+        </v-card-text>
+        <!-- <v-card-actions>
         <v-btn text color="deep-purple accent-4">View More</v-btn>
-      </v-card-actions> -->
-    </v-card>
-  </div>
+        </v-card-actions>-->
+      </v-card>
+    </div>
   </div>
 </template>
 <script>
@@ -31,16 +34,16 @@ export default {
   data() {
     return {
       answer_body: " "
-    }
+    };
   },
   props: ["questionDetails"],
   methods: {
     likeAnswer(answerId) {
-      this.$store.dispatch("likeAnswer",answerId)
+      this.$store.dispatch("likeAnswer", answerId);
     },
 
     dislikeAnswer(answerId) {
-      this.$store.dispatch("dislikeAnswer",answerId)
+      this.$store.dispatch("dislikeAnswer", answerId);
     }
   }
 };

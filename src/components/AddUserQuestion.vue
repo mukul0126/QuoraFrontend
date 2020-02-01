@@ -71,8 +71,7 @@
 export default {
   name: "Userprofile",
   data: () => ({
-    return: {
-    },
+    return: {},
     dialog: false,
     text1: "",
     text2: ""

@@ -16,44 +16,44 @@ export default new Vuex.Store({
     questionDetailsById: {},
     approveAnswerDetails: {},
     token: localStorage.getItem('token') || '',
-    status:'',
-    UserDetails:{},
-    dummy:''
+    status: '',
+    UserDetails: {},
+    dummy: ''
 
   },
 
   mutations: {
-    viewLandingQuestion(state,data) {
-      state.landingQuestions=data;
+    viewLandingQuestion(state, data) {
+      state.landingQuestions = data;
     },
 
     getQuestionDetails(state, data) {
-      state.questionDetail=data;
+      state.questionDetail = data;
     },
 
     getUserProfile(state, data) {
-      state.userDetails=data;
+      state.userDetails = data;
     },
 
     getOrganizationProfile(state, data) {
-      state.organizationDetails=data;
+      state.organizationDetails = data;
     },
 
     setApproveUserDetails(state, data) {
-      state.approveUserDetails=data;
+      state.approveUserDetails = data;
     },
 
-    setApproveQuestionDetails(state,data) {
-      state.approveQuestionDetails=data;
+    setApproveQuestionDetails(state, data) {
+      state.approveQuestionDetails = data;
     },
 
     setApproveAnswerDetails(state, data) {
-      state.approveAnswerDetails=data;
+      state.approveAnswerDetails = data;
     },
 
-    setQuestionDetailsById(state,data) {
-      state.questionDetailsById=data
-  },
+    setQuestionDetailsById(state, data) {
+      state.questionDetailsById = data
+    },
     auth_request(state) {
       state.status = 'loading'
     },
@@ -66,24 +66,24 @@ export default new Vuex.Store({
       state.status = ''
       state.token = ''
     },
-    setUserDetails(state,UserDetails) {
-      state.UserDetails=UserDetails
+    setUserDetails(state, UserDetails) {
+      state.UserDetails = UserDetails
     },
-    setDummy(state,dummy) {
-      state.dummy=dummy
+    setDummy(state, dummy) {
+      state.dummy = dummy
     }
 
   },
 
   actions: {
-    viewLandingQuestion({commit}){
-      let userId=localStorage.getItem('userId');
+    viewLandingQuestion({ commit }) {
+      let userId = localStorage.getItem('userId');
       return new Promise((resolve, reject) => {
-        Axios.get('http://172.16.20.107:8085/question/getLoginFeed/' + userId )
+        Axios.get('http://172.16.20.107:8085/question/getLoginFeed/' + userId)
           .then(response => {
-            window.console.log("the response",response);
-              commit('viewLandingQuestion', response)
-              resolve(response)
+            window.console.log("the response", response);
+            commit('viewLandingQuestion', response)
+            resolve(response)
           })
           .catch(error => {
             window.console.log(error)
@@ -103,206 +103,206 @@ export default new Vuex.Store({
         })
     },
 
-    getUserProfileDetails({commit}, userId) {
+    getUserProfileDetails({ commit }, userId) {
       Axios.get('http://172.16.20.46:8086/user/viewUser/' + userId)
-          .then(response => {
-            window.console.log("userdetails",response)
-            commit('getUserProfile', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("userdetails", response)
+          commit('getUserProfile', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    getOrganizationProfileDetails({commit}, organizationId) {
+    getOrganizationProfileDetails({ commit }, organizationId) {
       Axios.get('http://172.16.20.46:8086/organiaztion/viewOrganization/' + organizationId)
-          .then(response => {
-            window.console.log("organizationdetails",response)
-            commit('getOrganizationProfile', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("organizationdetails", response)
+          commit('getOrganizationProfile', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    approveUser({commit}, moderatorId) {
+    approveUser({ commit }, moderatorId) {
       Axios.get('http://172.16.20.46:8086/moderator/approvaleList/' + moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-            commit('setApproveUserDetails', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+          commit('setApproveUserDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     approveUserId(context, data) {
-      Axios.post('http://172.16.20.46:8086/moderator/approve/' + data.userId+ "/" +data.moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/moderator/approve/' + data.userId + "/" + data.moderatorId)
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     disapproveUserId(context, data) {
-      Axios.post('http://172.16.20.46:8086/moderator/disapove/' +data.moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/moderator/disapove/' + data.moderatorId)
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    approveQuestion({commit}, moderatorId) {
+    approveQuestion({ commit }, moderatorId) {
       Axios.get('http://172.16.20.46:8086/moderator/questionApprovalList/' + moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-            commit('setApproveQuestionDetails', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+          commit('setApproveQuestionDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     approveQuestionId(context, questionId) {
       Axios.put('http://172.16.20.107:8085/question/approveQuestionByModerator/' + questionId)
-          .then(response => {
-            window.console.log("setApproveQuestionDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("setApproveQuestionDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     disapproveQuestionId(context, questionId) {
       Axios.put('http://172.16.20.107:8085/question/disapproveQuestionByModerator/' + questionId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    approveAnswer({commit}, moderatorId){
+    approveAnswer({ commit }, moderatorId) {
       Axios.get('http://172.16.20.46:8086/moderator/answeApprovalListy/' + moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-            commit('setApproveAnswerDetails', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+          commit('setApproveAnswerDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     approveAnswerId(context, answerId) {
       Axios.put('http://172.16.20.107:8085/answer/approveAnswerByModerator/' + answerId)
-      .then(response => {
-        window.console.log("setApproveQuestionDetails",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+        .then(response => {
+          window.console.log("setApproveQuestionDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     disapproveAnswerId(context, answerId) {
       Axios.put('http://172.16.20.107:8085/answer/disapproveAnswerByModerator/' + answerId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     addQuestion(context, data) {
-      window.console.log("add question",data)
+      window.console.log("add question", data)
       Axios.post('http://172.16.20.107:8085/question/add', data)
-          .then(response => {
-            window.console.log("response to add question",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to add question", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    getQuestionDetailsById({commit}, questionId) {
-      window.console.log("questionId from store",questionId)
+    getQuestionDetailsById({ commit }, questionId) {
+      window.console.log("questionId from store", questionId)
       Axios.get('http://172.16.20.107:8085/answer/getAnswersByQuestionId/' + questionId)
-          .then(response => {
-            window.console.log("response to get question details",response)
-            commit("setQuestionDetailsById",response.data)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to get question details", response)
+          commit("setQuestionDetailsById", response.data)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     submitAnswer(context, answerDetails) {
       Axios.post('http://172.16.20.107:8085/answer/add', answerDetails)
-          .then(response => {
-            window.console.log("response to get question details",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     likeQuestion(context, questionId) {
       let userId = localStorage.getItem("userId")
-      Axios.put('http://172.16.20.107:8085/question/likequestion/' + questionId + "/" +userId)
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      Axios.put('http://172.16.20.107:8085/question/likequestion/' + questionId + "/" + userId)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     dislikeQuestion(context, questionId) {
       let userId = localStorage.getItem("userId")
-      Axios.put('http://172.16.20.107:8085/question/dislikequestion/' + questionId + "/" +userId)
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      Axios.put('http://172.16.20.107:8085/question/dislikequestion/' + questionId + "/" + userId)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     likeAnswer(context, answerId) {
-      let userId= localStorage.getItem("userId")
+      let userId = localStorage.getItem("userId")
       Axios.put('http://172.16.20.107:8085/answer/likeanswer/' + answerId + "/" + userId)
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     dislikeAnswer(context, answerId) {
-      let userId= localStorage.getItem("userId")
+      let userId = localStorage.getItem("userId")
       Axios.put('http://172.16.20.107:8085/answer/dislikeanswer/' + answerId + "/" + userId)
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     bestAnswer(context, data) {
-      Axios.put('http://172.16.20.107:8085/question/choosingBestAnswer/' + data.questionId + '/' + data.answerId) 
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      Axios.put('http://172.16.20.107:8085/question/choosingBestAnswer/' + data.questionId + '/' + data.answerId)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     // sendUserFollowRequest() {
@@ -310,36 +310,36 @@ export default new Vuex.Store({
     // }
 
     sendOrganizationFollowRequest(context, orgId) {
-      let userId= localStorage.getItem("userId");
-      Axios.post('http://172.16.20.46:8086/user/addFollowersToOrganization/' + userId + '/' + orgId) 
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      let userId = localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/user/addFollowersToOrganization/' + userId + '/' + orgId)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     sendJoinRequest(context, orgId) {
-      let userId= localStorage.getItem("userId");
-      Axios.post('http://172.16.20.46:8086/organiaztion/addMember/' + userId + '/' + orgId) 
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      let userId = localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/organiaztion/addMember/' + userId + '/' + orgId)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     sendFollowUserRequest(context, followUser) {
-      let userId= localStorage.getItem("userId");
-      Axios.post('http://172.16.20.46:8086/user/addFollowers/' + userId + '/' + followUser) 
-      .then(response => {
-        window.console.log("response to get question details",response)
-      })
-      .catch(error => {
-        window.console.log(error)
-      })
+      let userId = localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/user/addFollowers/' + userId + '/' + followUser)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     login({ commit }, data) {
@@ -351,12 +351,12 @@ export default new Vuex.Store({
         window.console.log(data, "vfvkfmvk")
         Axios({ url: login_path + "/auth/signin", data: data, method: 'POST' })
           .then(resp => {
-            window.console.log(resp,'response')
+            window.console.log(resp, 'response')
             const token = resp.data.accessToken
             window.console.log(resp)
             const user = resp.data.user
             localStorage.setItem('token', token)
-           
+
             Axios.defaults.headers.common['Authorization'] = token
             commit('auth_success', token, user)
             // commit('setRole',role)
@@ -371,13 +371,13 @@ export default new Vuex.Store({
     },
 
     register({ commit }, user) {
-      window.console.log('user',user)
+      window.console.log('user', user)
       return new Promise((resolve, reject) => {
         // commit('auth_request')
-        commit('setDummy','dummy')
+        commit('setDummy', 'dummy')
         Axios({ url: login_path + "/auth/signup", data: user, method: 'POST' })
           .then(resp => {
-            window.console.log(resp,'response')
+            window.console.log(resp, 'response')
             resolve(resp)
           })
           .catch(err => {
@@ -386,126 +386,126 @@ export default new Vuex.Store({
       })
     },
 
-    sendRole({ commit } ,data) {
+    sendRole({ commit }, data) {
       let authStr = 'Bearer ' + localStorage.getItem('token')
-      window.console.log('role data',data) 
+      window.console.log('role data', data)
       return new Promise((resolve, reject) => {
-        commit('setDummy','dummy')
-        Axios({url:login_path+"/role/updateRole",data:data,method:'POST',headers: {"Authorization" : authStr}})
-        .then(resp => {
-          window.console.log(resp,'response')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+        commit('setDummy', 'dummy')
+        Axios({ url: login_path + "/role/updateRole", data: data, method: 'POST', headers: { "Authorization": authStr } })
+          .then(resp => {
+            window.console.log(resp, 'response')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    getUserDetails({commit},data) {
-      window.console.log('token data',data)
+    getUserDetails({ commit }, data) {
+      window.console.log('token data', data)
       let authStr = 'Bearer ' + localStorage.getItem('token')
       return new Promise((resolve, reject) => {
-        Axios({url:login_path+"/jwt/getUserDetails",data:data,method:'POST',headers: {"Authorization" : authStr}})
-        .then(resp => {
-          window.console.log(resp.data.role,'response')
-          commit('setUserDetails',resp.data)
-          localStorage.setItem('userId',resp.data.id)
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+        Axios({ url: login_path + "/jwt/getUserDetails", data: data, method: 'POST', headers: { "Authorization": authStr } })
+          .then(resp => {
+            window.console.log(resp.data.role, 'response')
+            commit('setUserDetails', resp.data)
+            localStorage.setItem('userId', resp.data.id)
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendUserDetails({commit},data) {
-      window.console.log('details data',data)
-      return new Promise((resolve,reject)=> {
-        Axios({url: base_path+"/user/addUser",data:data,method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+    sendUserDetails({ commit }, data) {
+      window.console.log('details data', data)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/user/addUser", data: data, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendModeratorDetails({commit},data) {
-      window.console.log('details data',data)
-      return new Promise((resolve,reject)=> {
-        Axios({url: base_path+"/moderator/addModerator",data:data,method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+    sendModeratorDetails({ commit }, data) {
+      window.console.log('details data', data)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/moderator/addModerator", data: data, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
 
     },
 
-    createOrg({commit},data) {
-      const newData ={
+    createOrg({ commit }, data) {
+      const newData = {
         organizationName: data.organizationName,
-          organizationEmail: data.organizationEmail,
-          oranizationImage: data.oranizationImage,
+        organizationEmail: data.organizationEmail,
+        oranizationImage: data.oranizationImage,
       }
-      window.console.log('org details',newData)
-      return new Promise((resolve,reject)=> {
-        Axios({url:base_path+"/organiaztion/addOrganization/"+data.id ,data:newData, method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+      window.console.log('org details', newData)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/organiaztion/addOrganization/" + data.id, data: newData, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendCategory({commit},data) {
-      window.console.log('data==========>',data.cat)
-      window.console.log('id-------->',data.id)
+    sendCategory({ commit }, data) {
+      window.console.log('data==========>', data.cat)
+      window.console.log('id-------->', data.id)
 
-      const data1={
-        'categoryList':data.cat
+      const data1 = {
+        'categoryList': data.cat
       }
 
-      return new Promise((resolve,reject) => {
-        Axios({url:base_path+"/user/addCategories/"+data.id,data:data1,method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDunmmy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/user/addCategories/" + data.id, data: data1, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDunmmy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
     sentToAnalytics(context, data) {
       Axios.post('http://172.16.20.33:8080/search/save', data)
-          .then(response => {
-            window.console.log("response to get question details",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     }
-  },    
+  },
 
   getters: {
-    
+
     getLandingQuestion(state) {
-      window.console.log("getter from store",state.landingQuestions)
+      window.console.log("getter from store", state.landingQuestions)
       return state.landingQuestions || {}
     },
 
@@ -532,7 +532,7 @@ export default new Vuex.Store({
     getQuestionDetails(state) {
       return state.questionDetailsById || {}
     },
-    
+
     getUserInfo(state) {
       return state.UserDetails || {}
     },
