@@ -23,10 +23,13 @@ export default {
   },
   mounted() {
 
-      window.console.log('hello from mounted')
-      let userId=localStorage.getItem("userId");
-            window.console.log("userId",userId)
-      this.$store.dispatch('getUserProfileDetails',userId);
+
+   let id=  this.$route.params.userId
+
+      // window.console.log('hello from mounted')
+      // let userId=localStorage.getItem("userId");
+      //       window.console.log("userId",userId)
+      this.$store.dispatch('getUserProfileDetails',id);
   },
   computed: {
     ...mapGetters(["getUserDetails"])

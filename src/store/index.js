@@ -5,6 +5,8 @@ import Axios from 'axios'
 Vue.use(Vuex)
 const login_path = 'http://172.16.20.32:8080'
 const base_path = 'http://172.16.20.46:8086'
+const search_path ='http://172.16.20.149:8080'
+const analytics_path = 'http://172.16.20.33:8080'
 export default new Vuex.Store({
   state: {
     landingQuestions: {},
@@ -15,40 +17,47 @@ export default new Vuex.Store({
     approveQuestionDetails: {},
     questionDetailsById: {},
     token: localStorage.getItem('token') || '',
-    status:'',
-    UserDetails:{},
-    dummy:''
+    status: '',
+    UserDetails: {},
+    dummy: '',
+    ads: '',
+    user:{},
+    searchUser:[],
+    searchOrganization:[],
+    searchQuestion:[]
+
+
 
   },
 
   mutations: {
-    viewLandingQuestion(state,data) {
-      state.landingQuestions=data;
+    viewLandingQuestion(state, data) {
+      state.landingQuestions = data;
     },
 
     getQuestionDetails(state, data) {
-      state.questionDetail=data;
+      state.questionDetail = data;
     },
 
     getUserProfile(state, data) {
-      state.userDetails=data;
+      state.userDetails = data;
     },
 
     getOrganizationProfile(state, data) {
-      state.organizationDetails=data;
+      state.organizationDetails = data;
     },
 
     setApproveUserDetails(state, data) {
-      state.approveUserDetails=data;
+      state.approveUserDetails = data;
     },
 
-    setApproveQuestionDetails(state,data) {
-      state.approveQuestionDetails=data;
+    setApproveQuestionDetails(state, data) {
+      state.approveQuestionDetails = data;
     },
 
-    setQuestionDetailsById(state,data) {
-      state.questionDetailsById=data
-  },
+    setQuestionDetailsById(state, data) {
+      state.questionDetailsById = data
+    },
     auth_request(state) {
       state.status = 'loading'
     },
@@ -61,24 +70,37 @@ export default new Vuex.Store({
       state.status = ''
       state.token = ''
     },
-    setUserDetails(state,UserDetails) {
-      state.UserDetails=UserDetails
+    setUserDetails(state, UserDetails) {
+      state.UserDetails = UserDetails
     },
-    setDummy(state,dummy) {
-      state.dummy=dummy
+    setDummy(state, dummy) {
+      state.dummy = dummy
+    },
+    setAds(state, ads) {
+      state.ads = ads
+    },
+    setSearchUser(state,searchUser) {
+      state.searchUser=searchUser
+    },
+    setSearchQuestion(state,searchQuestion) {
+      state.searchQuestion=searchQuestion
+    },
+    setSearchOrganization(state,searchOrganization) {
+      state.searchOrganization=searchOrganization
     }
+    
 
   },
 
   actions: {
-    viewLandingQuestion({commit}){
-      let userId=localStorage.getItem('userId');
+    viewLandingQuestion({ commit }) {
+      let userId = localStorage.getItem('userId');
       return new Promise((resolve, reject) => {
-        Axios.get('http://172.16.20.107:8085/question/getLoginFeed/' + userId )
+        Axios.get('http://172.16.20.107:8085/question/getLoginFeed/' + userId)
           .then(response => {
-            window.console.log("the response",response);
-              commit('viewLandingQuestion', response)
-              resolve(response)
+            window.console.log("the response", response);
+            commit('viewLandingQuestion', response)
+            resolve(response)
           })
           .catch(error => {
             window.console.log(error)
@@ -98,110 +120,110 @@ export default new Vuex.Store({
         })
     },
 
-    getUserProfileDetails({commit}, userId) {
+    getUserProfileDetails({ commit }, userId) {
       Axios.get('http://172.16.20.46:8086/user/viewUser/' + userId)
-          .then(response => {
-            window.console.log("userdetails",response)
-            commit('getUserProfile', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("userdetails", response)
+          commit('getUserProfile', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    getOrganizationProfileDetails({commit}, organizationId) {
+    getOrganizationProfileDetails({ commit }, organizationId) {
       Axios.get('http://172.16.20.46:8086/organiaztion/viewOrganization/' + organizationId)
-          .then(response => {
-            window.console.log("organizationdetails",response)
-            commit('getOrganizationProfile', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("organizationdetails", response)
+          commit('getOrganizationProfile', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    approveUser({commit}, moderatorId) {
+    approveUser({ commit }, moderatorId) {
       Axios.get('http://172.16.20.46:8086/moderator/approvaleList/' + moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-            commit('setApproveUserDetails', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+          commit('setApproveUserDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     approveUserId(context, data) {
-      Axios.post('http://172.16.20.46:8086/moderator/approve/' + data.userId+ "/" +data.moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/moderator/approve/' + data.userId + "/" + data.moderatorId)
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     disapproveUserId(context, data) {
-      Axios.post('http://172.16.20.46:8086/moderator/disapove/' +data.moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/moderator/disapove/' + data.moderatorId)
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    approveQuestion({commit}, moderatorId) {
+    approveQuestion({ commit }, moderatorId) {
       Axios.get('http://172.16.20.46:8086/' + moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-            commit('setApproveQuestionDetails', response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+          commit('setApproveQuestionDetails', response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     approveQuestionId(context, data) {
-      Axios.post('http://172.16.20.46:8086/' + data.questionId+ "/" +data.moderatorId)
-          .then(response => {
-            window.console.log("setApproveQuestionDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/' + data.questionId + "/" + data.moderatorId)
+        .then(response => {
+          window.console.log("setApproveQuestionDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     disapproveQuestionId(context, data) {
-      Axios.post('http://172.16.20.46:8086/' +data.moderatorId)
-          .then(response => {
-            window.console.log("getApproveUserDetails",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+      Axios.post('http://172.16.20.46:8086/' + data.moderatorId)
+        .then(response => {
+          window.console.log("getApproveUserDetails", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     addQuestion(context, data) {
-      window.console.log("add question",data)
+      window.console.log("add question", data)
       Axios.post('http://172.16.20.46:8085/question/add', data)
-          .then(response => {
-            window.console.log("response to add question",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to add question", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
-    getQuestionDetailsById({commit}, questionId) {
+    getQuestionDetailsById({ commit }, questionId) {
       Axios.gat('http://172.16.20.46:8085/question/', + questionId)
-          .then(response => {
-            window.console.log("response to get question details",response)
-            commit("setQuestionDetailsById",response)
-          })
-          .catch(error => {
-            window.console.log(error)
-          })
+        .then(response => {
+          window.console.log("response to get question details", response)
+          commit("setQuestionDetailsById", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
     },
 
     login({ commit }, data) {
@@ -213,7 +235,7 @@ export default new Vuex.Store({
         window.console.log(data, "vfvkfmvk")
         Axios({ url: login_path + "/auth/signin", data: data, method: 'POST' })
           .then(resp => {
-            window.console.log(resp,'response')
+            window.console.log(resp, 'response')
             const token = resp.data.accessToken
             window.console.log(resp)
             const user = resp.data.user
@@ -233,13 +255,13 @@ export default new Vuex.Store({
     },
 
     register({ commit }, user) {
-      window.console.log('user',user)
+      window.console.log('user', user)
       return new Promise((resolve, reject) => {
         // commit('auth_request')
-        commit('setDummy','dummy')
+        commit('setDummy', 'dummy')
         Axios({ url: login_path + "/auth/signup", data: user, method: 'POST' })
           .then(resp => {
-            window.console.log(resp,'response')
+            window.console.log(resp, 'response')
             resolve(resp)
           })
           .catch(err => {
@@ -248,147 +270,261 @@ export default new Vuex.Store({
       })
     },
 
-    sendRole({ commit } ,data) {
+    sendRole({ commit }, data) {
       let authStr = 'Bearer ' + localStorage.getItem('token')
-      window.console.log('role data',data) 
+      window.console.log('role data', data)
       return new Promise((resolve, reject) => {
-        commit('setDummy','dummy')
-        Axios({url:login_path+"/role/updateRole",data:data,method:'POST',headers: {"Authorization" : authStr}})
-        .then(resp => {
-          window.console.log(resp,'response')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+        commit('setDummy', 'dummy')
+        Axios({ url: login_path + "/role/updateRole", data: data, method: 'POST', headers: { "Authorization": authStr } })
+          .then(resp => {
+            window.console.log(resp, 'response')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    getUserDetails({commit},data) {
-      window.console.log('token data',data)
+    getUserDetails({ commit }, data) {
+      window.console.log('token data', data)
       let authStr = 'Bearer ' + localStorage.getItem('token')
-      
+
       return new Promise((resolve, reject) => {
-        Axios({url:login_path+"/jwt/getUserDetails",data:data,method:'POST',headers: {"Authorization" : authStr}})
-        .then(resp => {
-          window.console.log(resp.data.role,'response')
-          commit('setUserDetails',resp.data)
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+        Axios({ url: login_path + "/jwt/getUserDetails", data: data, method: 'POST', headers: { "Authorization": authStr } })
+          .then(resp => {
+            window.console.log(resp.data.role, 'response')
+            commit('setUserDetails', resp.data)
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendUserDetails({commit},data) {
-      window.console.log('details data',data)
-      return new Promise((resolve,reject)=> {
-        Axios({url: base_path+"/user/addUser",data:data,method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+    sendUserDetails({ commit }, data) {
+      window.console.log('details data', data)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/user/addUser", data: data, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp, 'response login------')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendModeratorDetails({commit},data) {
-      window.console.log('details data',data)
-      return new Promise((resolve,reject)=> {
-        Axios({url: base_path+"/moderator/addModerator",data:data,method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+    sendModeratorDetails({ commit }, data) {
+      window.console.log('details data', data)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/moderator/addModerator", data: data, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
 
     },
 
-    createOrg({commit},data) {
-      const newData ={
+    createOrg({ commit }, data) {
+      const newData = {
         organizationName: data.organizationName,
-          organizationEmail: data.organizationEmail,
-          oranizationImage: data.oranizationImage,
+        organizationEmail: data.organizationEmail,
+        oranizationImage: data.oranizationImage,
       }
-      window.console.log('org details',newData)
-      return new Promise((resolve,reject)=> {
-        Axios({url:base_path+"/organiaztion/addOrganization/"+data.id ,data:newData, method:'POST'})
-        .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDummy','dummy')
-          resolve(resp)
-        })
-        .catch(err => {
-          reject(err)
-        })
+      window.console.log('org details', newData)
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/organiaztion/addOrganization/" + data.id, data: newData, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDummy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
-    sendCategory({commit},data) {
-
-      
-      window.console.log('data==========>',data.cat)
-      window.console.log('id-------->',data.id)
-
-      const data1={
-        'categoryList':data.cat
+    sendCategory({ commit }, data) {
+      const data1 = {
+        'categoryList': data.cat
       }
-
-      
-      return new Promise((resolve,reject) => {
-        Axios({url:base_path+"/user/addCategories/"+data.id,data:data1,method:'POST'})
+      return new Promise((resolve, reject) => {
+        Axios({ url: base_path + "/user/addCategories/" + data.id, data: data1, method: 'POST' })
+          .then(resp => {
+            window.console.log(resp.data, 'response')
+            commit('setDunmmy', 'dummy')
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+  
+  showAds({ commit }) {
+    let authStr = 'Bearer ' + localStorage.getItem('token')
+    return new Promise((resolve, reject) => {
+      Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
         .then(resp => {
-          window.console.log(resp.data,'response')
-          commit('setDunmmy','dummy')
+          window.console.log(resp.data, 'response')
+          commit('setAds', resp.data)
           resolve(resp)
         })
         .catch(err => {
           reject(err)
         })
+    })
+  },
+  getSearchUserResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchUser",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchUser',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  getSearchOrganizationResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchOrganization",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchOrganization',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  getSearchQuestionResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchQuestion",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchQuestion',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  sendTagsToAnalytics({commit},data) {
+    // let authStr = 'Bearer ' + localStorage.getItem('token')
+    window.console.log(data,'analytics data ----jvnfjnv----')
+    return new Promise((resolve,reject) => {
+      Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
       })
-    }
-  },    
+      .catch(err => {
+        reject(err)
+      })
+    })
+  },
+  afterLoginAnalytics ({commit},data) {
+    // let authStr = 'Bearer ' + localStorage.getItem('token')
+    window.console.log(data,'analytics data login----jvnfjnv----')
+    return new Promise((resolve,reject) => {
+      Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
+      })
+      .catch(err => {
+        reject(err)
+      })
+    })
+  },
+  logout({ commit },data) {
+    return new Promise((resolve) => {
+      window.console.log("inside logout")
+      commit('logout')
+      Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
+      })
+      // localStorage.removeItem('token')
+      // localStorage.removeItem('userId')
+      delete Axios.defaults.headers.common['Authorization']
+      resolve()
+    })
+  },
+  
+},
 
   getters: {
-    getLandingQuestion(state) {
-      window.console.log("getter from store",state.landingQuestions)
-      return state.landingQuestions || {}
-    },
+  getLandingQuestion(state) {
+    window.console.log("getter from store", state.landingQuestions)
+    return state.landingQuestions || {}
+  },
 
-    questionDetails(state) {
-      return state.questionDetail || {}
-    },
+  questionDetails(state) {
+    return state.questionDetail || {}
+  },
 
-    getUserDetails(state) {
-      return state.userDetails || {}
-    },
+  getUserDetails(state) {
+    return state.userDetails || {}
+  },
 
-    getOrganizationDetails(state) {
-      return state.organizationDetails || {}
-    },
+  getOrganizationDetails(state) {
+    return state.organizationDetails || {}
+  },
 
-    getApproveUserDetails(state) {
-      return state.approveUserDetails || {}
-    },
+  getApproveUserDetails(state) {
+    return state.approveUserDetails || {}
+  },
 
-    getApproveQuestionDetails(state) {
-      return state.approveQuestionDetails || {}
-    },
+  getApproveQuestionDetails(state) {
+    return state.approveQuestionDetails || {}
+  },
 
-    getQuestionDetails(state) {
-      return state.questionDetailsById || {}
-    },
-    
-    getUserInfo(state) {
-      return state.UserDetails || {}
-    }
+  getQuestionDetails(state) {
+    return state.questionDetailsById || {}
+  },
+
+  getUserInfo(state) {
+    return state.UserDetails || {}
+  },
+  getAds(state) {
+    return state.ads || {}
+  },
+  isLoggedIn: state => {return state.token},
+  authStatus: state => state.status,
+  getSearchQuestion(state) {
+    return state.searchQuestion
+  },
+  getSearchOrganization(state) {
+    return state.searchOrganization
+  },
+  getSearchUser(state) {
+    return state.searchUser
   }
+}
 })

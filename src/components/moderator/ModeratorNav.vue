@@ -24,9 +24,10 @@
       </li>
       <div class="divider" />
       <li>
-        <button class="logout">
+
+        <v-btn v-if="isLoggedIn" class="logout" @click="doLogout()"> 
           <b class="white">LogOut</b>
-        </button>
+        </v-btn>
       </li>
     </ul>
     <!-- </nav> -->
@@ -34,16 +35,26 @@
 </template>
 
 <script>
-
+import {mapGetters} from 'vuex'
 export default {
   data() {
     return {
     };
   },
   computed: {
+     ...mapGetters(['isLoggedIn']),
    
   },
   methods: {
+    doLogout: function() {
+      window.console.log(localStorage.getItem("token"), "token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      window.console.log(localStorage.getItem("token"), "token");
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
     
   }
 };

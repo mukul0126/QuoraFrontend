@@ -97,18 +97,18 @@ export default {
           selectedTagCommon.push(this.tag[i]);
         }
 
-        // this.$store.dispatch('sendCategory',this.selectedCategory)
-        // .then(()=> {
            await this.$store.dispatch('getUserDetails',{"token":localStorage.getItem('token'),"provider":2})
 
-          // let data={
-          //   channel:'quora',
-          //   category:'',
-          //   tag:this.selectedTagCommon,
-          //   action:'login',
-          //   userId:this.getUserInfo.id.toString()
-          // }
-        // })
+
+          let analyticsData={
+                userId:this.getUserInfo.id,
+                action:'register',
+                appId:'quora',
+                // subjectId:this.getUserInfo.name,
+                tag:selectedTagCommon,
+
+          }
+
         window.console.log(this.getUserInfo.id,'idddd')
 
         let data={
@@ -116,13 +116,14 @@ export default {
           id:this.getUserInfo.id
         }
 
+          await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
+          window.console.log('sending to anlytics------->')
           this.$store.dispatch('sendCategory',data)
           .then(()=> {
             this.$router.push('/landing')
           })
         window.console.log("cat", selectedTagCommon);
-        // window.console.log("cat dto",data)
-        // this.$router.push('/landing')
+       
       }
     }
   }

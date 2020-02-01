@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -46,14 +47,19 @@ const routes = [
     component: () => import('../views/SelectRole.vue')
   },
   {
-    path: '/profile',
+    path: '/profile/:userId',
     name: 'profile',
     component: () => import('../views/UserProfile.vue')
   },
   {
-    path: '/organizationProfile',
+    path: '/organizationProfile/:organizationId',
     name: 'organizationprofile',
     component: () => import('../views/OrganizationProfile.vue')
+  },
+  {
+    path: '/searchresults',
+    name: 'searchresults',
+    component: () => import('../views/SearchResults.vue')
   },
   {
     path: '/moderator',
@@ -76,7 +82,7 @@ const routes = [
         component: () => import('../views/moderator/ModeratorApproveAnswer.vue')
       }
     ]
-  }
+  },
 ]
 
 const router = new VueRouter({
