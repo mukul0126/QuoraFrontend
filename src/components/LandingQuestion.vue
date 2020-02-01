@@ -4,7 +4,7 @@
       <div class="click-question">
         <h4>QUESTION</h4>
         <h5>{{item.questionBody}}</h5>
-        <v-btn class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
+        <v-btn style="margin-left:80%" class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
       </div>
     </div>
   </div>
