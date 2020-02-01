@@ -2,7 +2,6 @@
   <div class="login" style="margin-top:40px">
     <div class="quora-text"><h1><b>QUORA 2.0</b></h1></div>
     <form>
-      
       <v-text-field
         v-model="email"
         :error-messages="emailErrors"
@@ -22,7 +21,7 @@
       ></v-text-field>
 
       <v-btn class="mr-4" id="submit" @click="submit()">submit</v-btn>
-      <br>
+      <br />
       <v-btn class="register" @click="register()">Don't have Account ?</v-btn>
       <!-- <v-btn @click="clear">clear</v-btn> -->
     </form>
@@ -46,7 +45,7 @@ export default {
       register() {
           this.$router.push('/register')
       },
-    submit() {
+    async submit() {
       let data = {
         email: this.email,
         password: this.password,
@@ -68,6 +67,7 @@ export default {
                  }
 
                     window.console.log('userdet 2',details)
+                    localStorage.setItem('userId',this.getUserInfo.id)
                 this.$store.dispatch('sendUserDetails',details)
                 
                 window.console.log('printing role',this.getUserInfo)
@@ -75,9 +75,24 @@ export default {
                 {
                     this.$router.push('/selectrole')
                 }
+                else if(this.getUserInfo.role==="moderator")
+                {
+                  this.$router.push('/moderator')
+                }
                 else
                 {
-                    this.$router.push('/landing')
+                    let dataa={
+                      targetId:'',
+                      action:"login",
+                      appId:'quora',
+                      userId:localStorage.getItem('userId'),
+                      targetEntity:'',
+                       tag:''
+                    }
+                    this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
+                       this.$router.push('/landing')
+                    })
+                   
                 }
             })
             

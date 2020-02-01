@@ -1,10 +1,10 @@
 <template>
   <div id="item-cards" class="flex">
-    <div class="repeat" v-for="(item,index) in question.data" :key="index">
+    <div class="repeat" v-for="(item,index) in question" :key="index">
       <div class="click-question">
         <h4>QUESTION</h4>
         <h5>{{item.questionBody}}</h5>
-        <v-btn style="margin-left:80%" class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
+        <v-btn class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
       </div>
     </div>
   </div>
@@ -12,10 +12,12 @@
 
 <script>
 export default {
-  name: "landingquestion",
+  name: "searchquestion",
   methods: {
     viewQuestion(questionId) {
-      this.$router.push("/viewquestion/" + questionId);
+      window.console.log('ques id',questionId)
+      this.$router.push({name:'viewquestion',params:{questionId:questionId}})
+      // this.$router.push("/viewquestion/" + questionId);
     }
   },
   props: ["question"]
@@ -23,11 +25,7 @@ export default {
 </script>
 
 <style>
-.flex {
-  justify-content: center;
-}
 .click-question {
-  /* justify-content: center; */
   border: 3px solid black;
   margin-left: 350px;
   margin-right: 350px;

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -64,6 +65,11 @@ const routes = [
     path: '/myprofile',
     name: 'myprofile',
     component: () => import('../views/MyProfile.vue')
+  }, 
+  {
+    path: '/searchresults',
+    name: 'searchresults',
+    component: () => import('../views/SearchResults.vue')
   },
   {
     path: '/moderator',
@@ -86,7 +92,7 @@ const routes = [
         component: () => import('../views/moderator/ModeratorApproveAnswer.vue')
       }
     ]
-  }
+  },
 ]
 
 const router = new VueRouter({

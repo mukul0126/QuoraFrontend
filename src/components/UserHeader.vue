@@ -6,17 +6,26 @@
           <v-btn icon @click="openProfile">
             <v-icon>mdi-account-circle</v-icon>
           </v-btn>
-          <v-toolbar-title class="title">
-            <router-link class="landing-link" to="/landing">QUORA</router-link>
-          </v-toolbar-title>
+          <v-toolbar-title class="title">QUORA</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-col cols="12" sm="6" md="3">
-            <v-text-field label="Solo" placeholder="Search" solo class="search"></v-text-field>
+            <v-text-field
+              v-model="searchQuery"
+              label="Solo"
+              placeholder="Placeholder"
+              solo
+              class="search"
+            ></v-text-field>
           </v-col>
-          <v-btn icon class="search-btn">
+          <v-btn @click="displaySearchResults()" class="search-btn">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
+          <span />
           <AddUserQuestion></AddUserQuestion>
+
+          <v-btn v-if="isLoggedIn" class="logout" @click="doLogout()">
+            <b class="white">LogOut</b>
+          </v-btn>
         </v-toolbar>
       </v-card>
     </v-app>
@@ -24,17 +33,28 @@
 </template>
 <script>
 import AddUserQuestion from "@/components/AddUserQuestion.vue";
-// import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      searchText: ""
+      searchText: "",
+      searchQuery: ""
     };
   },
   components: {
     AddUserQuestion
   },
   methods: {
+    async displaySearchResults() {
+      let data = {
+        searchTerm: this.searchQuery
+      };
+      window.console.log(this.searchQuery, "searchs");
+      await this.$store.dispatch("getSearchUserResults", data);
+      await this.$store.dispatch("getSearchOrganizationResults", data);
+      await this.$store.dispatch("getSearchQuestionResults", data);
+      this.$router.push("/searchresults");
+    },
     search(e) {
       if (this.$route.path.match("searchresults")) {
         this.$store.dispatch("getResults", this.searchText);
@@ -46,6 +66,24 @@ export default {
         }
       }
     },
+    doLogout: function() {
+      window.console.log(localStorage.getItem("token"), "token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      window.console.log(localStorage.getItem("token"), "token");
+
+      let dataa = {
+        targetId: "",
+        action: "logout",
+        appId: "quora",
+        userId: localStorage.getItem("userId"),
+        targetEntity: "",
+        tag: ""
+      };
+      this.$store.dispatch("logout", dataa).then(() => {
+        this.$router.push("/login");
+      });
+    },
     openProfile() {
       // let userId= localStorage.getItem("userId")
       // let currPrivateFlag=false;
@@ -54,6 +92,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["isLoggedIn"])
     //     loggedIn() {
     //        let userLoggedIn = localStorage.getItem("user_access_token")
     //       return userLoggedIn;
@@ -107,6 +146,7 @@ a:visited {
   left: 35%;
 }
 .search-btn {
+  margin-left: -60px;
   position: absolute;
   left: 75%;
 }

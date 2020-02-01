@@ -21,10 +21,9 @@ export default {
     OrganizationDescription
   },
   created() {
-    this.$store.dispatch(
-      "getOrganizationProfileDetails",
-      this.$route.params.organizationId
-    );
+    
+    let organizationId = this.$route.params.organizationId
+    this.$store.dispatch("getOrganizationProfileDetails",organizationId)
   },
   computed: {
     ...mapGetters(["getOrganizationDetails"])

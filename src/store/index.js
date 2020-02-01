@@ -5,6 +5,8 @@ import Axios from 'axios'
 Vue.use(Vuex)
 const login_path = 'http://172.16.20.32:8080'
 const base_path = 'http://172.16.20.46:8086'
+const search_path ='http://172.16.20.149:8080'
+const analytics_path = 'http://172.16.20.33:8080'
 export default new Vuex.Store({
   state: {
     landingQuestions: {},
@@ -18,7 +20,14 @@ export default new Vuex.Store({
     token: localStorage.getItem('token') || '',
     status: '',
     UserDetails: {},
-    dummy: ''
+    dummy: '',
+    ads: '',
+    user:{},
+    searchUser:[],
+    searchOrganization:[],
+    searchQuestion:[]
+
+
 
   },
 
@@ -71,7 +80,20 @@ export default new Vuex.Store({
     },
     setDummy(state, dummy) {
       state.dummy = dummy
+    },
+    setAds(state, ads) {
+      state.ads = ads
+    },
+    setSearchUser(state,searchUser) {
+      state.searchUser=searchUser
+    },
+    setSearchQuestion(state,searchQuestion) {
+      state.searchQuestion=searchQuestion
+    },
+    setSearchOrganization(state,searchOrganization) {
+      state.searchOrganization=searchOrganization
     }
+    
 
   },
 
@@ -499,46 +521,166 @@ export default new Vuex.Store({
         .catch(error => {
           window.console.log(error)
         })
-    }
+    },
+  
+  showAds({ commit }) {
+    let authStr = 'Bearer ' + localStorage.getItem('token')
+    return new Promise((resolve, reject) => {
+      Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
+        .then(resp => {
+          window.console.log(resp.data, 'response')
+          commit('setAds', resp.data)
+          resolve(resp)
+        })
+        .catch(error => {
+          window.console.log(error)
+          reject(error)
+        })
+    })
   },
+  getSearchUserResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchUser",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchUser',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  getSearchOrganizationResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchOrganization",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchOrganization',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  getSearchQuestionResults({commit},data) {
+    window.console.log(data,'user')
+    return new Promise((resolve,reject) => {
+      Axios({url : search_path+"/search/searchQuestion",data:data,method:'POST'})
+    .then(resp => {
+      window.console.log(resp.data,'response')
+      commit('setSearchQuestion',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+    })
+    
+  },
+  sendTagsToAnalytics({commit},data) {
+    // let authStr = 'Bearer ' + localStorage.getItem('token')
+    window.console.log(data,'analytics data ----jvnfjnv----')
+    return new Promise((resolve,reject) => {
+      Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
+      })
+      .catch(err => {
+        reject(err)
+      })
+    })
+  },
+  afterLoginAnalytics ({commit},data) {
+    // let authStr = 'Bearer ' + localStorage.getItem('token')
+    window.console.log(data,'analytics data login----jvnfjnv----')
+    return new Promise((resolve,reject) => {
+      Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
+      })
+      .catch(err => {
+        reject(err)
+      })
+    })
+  },
+  logout({ commit },data) {
+    return new Promise((resolve) => {
+      window.console.log("inside logout")
+      commit('logout')
+      Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
+      .then(resp => {
+        window.console.log(resp.data,'response')
+        commit('setDunmmy', 'dummy')
+        resolve(resp)
+      })
+      // localStorage.removeItem('token')
+      // localStorage.removeItem('userId')
+      delete Axios.defaults.headers.common['Authorization']
+      resolve()
+    })
+  },
+  
+},
 
   getters: {
+  getLandingQuestion(state) {
+    window.console.log("getter from store", state.landingQuestions)
+    return state.landingQuestions || {}
+  },
 
-    getLandingQuestion(state) {
-      window.console.log("getter from store", state.landingQuestions)
-      return state.landingQuestions || {}
-    },
+  questionDetails(state) {
+    return state.questionDetail || {}
+  },
 
-    questionDetails(state) {
-      return state.questionDetail || {}
-    },
+  getUserDetails(state) {
+    return state.userDetails || {}
+  },
 
-    getUserDetails(state) {
-      return state.userDetails || {}
-    },
+  getOrganizationDetails(state) {
+    return state.organizationDetails || {}
+  },
 
-    getOrganizationDetails(state) {
-      return state.organizationDetails || {}
-    },
+  getApproveUserDetails(state) {
+    return state.approveUserDetails || {}
+  },
 
-    getApproveUserDetails(state) {
-      return state.approveUserDetails || {}
-    },
+  getApproveQuestionDetails(state) {
+    return state.approveQuestionDetails || {}
+  },
 
-    getApproveQuestionDetails(state) {
-      return state.approveQuestionDetails || {}
-    },
+  getQuestionDetails(state) {
+    return state.questionDetailsById || {}
+  },
 
-    getQuestionDetails(state) {
-      return state.questionDetailsById || {}
-    },
-
-    getUserInfo(state) {
-      return state.UserDetails || {}
-    },
-
-    getApproveAnswerDetails(state) {
-      return state.approveAnswerDetails || {}
-    }
+  getUserInfo(state) {
+    return state.UserDetails || {}
+  },
+  getApproveAnswerDetails(state) {
+    return state.approveAnswerDetails || {}
+  },
+  getAds(state) {
+    return state.ads || {}
+  },
+  isLoggedIn: state => {return state.token},
+  authStatus: state => state.status,
+  getSearchQuestion(state) {
+    return state.searchQuestion
+  },
+  getSearchOrganization(state) {
+    return state.searchOrganization
+  },
+  getSearchUser(state) {
+    return state.searchUser
   }
+}
 })

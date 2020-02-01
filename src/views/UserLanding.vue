@@ -7,10 +7,18 @@
     >
       <LandingQuestion :question="getLandingQuestion" />
     </div>
-    <div class="sidenav"></div>
-    <!-- <div class="footer">
+     <!-- {{getAds}} -->
+    
+   
+    <div class="sidenav">
+      <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
+        <a :href="item.targetUrl">
+        <img v-bind:src="item.imageUrl" style="height:100px;width:100px"></a>
+      </div>
+    </div> 
+     <!-- <div class="footer">
       <p>Footer</p>
-    </div>-->
+    </div> -->
   </div>
 </template>
 
@@ -32,16 +40,24 @@ export default {
   created() {
     localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
     localStorage.setItem("moderatorId", "5e314e2583f84b7add06ec3e");
+   
     this.$store.dispatch("viewLandingQuestion");
+    this.$store.dispatch("showAds");
   },
   methods: {
     dialogValue() {
       this.dialog = true;
-    }
+    },
+    openProfile() {
+      this.$router.push("/profile");
+    },
+    
+    
   },
 
   computed: {
-    ...mapGetters(["getLandingQuestion"])
+    ...mapGetters(["getLandingQuestion"]),
+    ...mapGetters(["getAds"])
   }
 };
 </script>
