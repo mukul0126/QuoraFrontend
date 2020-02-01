@@ -12,9 +12,10 @@
           <v-list-item-title class="headline mb-1">NAME: {{getOrganizationDetails.data.organizationName}}</v-list-item-title>
           <br><br><br>
           <div class="follower">
-              <span class="border">Followers: {{getOrganizationDetails.data.organizationFollowers.length}} </span>
+              <span class="border">Followers: {{getOrganizationDetails.data.organizationFollowers}} </span>
           </div>
           <br>
+          <v-list-item-subtitle id="subtitle">E-mail: {{getOrganizationDetails.data.organizationEmail}}</v-list-item-subtitle> <br>
           <v-list-item-subtitle id="subtitle">Members: {{getOrganizationDetails.data.organizationMembers}}</v-list-item-subtitle>
         </v-list-item-content>
   
@@ -30,8 +31,8 @@
         </v-list-item-avatar>
       </v-list-item>
       <v-card-actions>
-        <v-btn text class="follow-button">Follow</v-btn>
-        <v-btn text class="join-button">Join</v-btn>
+        <v-btn text class="follow-button" @click.once="sendFollowRequest">Follow</v-btn>
+        <v-btn text class="join-button" @click.once="sendJoinRequest">Join</v-btn>
       </v-card-actions>
     </v-card>
   </v-app>
@@ -43,6 +44,16 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters(["getOrganizationDetails"])
+  },
+
+  methods: {
+    sendFollowRequest() {
+        this.$store.dispatch("sendOrganizationFollowRequest",this.$route.params.organizationId)
+    },
+
+    sendJoinRequest() {
+      this.$store.dispatch("sendJoinRequest",this.$route.params.organizationId)
+    }
   }
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div class="questionapproval">
-    <div v-for="(item,index) in getApproveQuestionDetails.data.questionList" :key="index">
+    <div v-for="(item,index) in getApproveAnswerDetails.data.listOfAnswerIds" :key="index">
     <v-card class="mx-auto" max-width="644" id="question-approval">
       <v-card-text>
-        <p>{{item.questionBody}}</p>
+        <p>{{item.answerBody}}</p>
         <div class="text--primary">
-          <button class="like" @click="approveQuestionById(item.questionId)">
+          <button class="like" @click="approveAnswerById(item.answerId)">
             <i class="approve" aria-hidden="true">&#10004;</i>
           </button>
-          <button class="dislike" @click="disapproveQuestionById(item.questionId)">
+          <button class="dislike" @click="disapproveAnswerById(item.answerId)">
             <i class="reject" aria-hidden="true">&#10008;</i>
           </button>
         </div>
@@ -20,23 +20,23 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  name: "questionapproval",
+  name: "moderatoranswerapproval",
   created() {
     let moderatorId=localStorage.getItem("moderatorId")
-    this.$store.dispatch("approveQuestion",moderatorId)
+    this.$store.dispatch("approveAnswer",moderatorId)
   },
   methods: {
-    approveQuestionById(questionId) {
+    approveAnswerById(answerId) {
       // let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("approveQuestionId",questionId)
+      this.$store.dispatch("approveAnswerId",answerId)
     },
-    disapproveQuestionById(questionId){
+    disapproveAnswerById(questionId){
       // let moderatorId=localStorage.getItem("moderatorId")
-      this.$store.dispatch("disapproveQuestionId",questionId)
+      this.$store.dispatch("disapproveAnswerId",questionId)
     }
   },
   computed: {
-    ...mapGetters(['getApproveQuestionDetails'])
+    ...mapGetters(['getApproveAnswerDetails'])
   }
 };
 </script>

@@ -24,9 +24,6 @@
             />
           </v-list-item-avatar>
         </v-list-item>
-        <v-card-actions>
-          <v-btn v-if="userCheck==true" text class="follow-button" @click.once="followUser">Follow</v-btn>
-        </v-card-actions>
       </v-card>
     </v-app>
   </div>

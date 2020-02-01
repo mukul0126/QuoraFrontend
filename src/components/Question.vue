@@ -4,52 +4,75 @@
       <v-card-text v-if="questionDetails">
         <div>
           <v-avatar color="indigo" size="36">
-            <v-icon dark @click="openProfile(questionDetails.userId)">mdi-account-circle</v-icon>
+            <v-icon dark @click="openProfile(questionDetails.userId,questionDetails.approvalFlag)">mdi-account-circle</v-icon>
           </v-avatar>
           <v-avatar color="indigo" size="36" style="float:right">
-            <v-icon dark @click="openOrganizationProfile">mdi-account-circle</v-icon> 
+            <v-icon dark @click="openOrganizationProfile(questionDetails.orgId)">mdi-account-circle</v-icon>
           </v-avatar>
         </div>
         <p>{{questionDetails.questionBody}}</p>
         <div class="text--primary">
-          like: {{questionDetails.likeCount}}
-          <button class="like" @click="likeQuestion(questionDetails.questionId)"> 
+          like-> {{questionDetails.likeCount}}
+          <button
+            class="like"
+            @click.once="likeQuestion(questionDetails.questionId,questionDetails.userId,questionDetails.categoryId)"
+          >
             <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
           </button>
-          dislike: {{questionDetails.dislikeCount}}
-          <button class="dislike" @click="dislikeQuestion(questionDetails.questionId)">
+          dislike-> {{questionDetails.dislikeCount}}
+          <button
+            class="dislike"
+            @click.once="dislikeQuestion(questionDetails.questionId,questionDetails.userId,questionDetails.categoryId)"
+          >
             <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
           </button>
         </div>
       </v-card-text>
-      <!-- <v-card-actions>
-        <v-btn text color="deep-purple accent-4">View More</v-btn>
-      </v-card-actions> -->
     </v-card>
   </div>
 </template>
+
 <script>
-// import { mapGetters } from 'vuex'
 export default {
   name: "question",
   data() {
     return {
       // myProfile:false;
-    }
+    };
   },
   methods: {
-    openProfile(userId) {
-      window.console.log(userId);
-      this.$router.push("/profile")
+    openProfile(userId,currPrivateFlag) {
+      // this.$router.push({path: "profile",  params: {profileDetails: profileDetails}});
+      this.$router.push("/profile/" + userId + "/" +currPrivateFlag)
     },
-    openOrganizationProfile() {
-      this.$router.push("/organizationProfile")
+    openOrganizationProfile(organizationId) {
+      this.$router.push("/organizationProfile/" + organizationId);
     },
-    likeQuestion(questionId) {
-      this.$store.dispatch("likeQuestion",questionId)
+
+    likeQuestion(questionId,userid,catId) {
+      this.$store.dispatch("likeQuestion", questionId);
+      let analytic= {
+        targetId :userid,
+        action:"like",
+        appId:"quora",
+        userId:localStorage.getItem("userId"),
+        targetEntity:"post",
+        tag: catId
+      }
+      this.$store.dispatch("sentToAnalytics",analytic)
     },
-    dislikeQuestion(questionId) {
-      this.$store.dispatch("dislikeQuestion", questionId)
+
+    dislikeQuestion(questionId,userid,catId) {
+      this.$store.dispatch("dislikeQuestion", questionId);
+      let analytic= {
+        targetId :userid,
+        action:"dislike",
+        appId:"quora",
+        userId:localStorage.getItem("userId"),
+        targetEntity:"post",
+        tag: catId
+      }
+      this.$store.dispatch("sentToAnalytics",analytic)
     }
   },
   props: ["questionDetails"]

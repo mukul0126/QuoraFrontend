@@ -60,14 +60,14 @@ export default {
             .then(()=> {
 
 
-                // let details={
-                //      userId:this.getUserInfo.id.toString(),
-                //     userEmail:this.getUserInfo.email,
-                //     userName:this.getUserInfo.name
-                //  }
+                let details={
+                     userId:this.getUserInfo.id.toString(),
+                    userEmail:this.getUserInfo.email,
+                    userName:this.getUserInfo.name
+                 }
 
-                //     window.console.log('userdet 2',details)
-                // this.$store.dispatch('sendUserDetails',details)
+                    window.console.log('userdet 2',details)
+                this.$store.dispatch('sendUserDetails',details)
                 
                 window.console.log('printing role',this.getUserInfo)
                 if(this.getUserInfo.role===null)

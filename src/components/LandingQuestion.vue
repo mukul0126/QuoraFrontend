@@ -39,4 +39,5 @@ export default {
 .view-button {
   background-color: red;
 }
+
 </style>

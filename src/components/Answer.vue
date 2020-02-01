@@ -3,18 +3,16 @@
     <div class="repeat" v-for="(item,index) in questionDetails" :key="index">
     <v-card class="mx-auto" max-width="640">
       <v-card-text>
-        <!-- <p class="display-1" style="">What should every foreigner know about your country in terms of food, tourist destinations, demography, best time to visit, and USP of your country?</p> -->
         <p>{{item.answerBody}}</p>
         <div class="text--primary">
-          like: {{item.likeCount}}
-          <button class="like" @click="likeAnswer(item.answerId)">
+          like-> {{item.likeCount}}
+          <button class="like" @click.once="likeAnswer(item.answerId)">
             <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
           </button>
-          dislike: {{item.dislikeCount}}
-          <button class="dislike" @click="dislikeAnswer(item.answerId)">
+          dislike-> {{item.dislikeCount}}
+          <button class="dislike" @click.once="dislikeAnswer(item.answerId)">
             <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
           </button>
-
           <div class="my-2" style="float:right">
         <v-btn small color="primary" @click="submitAnswer">Comment</v-btn>
       </div>

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     approveUserDetails: {},
     approveQuestionDetails: {},
     questionDetailsById: {},
+    approveAnswerDetails: {},
     token: localStorage.getItem('token') || '',
     status:'',
     UserDetails:{},
@@ -44,6 +45,10 @@ export default new Vuex.Store({
 
     setApproveQuestionDetails(state,data) {
       state.approveQuestionDetails=data;
+    },
+
+    setApproveAnswerDetails(state, data) {
+      state.approveAnswerDetails=data;
     },
 
     setQuestionDetailsById(state,data) {
@@ -152,7 +157,7 @@ export default new Vuex.Store({
     },
 
     approveQuestion({commit}, moderatorId) {
-      Axios.get('http://172.16.20.46:8086/' + moderatorId)
+      Axios.get('http://172.16.20.46:8086/moderator/questionApprovalList/' + moderatorId)
           .then(response => {
             window.console.log("getApproveUserDetails",response)
             commit('setApproveQuestionDetails', response)
@@ -162,8 +167,8 @@ export default new Vuex.Store({
           })
     },
 
-    approveQuestionId(context, data) {
-      Axios.post('http://172.16.20.46:8086/' + data.questionId+ "/" +data.moderatorId)
+    approveQuestionId(context, questionId) {
+      Axios.put('http://172.16.20.107:8085/question/approveQuestionByModerator/' + questionId)
           .then(response => {
             window.console.log("setApproveQuestionDetails",response)
           })
@@ -172,8 +177,39 @@ export default new Vuex.Store({
           })
     },
 
-    disapproveQuestionId(context, data) {
-      Axios.post('http://172.16.20.46:8086' +data.moderatorId)
+    disapproveQuestionId(context, questionId) {
+      Axios.put('http://172.16.20.107:8085/question/disapproveQuestionByModerator/' + questionId)
+          .then(response => {
+            window.console.log("getApproveUserDetails",response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
+    },
+
+    approveAnswer({commit}, moderatorId){
+      Axios.get('http://172.16.20.46:8086/moderator/answeApprovalListy/' + moderatorId)
+          .then(response => {
+            window.console.log("getApproveUserDetails",response)
+            commit('setApproveAnswerDetails', response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
+    },
+
+    approveAnswerId(context, answerId) {
+      Axios.put('http://172.16.20.107:8085/answer/approveAnswerByModerator/' + answerId)
+      .then(response => {
+        window.console.log("setApproveQuestionDetails",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    disapproveAnswerId(context, answerId) {
+      Axios.put('http://172.16.20.107:8085/answer/disapproveAnswerByModerator/' + answerId)
           .then(response => {
             window.console.log("getApproveUserDetails",response)
           })
@@ -259,6 +295,52 @@ export default new Vuex.Store({
       })
     },
 
+    bestAnswer(context, data) {
+      Axios.put('http://172.16.20.107:8085/question/choosingBestAnswer/' + data.questionId + '/' + data.answerId) 
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    // sendUserFollowRequest() {
+
+    // }
+
+    sendOrganizationFollowRequest(context, orgId) {
+      let userId= localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/user/addFollowersToOrganization/' + userId + '/' + orgId) 
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    sendJoinRequest(context, orgId) {
+      let userId= localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/organiaztion/addMember/' + userId + '/' + orgId) 
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
+
+    sendFollowUserRequest(context, followUser) {
+      let userId= localStorage.getItem("userId");
+      Axios.post('http://172.16.20.46:8086/user/addFollowers/' + userId + '/' + followUser) 
+      .then(response => {
+        window.console.log("response to get question details",response)
+      })
+      .catch(error => {
+        window.console.log(error)
+      })
+    },
 
     login({ commit }, data) {
       window.console.log(data)
@@ -274,7 +356,7 @@ export default new Vuex.Store({
             window.console.log(resp)
             const user = resp.data.user
             localStorage.setItem('token', token)
-            // localStorage.setItem('userId',)
+           
             Axios.defaults.headers.common['Authorization'] = token
             commit('auth_success', token, user)
             // commit('setRole',role)
@@ -323,12 +405,12 @@ export default new Vuex.Store({
     getUserDetails({commit},data) {
       window.console.log('token data',data)
       let authStr = 'Bearer ' + localStorage.getItem('token')
-      
       return new Promise((resolve, reject) => {
         Axios({url:login_path+"/jwt/getUserDetails",data:data,method:'POST',headers: {"Authorization" : authStr}})
         .then(resp => {
           window.console.log(resp.data.role,'response')
           commit('setUserDetails',resp.data)
+          localStorage.setItem('userId',resp.data.id)
           resolve(resp)
         })
         .catch(err => {
@@ -389,8 +471,6 @@ export default new Vuex.Store({
     },
 
     sendCategory({commit},data) {
-
-      
       window.console.log('data==========>',data.cat)
       window.console.log('id-------->',data.id)
 
@@ -398,7 +478,6 @@ export default new Vuex.Store({
         'categoryList':data.cat
       }
 
-      
       return new Promise((resolve,reject) => {
         Axios({url:base_path+"/user/addCategories/"+data.id,data:data1,method:'POST'})
         .then(resp => {
@@ -410,10 +489,21 @@ export default new Vuex.Store({
           reject(err)
         })
       })
+    },
+
+    sentToAnalytics(context, data) {
+      Axios.post('http://172.16.20.33:8080/search/save', data)
+          .then(response => {
+            window.console.log("response to get question details",response)
+          })
+          .catch(error => {
+            window.console.log(error)
+          })
     }
   },    
 
   getters: {
+    
     getLandingQuestion(state) {
       window.console.log("getter from store",state.landingQuestions)
       return state.landingQuestions || {}
@@ -445,6 +535,10 @@ export default new Vuex.Store({
     
     getUserInfo(state) {
       return state.UserDetails || {}
+    },
+
+    getApproveAnswerDetails(state) {
+      return state.approveAnswerDetails || {}
     }
   }
 })

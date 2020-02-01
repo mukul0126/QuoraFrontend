@@ -3,21 +3,21 @@
     <ModeratorHeader></ModeratorHeader>
     <ModeratorNav></ModeratorNav>
     <router-view></router-view>
-    <ModeratorFooter></ModeratorFooter>
+    <!-- <ModeratorFooter></ModeratorFooter> -->
   </div>
 </template>
 
 <script>
 import ModeratorNav from "@/components/moderator/ModeratorNav.vue";
 import ModeratorHeader from "@/components/moderator/ModeratorHeader.vue";
-import ModeratorFooter from "../../components/moderator/ModeratorFooter.vue";
+// import ModeratorFooter from "../../components/moderator/ModeratorFooter.vue";
 
 export default {
   name: "Moderator",
   components: {
     ModeratorHeader,
     ModeratorNav,
-    ModeratorFooter
+    // ModeratorFooter
   }
 };
 </script>

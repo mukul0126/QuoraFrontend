@@ -1,18 +1,18 @@
 <template>
 <v-app>
 <div class="approve-answer">
-    <answerApproval/>
+    <AnswerApproval/>
 </div>
 </v-app>
 </template>
 
 
 <script>
-import answerApproval from "@/components/Answerapproval.vue";
+import AnswerApproval from "@/components/moderatorAnsApproval.vue";
 
 export default {
     components: {
-        answerApproval
+        AnswerApproval
     }
 }
 </script>

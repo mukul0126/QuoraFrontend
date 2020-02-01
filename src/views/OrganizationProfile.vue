@@ -21,8 +21,7 @@ export default {
     OrganizationDescription
   },
   created() {
-    let organizationId = localStorage.getItem("organizationId")
-    this.$store.dispatch("getOrganizationProfileDetails",organizationId)
+    this.$store.dispatch("getOrganizationProfileDetails",this.$route.params.organizationId)
   },
   computed: {
     ...mapGetters(["getOrganizationDetails"])

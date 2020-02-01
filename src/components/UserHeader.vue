@@ -10,7 +10,7 @@
          <v-btn icon @click="openProfile">
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
-        <v-toolbar-title class="title">QUORA</v-toolbar-title>
+        <v-toolbar-title class="title"><router-link class="landing-link" to="/landing">QUORA</router-link></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-col cols="12" sm="6" md="3">
             <v-text-field
@@ -55,14 +55,10 @@ export default {
       }
     },
     openProfile() {
-        this.$router.push("/profile");
-    //   window.console.log('User Icon Click', localStorage.getItem("user_access_token"))
-    //   if (localStorage.getItem("user_access_token")) {
-    //     window.console.log('weor')
-    //     this.$router.push("/myprofile");
-    //   } else {
-    //     this.$router.push("/user");
-    //   }
+        // let userId= localStorage.getItem("userId")
+        // let currPrivateFlag=false;
+        // this.$router.push("/profile/" + userId + "/" + currPrivateFlag);
+         this.$router.push("/myprofile");
     }
   },
   computed: {
@@ -124,5 +120,11 @@ a:visited {
 }
 .header {
   height: 51px;
+}
+.landing-link{
+  color:black;
+}
+.landing-link:visited{
+  color: black;
 }
 </style>

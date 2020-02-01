@@ -46,14 +46,24 @@ const routes = [
     component: () => import('../views/SelectRole.vue')
   },
   {
-    path: '/profile',
+    path: '/profile/:userId/:approvalFlag',
     name: 'profile',
     component: () => import('../views/UserProfile.vue')
   },
   {
-    path: '/organizationProfile',
+    path: '/userapproveanswer/:questionIdToApprove',
+    name: 'userapproveanswer',
+    component: () => import('../views/UserApproval.vue')
+  },
+  {
+    path: '/organizationProfile/:organizationId',
     name: 'organizationprofile',
     component: () => import('../views/OrganizationProfile.vue')
+  },
+  {
+    path: '/myprofile',
+    name: 'myprofile',
+    component: () => import('../views/MyProfile.vue')
   },
   {
     path: '/moderator',

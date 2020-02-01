@@ -1,6 +1,6 @@
 <template>
   <div id="profile-feed">
-    <div class="profile-feed-container" v-if="flag == 'false'">
+    <div class="profile-feed-container">
       <v-app id="profilefeed">
         <v-card class="mx-auto" outlined id="feed-card">
           <div class="feed-card" v-for="(item,index) in userDetails.data.questionList" :key="index">
@@ -14,7 +14,7 @@
               </v-list-item-content>
             </v-list-item>
             <v-card-actions>
-              <v-btn text @click="viewQuestion(item.questionId)">View</v-btn>
+              <v-btn text @click="acceptBestAnswer(item.questionId)">View</v-btn>
             </v-card-actions>
           </div>
         </v-card>
@@ -27,22 +27,10 @@
 <script>
 export default {
   props: ["userDetails"],
-  data() {
-    return {
-      flag: true
-    };
-  },
   methods: {
-    viewQuestion(questionId) {
-      this.$router.push("/viewquestion/" + questionId);
-    }
-  },
-  mounted() {
-    this.flag = this.$route.params.approvalFlag;
-  },
-  created() {
-    this.flag = this.$route.params.approvalFlag;
-    window.console.log(this.$route.params.approvalFlag);
+      acceptBestAnswer(questionId) {
+          this.$route.push("/userapproveanswer/" + questionId)
+      }
   }
 };
 </script>
