@@ -60,15 +60,11 @@ export default {
             .then(()=> {
 
 
-                let details={
-                     userId:this.getUserInfo.id.toString(),
-                    userEmail:this.getUserInfo.email,
-                    userName:this.getUserInfo.name
-                 }
-
-                    window.console.log('userdet 2',details)
+               
+                  
                     localStorage.setItem('userId',this.getUserInfo.id)
-                this.$store.dispatch('sendUserDetails',details)
+                    localStorage.setItem('userName',this.getUserInfo.name)
+                
                 
                 window.console.log('printing role',this.getUserInfo)
                 if(this.getUserInfo.role===null)
@@ -81,17 +77,20 @@ export default {
                 }
                 else
                 {
-                    let dataa={
-                      targetId:'',
-                      action:"login",
-                      appId:'quora',
-                      userId:localStorage.getItem('userId'),
-                      targetEntity:'',
-                       tag:''
-                    }
-                    this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
+                    // let dataa={
+                    //   targetId:'',
+                    //   action:"login",
+                    //   appId:'quora',
+                    //   userId:localStorage.getItem('userId'),
+                    //   targetEntity:'',
+                    //    tag:''
+                    // }
+                    
                        this.$router.push('/landing')
-                    })
+                    
+                    // this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
+                    //    this.$router.push('/landing')
+                    // })
                    
                 }
             })

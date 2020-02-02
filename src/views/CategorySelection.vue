@@ -1,48 +1,6 @@
 <template>
   <div class="category-selection" style="margin-top:40px">
     <form>
-      <!-- <v-text-field
-        v-model="name"
-        :error-messages="nameErrors"
-        :counter="10"
-        label="Name"
-        required
-        @input="$v.name.$touch()"
-        @blur="$v.name.$touch()"
-      ></v-text-field>
-      <v-text-field
-        v-model="email"
-        :error-messages="emailErrors"
-        label="E-mail"
-        required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
-      ></v-text-field>
-      <v-text-field
-        v-model="email"
-        :error-messages="emailErrors"
-        label="Password"
-        required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
-      ></v-text-field>-->
-      <!-- <v-select
-      v-model="select"
-      :items="items"
-      :error-messages="selectErrors"
-      label="Item"
-      required
-      @change="$v.select.$touch()"
-      @blur="$v.select.$touch()"
-      ></v-select>-->
-      <!-- <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-      ></v-checkbox>-->
       <h3>Select Tags</h3>
       <div class="selection">
         <div style="float:left">
@@ -100,14 +58,14 @@ export default {
            await this.$store.dispatch('getUserDetails',{"token":localStorage.getItem('token'),"provider":2})
 
 
-          let analyticsData={
-                userId:this.getUserInfo.id,
-                action:'register',
-                appId:'quora',
-                // subjectId:this.getUserInfo.name,
-                tag:selectedTagCommon,
+          // let analyticsData={
+          //       userId:this.getUserInfo.id,
+          //       action:'register',
+          //       appId:'quora',
+          //       // subjectId:this.getUserInfo.name,
+          //       tag:selectedTagCommon,
 
-          }
+          // }
 
         window.console.log(this.getUserInfo.id,'idddd')
 
@@ -115,8 +73,16 @@ export default {
           cat:selectedTagCommon,
           id:this.getUserInfo.id
         }
+         let details={
+                     userId:this.getUserInfo.id.toString(),
+                    userEmail:this.getUserInfo.email,
+                    userName:this.getUserInfo.name
+                 }
 
-          await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
+
+        await this.$store.dispatch('sendUserDetails',details)
+
+          // await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
           window.console.log('sending to anlytics------->')
           this.$store.dispatch('sendCategory',data)
           .then(()=> {

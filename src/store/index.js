@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const login_path = 'http://172.16.20.32:8080'
 const base_path = 'http://172.16.20.46:8086'
 const search_path ='http://172.16.20.149:8080'
-const analytics_path = 'http://172.16.20.33:8080'
+// const analytics_path = 'http://172.16.20.33:8080'
+const comment_path = 'http://172.16.20.107:8085'
 export default new Vuex.Store({
   state: {
     landingQuestions: {},
@@ -25,7 +26,9 @@ export default new Vuex.Store({
     user:{},
     searchUser:[],
     searchOrganization:[],
-    searchQuestion:[]
+    searchQuestion:[],
+    answerComment:[],
+    childComment:[]
 
 
 
@@ -92,8 +95,13 @@ export default new Vuex.Store({
     },
     setSearchOrganization(state,searchOrganization) {
       state.searchOrganization=searchOrganization
+    },
+    setCommentsOnAns(state,answerComment) {
+      state.answerComment=answerComment
+    },
+    setChildComment(state,childComment) {
+      state.childComment=childComment
     }
-    
 
   },
 
@@ -396,11 +404,12 @@ export default new Vuex.Store({
       window.console.log('user', user)
       return new Promise((resolve, reject) => {
         // commit('auth_request')
-        commit('setDummy', 'dummy')
+        
         Axios({ url: login_path + "/auth/signup", data: user, method: 'POST' })
           .then(resp => {
             window.console.log(resp, 'response')
             resolve(resp)
+            commit('setDummy', resp)
           })
           .catch(err => {
             reject(err)
@@ -412,11 +421,12 @@ export default new Vuex.Store({
       let authStr = 'Bearer ' + localStorage.getItem('token')
       window.console.log('role data', data)
       return new Promise((resolve, reject) => {
-        commit('setDummy', 'dummy')
+       
         Axios({ url: login_path + "/role/updateRole", data: data, method: 'POST', headers: { "Authorization": authStr } })
           .then(resp => {
             window.console.log(resp, 'response')
             resolve(resp)
+            commit('setDummy', resp)
           })
           .catch(err => {
             reject(err)
@@ -447,7 +457,7 @@ export default new Vuex.Store({
         Axios({ url: base_path + "/user/addUser", data: data, method: 'POST' })
           .then(resp => {
             window.console.log(resp.data, 'response')
-            commit('setDummy', 'dummy')
+            commit('setDummy', resp)
             resolve(resp)
           })
           .catch(err => {
@@ -462,7 +472,7 @@ export default new Vuex.Store({
         Axios({ url: base_path + "/moderator/addModerator", data: data, method: 'POST' })
           .then(resp => {
             window.console.log(resp.data, 'response')
-            commit('setDummy', 'dummy')
+            commit('setDummy', resp)
             resolve(resp)
           })
           .catch(err => {
@@ -483,7 +493,7 @@ export default new Vuex.Store({
         Axios({ url: base_path + "/organiaztion/addOrganization/" + data.id, data: newData, method: 'POST' })
           .then(resp => {
             window.console.log(resp.data, 'response')
-            commit('setDummy', 'dummy')
+            commit('setDummy', resp)
             resolve(resp)
           })
           .catch(err => {
@@ -504,7 +514,7 @@ export default new Vuex.Store({
         Axios({ url: base_path + "/user/addCategories/" + data.id, data: data1, method: 'POST' })
           .then(resp => {
             window.console.log(resp.data, 'response')
-            commit('setDunmmy', 'dummy')
+            commit('setDummy', resp)
             resolve(resp)
           })
           .catch(err => {
@@ -513,31 +523,31 @@ export default new Vuex.Store({
       })
     },
 
-    sentToAnalytics(context, data) {
-      Axios.post('http://172.16.20.33:8080/search/save', data)
-        .then(response => {
-          window.console.log("response to get question details", response)
-        })
-        .catch(error => {
-          window.console.log(error)
-        })
-    },
+    // sentToAnalytics(context, data) {
+    //   Axios.post('http://172.16.20.33:8080/search/save', data)
+    //     .then(response => {
+    //       window.console.log("response to get question details", response)
+    //     })
+    //     .catch(error => {
+    //       window.console.log(error)
+    //     })
+    // },
   
-  showAds({ commit }) {
-    let authStr = 'Bearer ' + localStorage.getItem('token')
-    return new Promise((resolve, reject) => {
-      Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
-        .then(resp => {
-          window.console.log(resp.data, 'response')
-          commit('setAds', resp.data)
-          resolve(resp)
-        })
-        .catch(error => {
-          window.console.log(error)
-          reject(error)
-        })
-    })
-  },
+  // showAds({ commit }) {
+  //   let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   return new Promise((resolve, reject) => {
+  //     Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
+  //       .then(resp => {
+  //         window.console.log(resp.data, 'response')
+  //         commit('setAds', resp.data)
+  //         resolve(resp)
+  //       })
+  //       .catch(error => {
+  //         window.console.log(error)
+  //         reject(error)
+  //       })
+  //   })
+  // },
   getSearchUserResults({commit},data) {
     window.console.log(data,'user')
     return new Promise((resolve,reject) => {
@@ -583,53 +593,88 @@ export default new Vuex.Store({
     })
     
   },
-  sendTagsToAnalytics({commit},data) {
-    // let authStr = 'Bearer ' + localStorage.getItem('token')
-    window.console.log(data,'analytics data ----jvnfjnv----')
-    return new Promise((resolve,reject) => {
-      Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
-      .catch(err => {
-        reject(err)
-      })
-    })
-  },
-  afterLoginAnalytics ({commit},data) {
-    // let authStr = 'Bearer ' + localStorage.getItem('token')
-    window.console.log(data,'analytics data login----jvnfjnv----')
-    return new Promise((resolve,reject) => {
-      Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
-      .catch(err => {
-        reject(err)
-      })
-    })
-  },
-  logout({ commit },data) {
+  // sendTagsToAnalytics({commit},data) {
+  //   // let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   window.console.log(data,'analytics data ----jvnfjnv----')
+  //   return new Promise((resolve,reject) => {
+  //     Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
+  //     .then(resp => {
+  //       window.console.log(resp.data,'response')
+  //       commit('setDummy', resp)
+  //       resolve(resp)
+  //     })
+  //     .catch(err => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
+  // afterLoginAnalytics ({commit},data) {
+  //   // let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   window.console.log(data,'analytics data login----jvnfjnv----')
+  //   return new Promise((resolve,reject) => {
+  //     Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
+  //     .then(resp => {
+  //       window.console.log(resp.data,'response')
+  //       commit('setDummy', resp)
+  //       resolve(resp)
+  //     })
+  //     .catch(err => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
+  logout({ commit }) {
     return new Promise((resolve) => {
       window.console.log("inside logout")
       commit('logout')
-      Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
-      // localStorage.removeItem('token')
-      // localStorage.removeItem('userId')
+      // Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
+      // .then(resp => {
+      //   window.console.log(resp.data,'response')
+      //   commit('setDummy', resp)
+      //   resolve(resp)
+      // })
       delete Axios.defaults.headers.common['Authorization']
       resolve()
     })
   },
-  
+  getComments({commit},data){
+  return new Promise((resolve,reject) => {
+    Axios({url:comment_path+"/comment/getcommentbyanswer/"+data,method:'GET'})
+    .then(resp => {
+      window.console.log(resp.data)
+      commit('setCommentsOnAns',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+},
+viewMoreComments({commit},data){
+  return new Promise((resolve, reject) => {
+    Axios({url:comment_path+"/comment/getcommentbyparent/"+data,method:'GET'})
+    .then(resp => {
+      window.console.log(resp.data)
+      commit('setChildComment',resp.data)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+},
+AddComment({commit},data){
+  return new Promise((resolve,reject) => {
+    Axios({url:comment_path+"/comment/addcomment",data:data,method:'POST'})
+    .then(resp => {
+      commit('setDummy', resp)
+      resolve(resp)
+    })
+    .catch(err => {
+      reject(err)
+    })
+  })
+}
 },
 
   getters: {
@@ -681,6 +726,12 @@ export default new Vuex.Store({
   },
   getSearchUser(state) {
     return state.searchUser
+  },
+  getCommentsAnswer(state) {
+    return state.answerComment
+  },
+  getNestedComment(state) {
+    return state.childComment
   }
 }
 })

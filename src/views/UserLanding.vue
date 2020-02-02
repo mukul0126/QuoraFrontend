@@ -11,10 +11,10 @@
     
    
     <div class="sidenav">
-      <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
+      <!-- <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
         <a :href="item.targetUrl">
         <img v-bind:src="item.imageUrl" style="height:100px;width:100px"></a>
-      </div>
+      </div> -->
     </div> 
      <!-- <div class="footer">
       <p>Footer</p>
@@ -42,7 +42,7 @@ export default {
     localStorage.setItem("moderatorId", "5e314e2583f84b7add06ec3e");
    
     this.$store.dispatch("viewLandingQuestion");
-    this.$store.dispatch("showAds");
+    // this.$store.dispatch("showAds");
   },
   methods: {
     dialogValue() {
@@ -57,7 +57,7 @@ export default {
 
   computed: {
     ...mapGetters(["getLandingQuestion"]),
-    ...mapGetters(["getAds"])
+    // ...mapGetters(["getAds"])
   }
 };
 </script>
