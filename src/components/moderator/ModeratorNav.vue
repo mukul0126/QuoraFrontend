@@ -24,10 +24,11 @@
       </li>
       <div class="divider" />
       <li>
-
-        <v-btn v-if="isLoggedIn" class="logout" color="#b74545" @click="doLogout()"> 
+       <template v-if="isLoggedIn" >
+        <v-btn class="logout" color="#b74545" @click="doLogout()"> 
           <b class="black">Log Out</b>
         </v-btn>
+       </template>
       </li>
     </ul>
     <!-- </nav> -->

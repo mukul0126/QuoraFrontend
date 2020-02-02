@@ -16,7 +16,7 @@
             <button class="like" @click="approveUser(item.userId)">
               <i class="approve" aria-hidden="true">&#10004;</i>
             </button>
-            <button class="dislike" @click="disapproveUser()">
+            <button class="dislike" @click="disapproveUser(item.userId)">
               <i class="reject" aria-hidden="true">&#10008;</i>
             </button>
           </div>
@@ -42,9 +42,9 @@ export default {
       this.$store.dispatch("approveUserId", { userId, moderatorId });
       window.alert("User Approved")
     },
-    disapproveUser() {
+    disapproveUser(userId) {
       let moderatorId = localStorage.getItem("moderatorId");
-      this.$store.dispatch("disapproveUserId", moderatorId);
+      this.$store.dispatch("disapproveUserId", {userId, moderatorId});
       window.alert("User disApproved")
     }
   }

@@ -78,18 +78,18 @@ export default {
                 }
                 else
                 {
-                    // let dataa={
-                    //   targetId:'',
-                    //   action:"login",
-                    //   appId:'quora',
-                    //   userId:localStorage.getItem('userId'),
-                    //   targetEntity:'',
-                    //    tag:''
-                    // }
-                    this.$router.push('/landing')
-                    // this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
-                    //    this.$router.push('/landing')
-                    // })
+                    let dataa={
+                      targetId:'',
+                      action:"login",
+                      appId:'quora',
+                      userId:localStorage.getItem('userId'),
+                      targetEntity:'',
+                       tag:''
+                    }
+                    // this.$router.push('/landing')
+                    this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
+                       this.$router.push('/landing')
+                    })
                    
                 }
             })

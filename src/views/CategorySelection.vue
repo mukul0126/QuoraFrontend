@@ -110,14 +110,14 @@ export default {
 
             this.$store.dispatch('sendUserDetails',details)
 
-          // let analyticsData={
-          //       userId:this.getUserInfo.id,
-          //       action:'register',
-          //       appId:'quora',
-          //       // subjectId:this.getUserInfo.name,
-          //       tag:selectedTagCommon,
+          let analyticsData={
+                userId:this.getUserInfo.id,
+                action:'register',
+                appId:'quora',
+                // subjectId:this.getUserInfo.name,
+                tag:selectedTagCommon,
 
-          // }
+          }
 
         window.console.log(this.getUserInfo.id,'idddd')
 
@@ -126,7 +126,7 @@ export default {
           id:this.getUserInfo.id
         }
 
-          // await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
+           await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
           window.console.log('sending to anlytics------->')
           this.$store.dispatch('sendCategory',data)
           .then(()=> {

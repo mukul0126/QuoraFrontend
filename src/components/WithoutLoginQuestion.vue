@@ -19,21 +19,22 @@ export default {
   name: "landingquestion",
   methods: {
     viewQuestion(questionId) {
-      this.$router.push("/viewquestion/" + questionId);
+      window.console.log(questionId);
+      this.$router.push("/login");
     }
   },
   props: ["question"]
 };
 </script>
 
-<style>
+<style scoped>
 .flex {
   justify-content: center;
 }
 .click-question {
   /* justify-content: center; */
   border: 2px solid black;
-  margin-left: 350px;
+  /* margin-left: 350px; */
   margin-right: 350px;
   border-radius: 7px;
   padding: 15px;
@@ -58,9 +59,4 @@ export default {
   color: #b74545;
 }
 
-.repeat{
-    position: relative;
-    top: 33px;
-    left: -11%;
-}
 </style>
