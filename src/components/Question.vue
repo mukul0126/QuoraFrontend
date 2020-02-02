@@ -13,7 +13,8 @@
             <v-icon dark @click="openOrganizationProfile(questionDetails.orgId)">mdi-account-circle</v-icon>
           </v-avatar>
         </div>
-        <p>{{questionDetails.questionBody}}</p>
+        <br>
+        <p style="color:black">{{questionDetails.questionBody}}</p>
         <div class="text--primary">
           like-> {{questionDetails.likeCount}}
           <button
@@ -49,10 +50,12 @@ export default {
       this.$router.push("/profile/" + userId + "/" + currPrivateFlag);
     },
     openOrganizationProfile(organizationId) {
+      if(organizationId!=null)
       this.$router.push("/organizationProfile/" + organizationId);
     },
 
     likeQuestion(questionId, userid, catId) {
+      window.console.log(catId)
       this.$store.dispatch("likeQuestion", questionId);
       let analytic = {
         targetId: userid,
@@ -118,5 +121,8 @@ button.learnmore {
   font-size: 16px;
   color: #fff;
   letter-spacing: 1px;
+}
+.question {
+  box-shadow: 6px -6px 16px 0px black;
 }
 </style>

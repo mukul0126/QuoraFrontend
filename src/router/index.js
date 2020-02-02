@@ -1,20 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
 
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
+  
   {
     path: '/landing',
     name: 'landing',
     component: () => import('../views/UserLanding.vue')
+  },
+  {
+    path: '/landingwithoutlogin',
+    name: 'landingwithoutlogin',
+    component: () => import('../views/WithoutLoginLanding.vue')
   },
   {
     path: '/viewquestion/:questionId',

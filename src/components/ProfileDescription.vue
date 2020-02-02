@@ -5,7 +5,7 @@
         <v-list-item three-line>
           <v-list-item-content>
             <div class="overline mb-4">Profile</div>
-            <v-list-item-title class="headline mb-1">NAME: {{userDetails.data.name}}</v-list-item-title>
+            <v-list-item-title class="headline mb-3">NAME: {{userDetails.data.name}}</v-list-item-title>
             <br />
             <br />
             <br />
@@ -25,13 +25,17 @@
           </v-list-item-avatar>
         </v-list-item>
         <v-card-actions>
-          <v-btn
+          <!-- <v-btn
             v-if="userCheck==true"
             text
             class="follow-button"
             :disabled="isFollowed"
             @click.once="followUser"
-          >Follow</v-btn>
+          >Follow</v-btn> -->
+          <div class="my-2">
+              <v-btn small color="primary" v-if="userCheck==true" :disabled="isFollowed"
+            @click.once="followUser" dark>Follow</v-btn>
+            </div>
         </v-card-actions>
       </v-card>
     </v-app>
@@ -66,9 +70,10 @@ export default {
 
 <style scoped>
 .border {
-  border: 1px solid black;
+  border: 1px solid #b74545;
   margin: 5px;
   padding: 5px;
+  font-family: monospace;
 }
 #subtitle {
   position: relative;

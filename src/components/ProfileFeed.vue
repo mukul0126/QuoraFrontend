@@ -9,12 +9,13 @@
             <v-list-item three-line>
               <v-list-item-content>
                 <div class="overline mb-4"></div>
-                <v-list-item-title class="headline mb-1">Question</v-list-item-title>
-                <v-list-item-subtitle>{{item.questionBody}}</v-list-item-subtitle>
+                <v-list-item-title class="headline mb-1"><h6>Question</h6></v-list-item-title>
+                <v-list-item-subtitle color="black"><h3>{{item.questionBody}}</h3></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-card-actions>
-              <v-btn text @click="viewQuestion(item.questionId)">View</v-btn>
+              <!-- <v-btn text @click="viewQuestion(item.questionId)">View</v-btn> -->
+              <v-btn class="ma-2"  @click="viewQuestion(item.questionId)" outlined color="indigo">View</v-btn>
             </v-card-actions>
           </div>
         </v-card>

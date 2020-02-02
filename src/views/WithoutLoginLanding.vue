@@ -1,29 +1,26 @@
 <template>
   <div class="landing">
     <UserHeader />
+    
+    
+    <!-- <div class="sidenav">
+    </div> -->
+    <div class="body-container">
+      <div class="sidenav">
+    </div>
     <div
       class="questions"
-      v-if="getLandingQuestion &&  getLandingQuestion.data &&  getLandingQuestion.data.length"
+      v-if="getLandingQuestionWithoutLogin &&  getLandingQuestionWithoutLogin.data"
     >
-      <LandingQuestion :question="getLandingQuestion" />
-    </div>
-     <!-- {{getAds}} -->
     
-   
-    <div class="sidenav">
-      <!-- <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
-        <a :href="item.targetUrl">
-        <img v-bind:src="item.imageUrl" style="height:100px;width:100px"></a>
-      </div> -->
-    </div> 
-     <!-- <div class="footer">
-      <p>Footer</p>
-    </div> -->
+      <LandingQuestion :question="getLandingQuestionWithoutLogin.data" />
+    </div>
+    </div>
   </div>
 </template>
 
 <script>
-import LandingQuestion from "@/components/LandingQuestion.vue";
+import LandingQuestion from "@/components/WithoutLoginQuestion.vue";
 import UserHeader from "@/components/UserHeader.vue";
 import { mapGetters } from "vuex";
 
@@ -38,10 +35,7 @@ export default {
     };
   },
   created() {
-    localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
-    localStorage.setItem("moderatorId", "5e314e2583f84b7add06ec3e");
-   
-    this.$store.dispatch("viewLandingQuestion");
+    this.$store.dispatch("landingWithoutLogin");
     // this.$store.dispatch("showAds");
   },
   methods: {
@@ -56,14 +50,15 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getLandingQuestion"]),
-    ...mapGetters(["getAds"])
+    ...mapGetters(["getLandingQuestionWithoutLogin"])
   }
 };
 </script>
 
 <style>
-
+.body-container {
+  display: flex;
+}
 .container-fluid {
   background-color: white;
 }
@@ -75,12 +70,12 @@ export default {
 }
 .sidenav {
   height: 100%;
-  width: 160px;
-  margin-top: 70px;
-  z-index: 1;
+  width: 20%;
+  /* margin-top: 70px; */
+  /* z-index: 1;
   top: -21px;
   left: 0;
-  position: absolute;
+  position: absolute; */
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
@@ -134,8 +129,9 @@ input {
 }
 
 .questions{
-    position: relative;
-    top: -83px;
+    /* position: relative;
+    top: -83px; */
+    width: 80%;
 }
 
 

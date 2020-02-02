@@ -1,23 +1,24 @@
 <template>
+<div class="top1">
   <div class="login" style="margin-top:40px">
+    <div class="top">
     <div class="quora-text"><h1><b>QUORA 2.0</b></h1></div>
+      <img src="https://cdn.onlinewebfonts.com/svg/img_488160.png" width="30px" height="30px">
     <form>
       <v-text-field
         v-model="email"
-        :error-messages="emailErrors"
+        class="abc"
         label="E-mail"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+       
       ></v-text-field>
       <v-text-field
         v-model="password"
-        :error-messages="passwordErrors"
-        :type="show4 ? 'text' : 'password'"
+        class="abc"
+        :type="'password'"
         label="Password"
         required
-        @input="$v.email.$touch()"
-        @blur="$v.email.$touch()"
+       
       ></v-text-field>
 
       <v-btn class="mr-4" id="submit" @click="submit()">submit</v-btn>
@@ -26,6 +27,8 @@
       <!-- <v-btn @click="clear">clear</v-btn> -->
     </form>
   </div>
+  </div>
+</div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
@@ -60,15 +63,9 @@ export default {
             .then(()=> {
 
 
-                let details={
-                     userId:this.getUserInfo.id.toString(),
-                    userEmail:this.getUserInfo.email,
-                    userName:this.getUserInfo.name
-                 }
-
-                    window.console.log('userdet 2',details)
+            
                     localStorage.setItem('userId',this.getUserInfo.id)
-                this.$store.dispatch('sendUserDetails',details)
+                
                 
                 window.console.log('printing role',this.getUserInfo)
                 if(this.getUserInfo.role===null)
@@ -77,21 +74,22 @@ export default {
                 }
                 else if(this.getUserInfo.role==="moderator")
                 {
-                  this.$router.push('/moderator')
+                  this.$router.push('/moderator/approveuser')
                 }
                 else
                 {
-                    let dataa={
-                      targetId:'',
-                      action:"login",
-                      appId:'quora',
-                      userId:localStorage.getItem('userId'),
-                      targetEntity:'',
-                       tag:''
-                    }
-                    this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
-                       this.$router.push('/landing')
-                    })
+                    // let dataa={
+                    //   targetId:'',
+                    //   action:"login",
+                    //   appId:'quora',
+                    //   userId:localStorage.getItem('userId'),
+                    //   targetEntity:'',
+                    //    tag:''
+                    // }
+                    this.$router.push('/landing')
+                    // this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
+                    //    this.$router.push('/landing')
+                    // })
                    
                 }
             })
@@ -110,6 +108,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 .login {
   width: 40%;
@@ -117,19 +117,36 @@ export default {
   text-align: center;
   margin: auto;
   border-radius: 5px;
-  background-color: #f2f2f2;
 }
 #submit {
   padding-top: 5px;
   padding-bottom: 5px;
+  background-color: gray;
 }
 .mr-4 {
   margin-bottom: 6px;
 }
 .register {
   margin-top: 5px;
+  
+  
 }
 .quora-text{
-  color:lightgreen; 
+  color:#b74545;
+  /* color:lightgreen;  */
+}
+.top{
+  border: 2px solid black;
+  padding-top: 150px;
+  padding-bottom: 150px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+.abc{
+  margin-left: 60px;
+  margin-right: 60px;
+}
+#button{
+  background-color: gray;
 }
 </style>

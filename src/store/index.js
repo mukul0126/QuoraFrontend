@@ -6,10 +6,11 @@ Vue.use(Vuex)
 const login_path = 'http://172.16.20.32:8080'
 const base_path = 'http://172.16.20.46:8086'
 const search_path ='http://172.16.20.149:8080'
-const analytics_path = 'http://172.16.20.33:8080'
+// const analytics_path = 'http://172.16.20.33:8080'
 export default new Vuex.Store({
   state: {
     landingQuestions: {},
+    landingQuestionsWithoutLogin: {},
     questionDetail: {},
     userDetails: {},
     organizationDetails: {},
@@ -25,13 +26,13 @@ export default new Vuex.Store({
     user:{},
     searchUser:[],
     searchOrganization:[],
-    searchQuestion:[]
-
-
-
+    searchQuestion:[],
   },
 
   mutations: {
+    viewLandingQuestionWithoutLogin(state, data) {
+      state.landingQuestionsWithoutLogin = data;
+    },
     viewLandingQuestion(state, data) {
       state.landingQuestions = data;
     },
@@ -98,6 +99,21 @@ export default new Vuex.Store({
   },
 
   actions: {
+    
+    landingWithoutLogin({commit}) {
+      return new Promise((resolve, reject) => {
+        Axios.get('http://172.16.20.107:8085/question/getWithoutLoginFeed')
+          .then(response => {
+            window.console.log("without login response", response);
+            commit('viewLandingQuestionWithoutLogin', response)
+            resolve(response)
+          })
+          .catch(error => {
+            window.console.log(error)
+            reject(error)
+          })
+      })
+    },
     viewLandingQuestion({ commit }) {
       let userId = localStorage.getItem('userId');
       return new Promise((resolve, reject) => {
@@ -168,8 +184,8 @@ export default new Vuex.Store({
         })
     },
 
-    disapproveUserId(context, data) {
-      Axios.post('http://172.16.20.46:8086/moderator/disapove/' + data.moderatorId)
+    disapproveUserId(context, moderatorId) {
+      Axios.post('http://172.16.20.46:8086/moderator/disapove/' + moderatorId)
         .then(response => {
           window.console.log("getApproveUserDetails", response)
         })
@@ -523,21 +539,21 @@ export default new Vuex.Store({
         })
     },
   
-  showAds({ commit }) {
-    let authStr = 'Bearer ' + localStorage.getItem('token')
-    return new Promise((resolve, reject) => {
-      Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
-        .then(resp => {
-          window.console.log(resp.data, 'response')
-          commit('setAds', resp.data)
-          resolve(resp)
-        })
-        .catch(error => {
-          window.console.log(error)
-          reject(error)
-        })
-    })
-  },
+  // showAds({ commit }) {
+  //   let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   return new Promise((resolve, reject) => {
+  //     Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
+  //       .then(resp => {
+  //         window.console.log(resp.data, 'response')
+  //         commit('setAds', resp.data)
+  //         resolve(resp)
+  //       })
+  //       .catch(error => {
+  //         window.console.log(error)
+  //         reject(error)
+  //       })
+  //   })
+  // },
   getSearchUserResults({commit},data) {
     window.console.log(data,'user')
     return new Promise((resolve,reject) => {
@@ -583,46 +599,46 @@ export default new Vuex.Store({
     })
     
   },
-  sendTagsToAnalytics({commit},data) {
-    // let authStr = 'Bearer ' + localStorage.getItem('token')
-    window.console.log(data,'analytics data ----jvnfjnv----')
-    return new Promise((resolve,reject) => {
-      Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
-      .catch(err => {
-        reject(err)
-      })
-    })
-  },
-  afterLoginAnalytics ({commit},data) {
-    // let authStr = 'Bearer ' + localStorage.getItem('token')
-    window.console.log(data,'analytics data login----jvnfjnv----')
-    return new Promise((resolve,reject) => {
-      Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
-      .catch(err => {
-        reject(err)
-      })
-    })
-  },
-  logout({ commit },data) {
+  // sendTagsToAnalytics({commit},data) {
+  //   // let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   window.console.log(data,'analytics data ----jvnfjnv----')
+  //   return new Promise((resolve,reject) => {
+  //     Axios({url: analytics_path+"/search/register",data:data,method:'POST'})
+  //     .then(resp => {
+  //       window.console.log(resp.data,'response')
+  //       commit('setDunmmy', 'dummy')
+  //       resolve(resp)
+  //     })
+  //     .catch(err => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
+  // afterLoginAnalytics ({commit},data) {
+  //   // let authStr = 'Bearer ' + localStorage.getItem('token')
+  //   window.console.log(data,'analytics data login----jvnfjnv----')
+  //   return new Promise((resolve,reject) => {
+  //     Axios({url: analytics_path+"/search/save",data:data,method:'POST'})
+  //     .then(resp => {
+  //       window.console.log(resp.data,'response')
+  //       commit('setDunmmy', 'dummy')
+  //       resolve(resp)
+  //     })
+  //     .catch(err => {
+  //       reject(err)
+  //     })
+  //   })
+  // },
+  logout({ commit }) {
     return new Promise((resolve) => {
       window.console.log("inside logout")
       commit('logout')
-      Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
-      .then(resp => {
-        window.console.log(resp.data,'response')
-        commit('setDunmmy', 'dummy')
-        resolve(resp)
-      })
+      // Axios({url : analytics_path+"/search/save",data:data,method:'POST'})
+      // .then(resp => {
+      //   window.console.log(resp.data,'response')
+      //   commit('setDunmmy', 'dummy')
+      //   resolve(resp)
+      // })
       // localStorage.removeItem('token')
       // localStorage.removeItem('userId')
       delete Axios.defaults.headers.common['Authorization']
@@ -633,6 +649,9 @@ export default new Vuex.Store({
 },
 
   getters: {
+    getLandingQuestionWithoutLogin(state) {
+      return state.landingQuestionsWithoutLogin || {}
+    },
   getLandingQuestion(state) {
     window.console.log("getter from store", state.landingQuestions)
     return state.landingQuestions || {}

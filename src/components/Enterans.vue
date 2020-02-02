@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="mx-auto" max-width="640">
-      <v-textarea name="input-7-1" label="write your answer" v-model="answer_body"></v-textarea>
+      <v-textarea name="input-7-1" label="write your answer" style="box-shadow: -1px 1px 10px black;" v-model="answer_body"></v-textarea>
       <v-card-actions>
         <v-btn small text color="primary" @click="submitAnswer">Post your answer</v-btn>
       </v-card-actions>

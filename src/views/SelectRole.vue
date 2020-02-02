@@ -1,4 +1,5 @@
 <template>
+<div class="abc">
   <div class="select-role" style="margin-top:40px">
     <form>
       <h3>Select Role</h3>
@@ -12,6 +13,7 @@
       <v-btn class="mr-4" id="register" @click="submit()">Submit</v-btn>
     </form>
   </div>
+</div>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -82,6 +84,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 .select-role {
   width: 40%;
@@ -89,7 +93,9 @@ export default {
   text-align: center;
   margin: auto;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #cce6ff;
+  border: 2px solid gray;
+  border-radius: 50px;
 }
 #submit {
   padding-top: 5px;
@@ -101,4 +107,34 @@ export default {
 .register {
   margin-top: 5px;
 }
+h3{
+  font-size: 40px;
+  color: gray;
+  text-decoration: underline;
+  text-decoration-color: gray;
+}
+#register{
+  font-size: 20px;
+  background-color: black;
+  color: white;
+}
+.abc{
+  background-color: #b74545;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+/* #register{
+  font-size: 20px;
+    margin-top: 300px;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+} */
 </style>

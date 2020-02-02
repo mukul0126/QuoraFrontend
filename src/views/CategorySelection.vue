@@ -1,4 +1,5 @@
 <template>
+<div class="top">
   <div class="category-selection" style="margin-top:40px">
     <form>
       <!-- <v-text-field
@@ -75,6 +76,7 @@
       </div>
     </form>
   </div>
+</div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
@@ -100,14 +102,22 @@ export default {
            await this.$store.dispatch('getUserDetails',{"token":localStorage.getItem('token'),"provider":2})
 
 
-          let analyticsData={
-                userId:this.getUserInfo.id,
-                action:'register',
-                appId:'quora',
-                // subjectId:this.getUserInfo.name,
-                tag:selectedTagCommon,
+           let details={
+                     userId:this.getUserInfo.id.toString(),
+                    userEmail:this.getUserInfo.email,
+                    userName:this.getUserInfo.name
+                 }
 
-          }
+            this.$store.dispatch('sendUserDetails',details)
+
+          // let analyticsData={
+          //       userId:this.getUserInfo.id,
+          //       action:'register',
+          //       appId:'quora',
+          //       // subjectId:this.getUserInfo.name,
+          //       tag:selectedTagCommon,
+
+          // }
 
         window.console.log(this.getUserInfo.id,'idddd')
 
@@ -116,7 +126,7 @@ export default {
           id:this.getUserInfo.id
         }
 
-          await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
+          // await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
           window.console.log('sending to anlytics------->')
           this.$store.dispatch('sendCategory',data)
           .then(()=> {
@@ -136,7 +146,10 @@ export default {
   text-align: center;
   margin: auto;
   border-radius: 5px;
+  /* background-image: url('https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); */
   background-color: #f2f2f2;
+  border:  3px solid black;
+  border-radius: 7px;
 }
 #submit {
   padding-top: 5px;
@@ -148,5 +161,20 @@ export default {
 }
 .register {
   margin-top: 5px;
+ 
+}
+h3{
+  text-decoration: underline;
+  text-decoration-color: red;;
+  font-size: 22px;
+  color:black;
+}
+#register{
+   background-color: #b64545;
+}
+.top{
+ background-color: black;
+  background-size: 100%;
+  /* background-color: #737373; */
 }
 </style>

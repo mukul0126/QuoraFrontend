@@ -2,7 +2,10 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn color="primary" class="abc" dark v-on="on">Add Question</v-btn>
+        <!-- <v-btn :color="primary" class="abc" dark v-on="on">Add Question</v-btn> -->
+        <v-btn class="mx-2" fab dark small v-on="on" color="indigo" id="add-button">
+        <v-icon dark>mdi-plus</v-icon>
+        </v-btn>
       </template>
       <v-card>
         <v-card-text>
@@ -74,7 +77,8 @@ export default {
     return: {},
     dialog: false,
     text1: "",
-    text2: ""
+    text2: "",
+    primary: '#303d59'
   }),
 
   methods: {
@@ -122,5 +126,8 @@ export default {
 .xyz {
   margin-left: 0px;
   background-color: skyblue;
+}
+#add-button {
+  left: 37%
 }
 </style>

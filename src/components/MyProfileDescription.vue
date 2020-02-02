@@ -55,9 +55,10 @@ export default {
 
 <style scoped>
 .border {
-  border: 1px solid black;
+  border: 1px solid #b74545;
   margin: 5px;
   padding: 5px;
+  font-family: monospace;
 }
 #subtitle {
   position: relative;
