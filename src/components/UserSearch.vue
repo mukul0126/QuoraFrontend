@@ -16,7 +16,7 @@
         <div class="text--primary">
           </div>-->
         </v-card-text>
-        <v-btn class="view-button" @click="viewUser(item.userId)">View</v-btn>
+        <v-btn class="view-button" @click="viewUser(item.userId,index)">View</v-btn>
       </v-card>
     </div>
   </div>
@@ -35,8 +35,9 @@ export default {
   },
   methods: {
 
-      viewUser(Id) {
-          this.$router.push({name:'Profile',params:{userId:Id}})
+      viewUser(Id,index) {
+        this.$router.push("/profile/" + Id + "/" + this.user[index].privateFlag);
+          // this.$router.push({name:'Profile',params:{userId:Id}})
       }
     // approveUser(userId) {
     //   let moderatorId = localStorage.getItem("moderatorId");

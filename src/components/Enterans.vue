@@ -23,8 +23,10 @@ export default {
         questionId: this.$route.params.questionId,
         userId: userid,
         answerBody: this.answer_body,
+        userName:localStorage.getItem('userName'),
         orgId: null
       });
+      alert('Answer Posted')
     }
   }
 };

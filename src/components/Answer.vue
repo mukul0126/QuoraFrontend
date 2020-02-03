@@ -71,6 +71,7 @@ export default {
         userName: localStorage.getItem("userName")
       };
       this.$store.dispatch("AddComment", data);
+      alert('Comment Posted')
     },
     getMainComment(answerId) {
       this.status=true

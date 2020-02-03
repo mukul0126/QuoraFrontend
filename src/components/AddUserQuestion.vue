@@ -89,7 +89,8 @@ export default {
         categoryId: this.category,
         questionBody: this.text1,
         personsTag: null,
-        orgId: null
+        orgId: null,
+        userName: localStorage.getItem('userName')
       });
     },
     cancel() {

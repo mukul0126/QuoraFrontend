@@ -1,5 +1,6 @@
 <template>
   <div id="searchresults" class="searchresults">
+    <v-app>
     <UserHeader />
     <div
       class="questions"
@@ -14,6 +15,10 @@
         
         <OrganizationSearch :organization="getSearchOrganization"/>
     </div>
+    <div>
+      <h3 v-if="getSearchQuestion.length && getSearchUser.length  && getSearchOrganization.length">Sorry No Results Found :( </h3>
+    </div>
+    </v-app>
   </div>
 </template>
 <script>

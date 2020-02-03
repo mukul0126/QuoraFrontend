@@ -33,6 +33,16 @@
         @blur="$v.password.$touch()"
         class="abc"
       ></v-text-field>
+      <v-text-field
+        v-model="confirmpassword"
+        :error-messages="passwordErrors"
+        :type="show4 ? 'text' : 'password'"
+        label="Confirm Password"
+        required
+        @input="$v.confirmpassword.$touch()"
+        @blur="$v.confirmpassword.$touch()"
+        class="abc"
+      ></v-text-field>
       <!-- <v-select
       v-model="select"
       :items="items"
@@ -64,7 +74,9 @@ export default {
     return {
       name: "",
       email: "",
-      password: ""
+      password: "",
+      confirmpassword:""
+
     };
   },
   methods: {
@@ -74,10 +86,21 @@ export default {
         email: this.email,
         password: this.password
       };
-      this.$store
+      if( this.password.length>8) {
+        if(this.confirmpassword===this.password ){
+          this.$store
         .dispatch("register", data)
         .then(() => this.$router.push("/login"))
         .catch(err => window.console.log(err));
+        }
+        else{
+          alert('Password miss match')
+        }
+      
+      }
+      else {
+        alert('Password shoud have atleast 8 characters')
+      }
     }
 
     //   register: function() {

@@ -36,7 +36,8 @@ export default {
   methods: {
 
       viewOrganization(Id) {
-          this.$router.push({name:'organizationProfile',params:{organizationId:Id}})
+        this.$router.push("/organizationProfile/" + Id);
+          // this.$router.push({name:'organizationProfile',params:{organizationId:Id}})
       }
     // approveUser(userId) {
     //   let moderatorId = localStorage.getItem("moderatorId");

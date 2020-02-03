@@ -9,6 +9,7 @@
               @click="openProfile(questionDetails.userId,questionDetails.approvalFlag)"
             >mdi-account-circle</v-icon>
           </v-avatar>
+          {{questionDetails.userName}}
           <v-avatar color="indigo" size="36" style="float:right">
             <v-icon dark @click="openOrganizationProfile(questionDetails.orgId)">mdi-account-circle</v-icon>
           </v-avatar>

@@ -2,7 +2,8 @@
   <div id="item-cards" class="flex">
     <div class="repeat" v-for="(item,index) in question.data" :key="index">
       <div class="click-question">
-        <h6 style="font-family: sans-serif;">QUESTION</h6><br>
+        <h6 style="font-family: sans-serif;">QUESTION</h6><br> 
+        <h6 style="float:right">{{item.userName}}</h6>
         <h4>{{item.questionBody}}</h4>
         <v-btn class="ma-2" style="margin-left:80%" @click="viewQuestion(item.questionId)" outlined color="indigo">View</v-btn>
         <!-- <v-btn style="margin-left:80%" class="view-button" @click="viewQuestion(item.questionId)">View</v-btn> -->

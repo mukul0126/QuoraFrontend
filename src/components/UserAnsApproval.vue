@@ -5,8 +5,11 @@
         <v-card-text>
           <p>{{item.answerBody}}</p>
           <div class="text--primary">
-            like-> {{item.likeCount}}
-            <button class="like" @click.once="likeAnswer(item.answerId)">
+            
+            <textarea style="width:80%"  :state="message.length >= 1" v-model="message" placeholder="add comments"></textarea>
+            <v-card-actions>
+              like-> {{item.likeCount}}
+              <button class="like" @click.once="likeAnswer(item.answerId)">
               <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
             </button>
             dislike-> {{item.dislikeCount}}
@@ -17,9 +20,29 @@
               <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
             </button>
             <button class="best-answer" @click.once="bestAnswer(item.answerId,item.questionId)">Best</button>
-            <div class="my-2" style="float:right">
+              <v-btn style="float:right" small color="primary" @click="submitComment(item.answerId)">Comment</v-btn>
+              <v-btn small color="primary" @click="getMainComment(item.answerId)">View More</v-btn>
+              </v-card-actions>
+
+              <div class="comment" v-if="status">
+                <div v-for="(com,index) in getCommentsAnswer.commentList" :key="index"> 
+                  <ParentComment :body="com" />
+                </div>
+              </div>
+            <!-- <button class="like" @click.once="likeAnswer(item.answerId)">
+              <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
+            </button>
+            dislike-> {{item.dislikeCount}}
+            <button
+              class="dislike"
+              @click.once="dislikeAnswer(item.answerId)"
+            >
+              <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
+            </button>
+            <button class="best-answer" @click.once="bestAnswer(item.answerId,item.questionId)">Best</button> -->
+            <!-- <div class="my-2" style="float:right">
               <v-btn small color="primary" @click="submitAnswer">Comment</v-btn>
-            </div>
+            </div> -->
           </div>
         </v-card-text>
         <!-- <v-card-actions>
@@ -30,12 +53,22 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import ParentComment from "@/components/ParentComment.vue";
 export default {
   name: "answer",
   data() {
     return {
-      answer_body: " "
+      answer_body: " ",
+      message:"",
+      status:false
     };
+  },
+  components: {
+    ParentComment
+  },
+  computed: {
+    ...mapGetters(["getCommentsAnswer"])
   },
   props: ["questionDetails"],
   methods: {
@@ -49,6 +82,23 @@ export default {
 
     bestAnswer(answerId, questionId) {
       this.$store.dispatch("bestAnswer", { questionId, answerId });
+    },
+    submitComment(answerId) {
+      let data = {
+        commentBody: this.message,
+        parentId: null,
+        answerId: answerId,
+        UserId: localStorage.getItem("userId"),
+        userName: localStorage.getItem("userName")
+      };
+      if(this.message.length>1)
+      this.$store.dispatch("AddComment", data);
+      else
+      window.alert("Please enter a comment");
+    },
+    getMainComment(answerId) {
+      this.status=true
+      this.$store.dispatch("getComments", answerId);
     }
   }
 };

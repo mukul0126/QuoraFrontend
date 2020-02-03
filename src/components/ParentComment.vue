@@ -53,6 +53,7 @@ export default {
         userName: localStorage.getItem("userName")
       };
       this.$store.dispatch("AddComment", data);
+      alert('Comment Posted')
     },
     viewMore() {
         this.status=true

@@ -2,7 +2,7 @@
   <div id="item-cards" class="flex">
     <div class="repeat" v-for="(item,index) in question" :key="index">
       <div class="click-question">
-        <h4>QUESTION</h4>
+        <h6>QUESTION</h6>
         <h5>{{item.questionBody}}</h5>
         <v-btn class="view-button" @click="viewQuestion(item.questionId)">View</v-btn>
       </div>
