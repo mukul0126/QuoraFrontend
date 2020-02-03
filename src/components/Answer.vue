@@ -17,14 +17,14 @@
               <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
             </button>
             <div class="my-2">
-              <textarea style="width:80%" v-model="message" placeholder="add comments"></textarea>
+              <textarea style="width:80%" v-model="item.message" placeholder="add comments"></textarea>
               <v-card-actions>
-              <v-btn style="float:right" small color="primary" @click="submitComment(item.answerId)">Comment</v-btn>
+              <v-btn style="float:right" small color="primary" @click="submitComment(item.answerId, index)">Comment</v-btn>
               <v-btn small color="primary" @click="getMainComment(item.answerId)">View More</v-btn>
               </v-card-actions>
               <div class="comment" v-if="status">
-                <div v-for="(com,index) in getCommentsAnswer.commentList" :key="index"> 
-                  <ParentComment :body="com" />
+                <div v-for="(com,index) in getCommentsAnswer.commentList" :key="index" > 
+                  <ParentComment :body="com" v-if="com.answerId == item.answerId" />
                 </div>
               </div>
             </div>
@@ -62,9 +62,9 @@ export default {
     dislikeAnswer(answerId) {
       this.$store.dispatch("dislikeAnswer", answerId);
     },
-    submitComment(answerId) {
+    submitComment(answerId, index) {
       let data = {
-        commentBody: this.message,
+        commentBody: this.questionDetails[index].message,
         parentId: null,
         answerId: answerId,
         UserId: localStorage.getItem("userId"),

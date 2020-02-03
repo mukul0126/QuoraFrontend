@@ -63,15 +63,9 @@ export default {
             .then(()=> {
 
 
-<<<<<<< HEAD
-               
-                  
-                    localStorage.setItem('userId',this.getUserInfo.id)
-                    localStorage.setItem('userName',this.getUserInfo.name)
-=======
             
                     localStorage.setItem('userId',this.getUserInfo.id)
->>>>>>> 49d8182123eb8fa23116caab2cf52539c0786ccf
+                    localStorage.setItem('userName',this.getUserInfo.name)
                 
                 
                 window.console.log('printing role',this.getUserInfo)
@@ -85,17 +79,8 @@ export default {
                 }
                 else
                 {
-<<<<<<< HEAD
-                    // let dataa={
-                    //   targetId:'',
-                    //   action:"login",
-                    //   appId:'quora',
-                    //   userId:localStorage.getItem('userId'),
-                    //   targetEntity:'',
-                    //    tag:''
-                    // }
-                    
-=======
+
+
                     let dataa={
                       targetId:'',
                       action:"login",
@@ -106,9 +91,8 @@ export default {
                     }
                     // this.$router.push('/landing')
                     this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
->>>>>>> 49d8182123eb8fa23116caab2cf52539c0786ccf
                        this.$router.push('/landing')
-                    
+                    })
                     // this.$store.dispatch('afterLoginAnalytics',dataa).then(() =>{
                     //    this.$router.push('/landing')
                     // })
