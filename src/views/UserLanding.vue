@@ -7,18 +7,17 @@
     >
       <LandingQuestion :question="getLandingQuestion" />
     </div>
-     <!-- {{getAds}} -->
-    
-   
     <div class="sidenav">
-      <!-- <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
+      <div class="ads" v-for="(item,index) in getAds.slice(0,4)" :key="index">
         <a :href="item.targetUrl">
-        <img v-bind:src="item.imageUrl" style="height:100px;width:100px"></a>
-      </div> -->
-    </div> 
-     <!-- <div class="footer">
-      <p>Footer</p>
-    </div> -->
+          <img
+            v-bind:src="item.imageUrl"
+            style="height:100px;width:100px"
+            @click="redirectAd(index)"
+          />
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,9 +39,9 @@ export default {
   created() {
     localStorage.setItem("organizationId", "5e3149d91edbf851280ccf51");
     localStorage.setItem("moderatorId", "5e314e2583f84b7add06ec3e");
-   
+
     this.$store.dispatch("viewLandingQuestion");
-    // this.$store.dispatch("showAds");
+    this.$store.dispatch("showAds");
   },
   methods: {
     dialogValue() {
@@ -51,19 +50,28 @@ export default {
     openProfile() {
       this.$router.push("/profile");
     },
-    
-    
+    redirectAd(index) {
+      let data = {
+        adId: this.getAds[index].adId,
+        tag: this.getAds[index].tag,
+        advertiserId: this.getAds[index].advertiserId,
+        categoryId: "1",
+        userId: localStorage.getItem("userId"),
+        description: this.getAds[index].description,
+        targetUrl: this.getAds[index].targetUrl,
+        source: "quora"
+      };
+      this.$store.dispatch("redirectAds", data);
+    }
   },
-
   computed: {
     ...mapGetters(["getLandingQuestion"]),
-    // ...mapGetters(["getAds"])
+    ...mapGetters(["getAds"])
   }
 };
 </script>
 
 <style>
-
 .container-fluid {
   background-color: white;
 }
@@ -133,11 +141,9 @@ input {
   margin-left: 10px;
 }
 
-.questions{
-    position: relative;
-    top: -83px;
-    margin-top: 65px;
+.questions {
+  position: relative;
+  top: -83px;
+  margin-top: 65px;
 }
-
-
 </style>

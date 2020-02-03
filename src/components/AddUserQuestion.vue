@@ -76,8 +76,8 @@ export default {
   data: () => ({
     return: {},
     dialog: false,
-    text1: "",
-    text2: "",
+    text1: null,
+    text2: null,
     primary: '#303d59'
   }),
 
@@ -88,7 +88,7 @@ export default {
         userId: userid,
         categoryId: this.category,
         questionBody: this.text1,
-        personsTag: null,
+        personsTag: this.text2,
         orgId: null
       });
     },

@@ -399,23 +399,24 @@ export default new Vuex.Store({
         // localStorage.setItem('userId',data.email)
         window.console.log(data.email)
         window.console.log(data, "vfvkfmvk")
-        Axios({ url: login_path + "/auth/signin", data: data, method: 'POST' })
+        Axios({ url: login_path + "/authentication/auth/signin", data: data, method: 'POST' })
           .then(resp => {
             window.console.log(resp, 'response')
             const token = resp.data.accessToken
             window.console.log(resp)
             const user = resp.data.user
             localStorage.setItem('token', token)
-
             Axios.defaults.headers.common['Authorization'] = token
             commit('auth_success', token, user)
             // commit('setRole',role)
             resolve(resp)
           })
-          .catch(err => {
+          .catch(error => {
+            
             commit('auth_error')
+            window.alert(error.response.data.message);
             localStorage.removeItem('token')
-            reject(err)
+            reject(error)
           })
       })
     },
@@ -424,15 +425,15 @@ export default new Vuex.Store({
       window.console.log('user', user)
       return new Promise((resolve, reject) => {
         // commit('auth_request')
-        
-        Axios({ url: login_path + "/auth/signup", data: user, method: 'POST' })
+        Axios({ url: login_path + "/authentication/auth/signup", data: user, method: 'POST' })
           .then(resp => {
             window.console.log(resp, 'response')
             resolve(resp)
             commit('setDummy', resp)
           })
-          .catch(err => {
-            reject(err)
+          .catch(error => {
+            window.alert(error.response.data.message);
+            reject(error)
           })
       })
     },
@@ -442,7 +443,7 @@ export default new Vuex.Store({
       window.console.log('role data', data)
       return new Promise((resolve, reject) => {
        
-        Axios({ url: login_path + "/role/updateRole", data: data, method: 'POST', headers: { "Authorization": authStr } })
+        Axios({ url: login_path + "/authentication/role/updateRole", data: data, method: 'POST', headers: { "Authorization": authStr } })
           .then(resp => {
             window.console.log(resp, 'response')
             resolve(resp)
@@ -458,7 +459,7 @@ export default new Vuex.Store({
       window.console.log('token data', data)
       let authStr = 'Bearer ' + localStorage.getItem('token')
       return new Promise((resolve, reject) => {
-        Axios({ url: login_path + "/jwt/getUserDetails", data: data, method: 'POST', headers: { "Authorization": authStr } })
+        Axios({ url: login_path + "/authentication/jwt/getUserDetails", data: data, method: 'POST', headers: { "Authorization": authStr } })
           .then(resp => {
             window.console.log(resp.data.role, 'response')
             commit('setUserDetails', resp.data)
@@ -543,31 +544,31 @@ export default new Vuex.Store({
       })
     },
 
-    // sentToAnalytics(context, data) {
-    //   Axios.post('http://172.16.20.33:8080/search/save', data)
-    //     .then(response => {
-    //       window.console.log("response to get question details", response)
-    //     })
-    //     .catch(error => {
-    //       window.console.log(error)
-    //     })
-    // },
+    sentToAnalytics(context, data) {
+      Axios.post('http://172.16.20.33:8080/search/save', data)
+        .then(response => {
+          window.console.log("response to get question details", response)
+        })
+        .catch(error => {
+          window.console.log(error)
+        })
+    },
   
-  // showAds({ commit }) {
-  //   let authStr = 'Bearer ' + localStorage.getItem('token')
-  //   return new Promise((resolve, reject) => {
-  //     Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
-  //       .then(resp => {
-  //         window.console.log(resp.data, 'response')
-  //         commit('setAds', resp.data)
-  //         resolve(resp)
-  //       })
-  //       .catch(error => {
-  //         window.console.log(error)
-  //         reject(error)
-  //       })
-  //   })
-  // },
+  showAds({ commit }) {
+    let authStr = 'Bearer ' + localStorage.getItem('token')
+    return new Promise((resolve, reject) => {
+      Axios({ url: "http://172.16.20.181:8080/ads/getAds/2", method: 'GET', headers: { "Authorization": authStr } })
+        .then(resp => {
+          window.console.log(resp.data, 'response')
+          commit('setAds', resp.data)
+          resolve(resp)
+        })
+        .catch(error => {
+          window.console.log(error)
+          reject(error)
+        })
+    })
+  },
   getSearchUserResults({commit},data) {
     window.console.log(data,'user')
     return new Promise((resolve,reject) => {
@@ -698,7 +699,21 @@ AddComment({commit},data){
       reject(err)
     })
   })
-}
+},
+redirectAds({commit},data) {
+  let authStr = 'Bearer ' + localStorage.getItem('token')
+  return new Promise((resolve, reject) => {
+    Axios({ url: "http://172.16.20.181:8080/ads/onclick/2", method: 'POST', data:data,headers: { "Authorization": authStr } })
+      .then(resp => {
+        commit('setDummy', resp)
+        resolve(resp)
+      })
+      .catch(error => {
+        window.console.log(error)
+        reject(error)
+      })
+  })
+},
 },
 
   getters: {

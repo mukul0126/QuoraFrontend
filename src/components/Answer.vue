@@ -6,13 +6,13 @@
           <p>{{item.answerBody}}</p>
           <div class="text--primary">
             like-> {{item.likeCount}}
-            <button class="like" @click.once="likeAnswer(item.answerId)">
+            <button class="like" @click.once="likeAnswer(item.answerId,index)">
               <i class="fa fa-thumbs-o-up" aria-hidden="true">&#128077;</i>
             </button>
             dislike-> {{item.dislikeCount}}
             <button
               class="dislike"
-              @click.once="dislikeAnswer(item.answerId)"
+              @click.once="dislikeAnswer(item.answerId, index)"
             >
               <i class="fa fa-thumbs-o-down" aria-hidden="true">&#128078;</i>
             </button>
@@ -55,11 +55,13 @@ export default {
   },
   props: ["questionDetails"],
   methods: {
-    likeAnswer(answerId) {
+    likeAnswer(answerId, index) {
+      this.questionDetails[index].likeCount++;
       this.$store.dispatch("likeAnswer", answerId);
     },
 
-    dislikeAnswer(answerId) {
+    dislikeAnswer(answerId, index) {
+      this.questionDetails[index].dislikeCount++;
       this.$store.dispatch("dislikeAnswer", answerId);
     },
     submitComment(answerId) {
@@ -70,7 +72,10 @@ export default {
         UserId: localStorage.getItem("userId"),
         userName: localStorage.getItem("userName")
       };
+      if(this.message.length>1)
       this.$store.dispatch("AddComment", data);
+      else
+      window.alert("Please enter a comment");
     },
     getMainComment(answerId) {
       this.status=true

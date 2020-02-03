@@ -42,6 +42,7 @@ export default {
   data() {
     return {
       // myProfile:false;
+      likeFlag: 0
     };
   },
   methods: {
@@ -55,7 +56,10 @@ export default {
     },
 
     likeQuestion(questionId, userid, catId) {
+      this.likeFlag=1;
       window.console.log(catId)
+      this.questionDetails.likeCount++;
+      // this.questionDetails['likeCount'] = this.questionDetails['likeCount'] ? this.questionDetails['likeCount']++ : 1;
       this.$store.dispatch("likeQuestion", questionId);
       let analytic = {
         targetId: userid,
@@ -69,6 +73,9 @@ export default {
     },
 
     dislikeQuestion(questionId, userid, catId) {
+      if(this.likeFlag==0) {
+      this.questionDetails.dislikeCount++;
+      }
       this.$store.dispatch("dislikeQuestion", questionId);
       let analytic = {
         targetId: userid,

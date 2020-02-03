@@ -14,7 +14,7 @@
           <v-checkbox v-model="tag" value="Watches" class="mx-2" label="Watches"></v-checkbox>
           <v-checkbox v-model="tag" value="Coding" class="mx-2" label="Coding"></v-checkbox>
           <v-checkbox v-model="tag" value="Android" class="mx-2" label="Android"></v-checkbox>
-          <v-checkbox v-model="tag" value="iOS" class="mx-2" label="iOS"></v-checkbox>
+          <v-checkbox v-model="tag" value="IOS" class="mx-2" label="IOS"></v-checkbox>
           <v-checkbox v-model="tag" value="Bollywood" class="mx-2" label="Bollywood"></v-checkbox>
         </div>
         <div style="float:right">
@@ -58,16 +58,6 @@ export default {
         }
 
            await this.$store.dispatch('getUserDetails',{"token":localStorage.getItem('token'),"provider":2})
-
-
-<<<<<<< HEAD
-          // let analyticsData={
-          //       userId:this.getUserInfo.id,
-          //       action:'register',
-          //       appId:'quora',
-          //       // subjectId:this.getUserInfo.name,
-          //       tag:selectedTagCommon,
-=======
            let details={
                      userId:this.getUserInfo.id.toString(),
                     userEmail:this.getUserInfo.email,
@@ -82,9 +72,7 @@ export default {
                 appId:'quora',
                 // subjectId:this.getUserInfo.name,
                 tag:selectedTagCommon,
->>>>>>> 49d8182123eb8fa23116caab2cf52539c0786ccf
-
-          // }
+           }
 
         window.console.log(this.getUserInfo.id,'idddd')
 
@@ -92,20 +80,13 @@ export default {
           cat:selectedTagCommon,
           id:this.getUserInfo.id
         }
-         let details={
-                     userId:this.getUserInfo.id.toString(),
-                    userEmail:this.getUserInfo.email,
-                    userName:this.getUserInfo.name
-                 }
+        //  let details={
+        //              userId:this.getUserInfo.id.toString(),
+        //             userEmail:this.getUserInfo.email,
+        //             userName:this.getUserInfo.name
+        //          }
 
-<<<<<<< HEAD
-
-        await this.$store.dispatch('sendUserDetails',details)
-
-          // await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
-=======
            await this.$store.dispatch('sendTagsToAnalytics',analyticsData)
->>>>>>> 49d8182123eb8fa23116caab2cf52539c0786ccf
           window.console.log('sending to anlytics------->')
           this.$store.dispatch('sendCategory',data)
           .then(()=> {

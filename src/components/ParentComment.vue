@@ -6,7 +6,7 @@
         <!-- Parent COmment -->
         {{body.commentBody}}
         <!-- {{body.commentBody}} -->
-        <v-text-field style="width:40%" v-model="message" placeholder="add comments"></v-text-field>
+        <v-text-field required style="width:40%" v-model="message" placeholder="add comments"></v-text-field>
 
          <v-card-actions>
            <v-btn text small style="float:right" @click="giveComment()">Add</v-btn>
@@ -52,7 +52,10 @@ export default {
         UserId: localStorage.getItem("userId"),
         userName: localStorage.getItem("userName")
       };
+      if(this.message.length>1)
       this.$store.dispatch("AddComment", data);
+      else
+      window.alert("Please enter a comment");
     },
     viewMore() {
         this.status=true

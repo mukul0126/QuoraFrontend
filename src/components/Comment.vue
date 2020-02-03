@@ -5,7 +5,7 @@
       <v-card-text>
          
         {{body.commentBody}}
-         <v-text-field style="width:40%" v-model="message" placeholder="add comments"></v-text-field>
+         <v-text-field required style="width:40%" v-model="message" placeholder="add comments"></v-text-field>
         <!-- <textarea
           style="width:80%"
           v-model="message"
@@ -57,7 +57,10 @@ export default {
         UserId: localStorage.getItem("userId"),
         userName: localStorage.getItem("userName")
       };
+      if(this.message.length>1)
       this.$store.dispatch("AddComment", data);
+      else
+      window.alert("Please enter a comment");
     },
     viewMore() {
         this.status=true
