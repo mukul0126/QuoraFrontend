@@ -40,10 +40,12 @@ export default {
     approveUser(userId) {
       let moderatorId = localStorage.getItem("moderatorId");
       this.$store.dispatch("approveUserId", { userId, moderatorId });
+      window.alert("User Approved")
     },
-    disapproveUser() {
+    disapproveUser(userId) {
       let moderatorId = localStorage.getItem("moderatorId");
-      this.$store.dispatch("disapproveUserId", moderatorId);
+      this.$store.dispatch("disapproveUserId", {userId, moderatorId});
+      window.alert("User disApproved")
     }
   }
 };

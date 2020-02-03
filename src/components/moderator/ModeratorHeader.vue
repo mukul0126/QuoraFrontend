@@ -1,13 +1,13 @@
 <template>
   <div class="header">
-    <div id="logo" style="color:white">QUORA</div>
+    <div id="logo" style="color:#b74545">QUORA</div>
   </div>
 </template>
 
 <style scoped>
 .header {
   width: 100%;
-  background-color: #282828;
+  background-color: black;
 }
 
 #icons {

@@ -29,10 +29,12 @@ export default {
     approveQuestionById(questionId) {
       // let moderatorId=localStorage.getItem("moderatorId")
       this.$store.dispatch("approveQuestionId", questionId);
+      window.alert("Question Approved")
     },
     disapproveQuestionById(questionId) {
       // let moderatorId=localStorage.getItem("moderatorId")
       this.$store.dispatch("disapproveQuestionId", questionId);
+      window.alert("Question disapproved")
     }
   },
   computed: {

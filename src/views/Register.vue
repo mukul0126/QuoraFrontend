@@ -1,5 +1,8 @@
 <template>
+<div class="top1">
   <div class="register" style="margin-top:40px">
+    <div class="top">
+       <img src="https://lh4.googleusercontent.com/proxy/iaYeB4Rg4MxzhekIrmQl-lPbMisqedBqn6xvh1sFvj0Chm-DQomyqH4rMd6Gq_QHJl6eTh-yHN1FqXrACtC1KY3HaQdEJDxKhv6UU2Y-UsFE" width="200px" height="150px">
     <form>
       <v-text-field
         v-model="name"
@@ -9,6 +12,7 @@
         required
         @input="$v.name.$touch()"
         @blur="$v.name.$touch()"
+        class="abc"
       ></v-text-field>
       <v-text-field
         v-model="email"
@@ -17,6 +21,7 @@
         required
         @input="$v.email.$touch()"
         @blur="$v.email.$touch()"
+        class="abc"
       ></v-text-field>
       <v-text-field
         v-model="password"
@@ -26,6 +31,7 @@
         required
         @input="$v.password.$touch()"
         @blur="$v.password.$touch()"
+        class="abc"
       ></v-text-field>
       <!-- <v-select
       v-model="select"
@@ -48,6 +54,8 @@
       <v-btn class="mr-4" id="register-button" @click="register()">Register</v-btn>
     </form>
   </div>
+  </div>
+</div>
 </template>
 <script>
 export default {
@@ -101,8 +109,21 @@ export default {
 }
 .mr-4 {
   margin-bottom: 6px;
+  color:white;
+  
+  
 }
 #register-button {
   margin-top: 5px;
+  background-color: black;
+}
+.top{
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #e6e6e6;
+}
+.abc{
+  margin-left: 60px;
+  margin-right: 60px;
 }
 </style>

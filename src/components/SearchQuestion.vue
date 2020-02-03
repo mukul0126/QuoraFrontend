@@ -16,7 +16,7 @@ export default {
   methods: {
     viewQuestion(questionId) {
       window.console.log('ques id',questionId)
-      this.$router.push({name:'viewquestion',params:{questionId:questionId}})
+      this.$router.push("/viewquestion/"+questionId)
       // this.$router.push("/viewquestion/" + questionId);
     }
   },

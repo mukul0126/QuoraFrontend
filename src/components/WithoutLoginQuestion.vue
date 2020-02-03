@@ -1,6 +1,6 @@
 <template>
   <div id="item-cards" class="flex">
-    <div class="repeat" v-for="(item,index) in question.data" :key="index">
+    <div class="repeat" v-for="(item,index) in question.questionList" :key="index">
       <div class="click-question">
         <h6 style="font-family: sans-serif;">QUESTION</h6><br>
         <h4>{{item.questionBody}}</h4>
@@ -19,41 +19,29 @@ export default {
   name: "landingquestion",
   methods: {
     viewQuestion(questionId) {
-      this.$router.push("/viewquestion/" + questionId);
+      window.console.log(questionId);
+      this.$router.push("/login");
     }
   },
   props: ["question"]
 };
 </script>
 
-<style>
+<style scoped>
 .flex {
   justify-content: center;
 }
-
 .click-question {
   /* justify-content: center; */
   border: 2px solid black;
-  margin-left: 350px;
-  margin-right: 350px;
-  border-radius: 7px;
-  padding: 5px;
-  margin-top: 15px;
-  box-shadow: 5px 5px 10px black;
-  /* background-color: antiquewhite; */
-}
-
-/* .click-question+ .click-question {
-  justify-content: center;
-  border: 2px solid black;
-  margin-left: 350px;
+  /* margin-left: 350px; */
   margin-right: 350px;
   border-radius: 7px;
   padding: 15px;
-  margin-top: 20px;
+  margin-top: 80px;
   box-shadow: 5px 5px 10px black;
-  background-color: antiquewhite;
-} */
+  /* background-color: antiquewhite; */
+}
 
 .click-question:hover {
   box-shadow: 3px 4px 7px 5px black;
@@ -71,8 +59,4 @@ export default {
   color: #b74545;
 }
 
-.repeat{
-    position: relative;
-    top: 33px;
-}
 </style>

@@ -2,11 +2,11 @@
   <div class="header">
     <v-app id="userheader">
       <v-card color="grey lighten-4" flat tile>
-        <v-toolbar dense>
-          <v-btn icon @click="openProfile">
+        <v-toolbar :color="dynamic" dense>
+          <v-btn icon @click="openProfile" color="white"> 
             <v-icon>mdi-account-circle</v-icon>
           </v-btn>
-          <v-toolbar-title class="title">QUORA</v-toolbar-title>
+          <v-toolbar-title class="title"><router-link to="/landing" style="">QUORA</router-link></v-toolbar-title>
           <v-spacer></v-spacer>
           <v-col cols="12" sm="6" md="3">
             <v-text-field
@@ -20,12 +20,18 @@
           <v-btn @click="displaySearchResults()" class="search-btn">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
-          <span />
+          
           <AddUserQuestion></AddUserQuestion>
-
-          <v-btn v-if="isLoggedIn" class="logout" @click="doLogout()">
+          <template v-if="isLoggedIn">
+          <v-btn class="logout" @click="doLogout()">
             <b class="white">LogOut</b>
           </v-btn>
+          </template>
+          <template v-if="!isLoggedIn">
+          <v-btn class="login" @click="doLogin()">
+            <b class="white">Login</b>
+          </v-btn>
+          </template>
         </v-toolbar>
       </v-card>
     </v-app>
@@ -38,7 +44,8 @@ export default {
   data() {
     return {
       searchText: "",
-      searchQuery: ""
+      searchQuery: "",
+      dynamic: '#b74545'
     };
   },
   components: {
@@ -71,18 +78,16 @@ export default {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       window.console.log(localStorage.getItem("token"), "token");
-
-      let dataa = {
-        targetId: "",
-        action: "logout",
-        appId: "quora",
-        userId: localStorage.getItem("userId"),
-        targetEntity: "",
-        tag: ""
-      };
-      this.$store.dispatch("logout", dataa).then(() => {
+      this.$store.dispatch("logout").then(() => {
         this.$router.push("/login");
       });
+
+      // this.$store.dispatch("logout", dataa).then(() => {
+      //   this.$router.push("/login");
+      // });
+    },
+    doLogin() {
+      this.$router.push('/login');
     },
     openProfile() {
       // let userId= localStorage.getItem("userId")
@@ -144,11 +149,12 @@ a:visited {
   position: absolute;
   top: 0px;
   left: 35%;
+  height: 49px !important;
 }
 .search-btn {
   margin-left: -60px;
   position: absolute;
-  left: 75%;
+  left: 73%;
 }
 .header {
   height: 51px;
