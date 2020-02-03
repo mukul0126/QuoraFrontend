@@ -149,6 +149,7 @@ a:visited {
   position: absolute;
   top: 0px;
   left: 35%;
+  height: 49px !important;
 }
 .search-btn {
   margin-left: -60px;

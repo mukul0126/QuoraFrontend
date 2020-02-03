@@ -2,7 +2,7 @@
   <div id="item-cards" class="flex">
     <div class="repeat" v-for="(item,index) in question.data" :key="index">
       <div class="click-question">
-        <h5 style="font-family: sans-serif;">QUESTION</h5><br>
+        <h6 style="font-family: sans-serif;">QUESTION</h6><br>
         <h4>{{item.questionBody}}</h4>
         <v-btn class="ma-2" style="margin-left:80%" @click="viewQuestion(item.questionId)" outlined color="indigo">View</v-btn>
         <!-- <v-btn style="margin-left:80%" class="view-button" @click="viewQuestion(item.questionId)">View</v-btn> -->
@@ -30,17 +30,30 @@ export default {
 .flex {
   justify-content: center;
 }
+
 .click-question {
   /* justify-content: center; */
   border: 2px solid black;
   margin-left: 350px;
   margin-right: 350px;
   border-radius: 7px;
-  padding: 15px;
-  margin-top: 80px;
+  padding: 5px;
+  margin-top: 15px;
   box-shadow: 5px 5px 10px black;
   /* background-color: antiquewhite; */
 }
+
+/* .click-question+ .click-question {
+  justify-content: center;
+  border: 2px solid black;
+  margin-left: 350px;
+  margin-right: 350px;
+  border-radius: 7px;
+  padding: 15px;
+  margin-top: 20px;
+  box-shadow: 5px 5px 10px black;
+  background-color: antiquewhite;
+} */
 
 .click-question:hover {
   box-shadow: 3px 4px 7px 5px black;

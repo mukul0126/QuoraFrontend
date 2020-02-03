@@ -45,7 +45,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  placeholder="@username"
+                  placeholder="username"
                   label="TAG"
                   type="text"
                   required

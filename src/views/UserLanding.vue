@@ -136,6 +136,7 @@ input {
 .questions{
     position: relative;
     top: -83px;
+    margin-top: 65px;
 }
 
 
