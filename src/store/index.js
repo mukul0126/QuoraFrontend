@@ -406,16 +406,17 @@ export default new Vuex.Store({
             window.console.log(resp)
             const user = resp.data.user
             localStorage.setItem('token', token)
-
             Axios.defaults.headers.common['Authorization'] = token
             commit('auth_success', token, user)
             // commit('setRole',role)
             resolve(resp)
           })
-          .catch(err => {
+          .catch(error => {
+            
             commit('auth_error')
+            window.alert(error.response.data.message);
             localStorage.removeItem('token')
-            reject(err)
+            reject(error)
           })
       })
     },
@@ -431,8 +432,9 @@ export default new Vuex.Store({
             resolve(resp)
             commit('setDummy', resp)
           })
-          .catch(err => {
-            reject(err)
+          .catch(error => {
+            window.alert(error.response.data.message);
+            reject(error)
           })
       })
     },
@@ -712,7 +714,8 @@ AddComment({commit},data){
       reject(err)
     })
   })
-}
+},
+
 },
 
   getters: {
